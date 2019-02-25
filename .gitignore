@@ -33,3 +33,4 @@ bin
 
 ### Visual Studio Code ###
 .vscode
+.project
