@@ -5,6 +5,6 @@ Experimenting with [Spring Framework](https://spring.io/).
 ## Development Build Instructions
 
 ```
-./gradlew bootRun
+./gradlew build bootRun
 ```
 
