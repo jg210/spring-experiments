@@ -5,3 +5,14 @@ branches:
   # PRs from same repo are built twice.
   only:
     - master
+# deploy:
+#   provider: s3
+#   bucket: "aws-experiments"
+#   region: "eu-west-1"
+#   access_key_id: $AWS_ACCESS_KEY_ID
+#   secret_access_key: $AWS_SECRET_ACCESS_KEY
+#   upload-dir: "artifacts/spring-experiments"
+#   local_dir: "build/libs/"
+#   skip_cleanup: true
+#   on:
+#     branch: master
