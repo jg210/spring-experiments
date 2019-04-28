@@ -1,10 +1,4 @@
-* Embed react app in the project.
-  X commit unmodified source code
-  X set up build and development environment
-  X replace hello-world MVC web UI with the react app
-  - invoke package.json ci script from gradle/travis.
-  - replace react source code in old repo with README pointing at new home.
-  - some TODO comments live in aws-experiments repo.
+* Replace react source code in old repo with README pointing at new home.
 
 * set up pass-through proxy for API server
   - proxy
@@ -19,6 +13,8 @@
 * versioning of build.gradle dependencies.
 
 * package-lock.json is not stable.
+
+* Some TODO comments live in aws-experiments repo.
 
 * Rename project.
   - its not just spring any more.

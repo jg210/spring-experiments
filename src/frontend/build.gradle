@@ -20,7 +20,12 @@ node {
     nodeModulesDir = project.projectDir
 }
 
-task npmBuild(type: NpmTask) {
+task npmRunBuild(type: NpmTask) {
     dependsOn npmInstall
     args = ["run", "build"]
+}
+
+task npmRunCi(type: NpmTask) {
+    dependsOn npmInstall
+    args = ["run", "ci"]
 }
