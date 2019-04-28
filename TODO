@@ -1,0 +1,11 @@
+* Embed react app in the project.
+  - commit unmodified source code
+  - set up build and development environment
+  - replace hello-world MVC web UI with the react app
+  - set up pass-through proxy for API server
+  - update README
+  - replace react source code in old repo with README pointing at new home.
+
+* Rename project.
+
+* Convert pass-through proxy into GraphQL server.
