@@ -19,3 +19,8 @@ node {
     //yarnWorkDir = file("${project.buildDir}/yarn")
     nodeModulesDir = project.projectDir
 }
+
+task npmBuild(type: NpmTask) {
+    dependsOn npmInstall
+    args = ["run", "build"]
+}

@@ -9,6 +9,8 @@
   - replace react source code in old repo with README pointing at new home.
   - some TODO comments live in aws-experiments repo.
 
+* package-lock.json is not stable.
+
 * Rename project.
   - its not just spring any more.
 
