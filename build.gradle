@@ -20,11 +20,11 @@ dependencies {
 }
 
 // Add React frontend artifacts to the jar.
-bootJar.dependsOn('src:frontend:npmRunBuild')
+bootJar.dependsOn('src:frontend:npm_run_build')
 bootJar {
     from("${project('src:frontend').projectDir}/build") {
 	into("public")
     }
 }
 
-test.dependsOn('src:frontend:npmRunCi')
+test.dependsOn('src:frontend:npm_run_ci')
