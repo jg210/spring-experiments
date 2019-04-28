@@ -3,12 +3,20 @@
   X set up build and development environment
   X replace hello-world MVC web UI with the react app
   - set up pass-through proxy for API server
+    - proxy
+      - https://spring.io/projects/spring-cloud-gateway?
+
     - reconfigure react app to use the proxy
     - for development, proxy from react to spring app using create react app's proxy mechanism
+      - add this to package.json
+        - "proxy": "http://localhost:8080"
+
     - update README's CORS section
   - invoke package.json ci script from gradle/travis.
   - replace react source code in old repo with README pointing at new home.
   - some TODO comments live in aws-experiments repo.
+
+* versioning of build.gradle dependencies.
 
 * package-lock.json is not stable.
 
@@ -59,3 +67,6 @@
 * Test for too many local authorities.
 
 * A way to refresh list of local authorities without refreshing whole page?
+
+* Actuator logging?
+  - https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html
