@@ -4,7 +4,7 @@
   - invoke package.json ci script from maven/travis.
   - replace hello-world MVC web UI with the react app
   - set up pass-through proxy for API server
-  - update README
+  - update README's CORS section
   - replace react source code in old repo with README pointing at new home.
   - some TODO comments live in aws-experiments repo.
 
