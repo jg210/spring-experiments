@@ -1,6 +1,7 @@
 * Embed react app in the project.
   - commit unmodified source code
   - set up build and development environment
+  - invoke pacakge.json ci script from maven/travis.
   - replace hello-world MVC web UI with the react app
   - set up pass-through proxy for API server
   - update README
