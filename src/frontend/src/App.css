@@ -1,0 +1,39 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #222;
+  height: 50px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.Authority {
+  margin: 2em;
+}
+
+.Table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+}
+
+.Table td {
+  text-align: left;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.Table table, th, td {
+  border: 1px solid black;
+}
+
+.Table th {
+  padding-left: 1em;
+  padding-right: 10em;
+}
