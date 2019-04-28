@@ -19,3 +19,11 @@ dependencies {
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+
+// Add React frontend artifacts to the jar.
+bootJar.dependsOn('src:frontend:npmBuild')
+bootJar {
+    from("${project('src:frontend').projectDir}/build") {
+	into("public")
+    }
+}
