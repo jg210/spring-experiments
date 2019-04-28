@@ -1,10 +1,12 @@
 * Embed react app in the project.
   X commit unmodified source code
   X set up build and development environment
-  - replace hello-world MVC web UI with the react app
-  - invoke package.json ci script from gradle/travis.
+  X replace hello-world MVC web UI with the react app
   - set up pass-through proxy for API server
-  - update README's CORS section
+    - reconfigure react app to use the proxy
+    - for development, proxy from react to spring app using create react app's proxy mechanism
+    - update README's CORS section
+  - invoke package.json ci script from gradle/travis.
   - replace react source code in old repo with README pointing at new home.
   - some TODO comments live in aws-experiments repo.
 
