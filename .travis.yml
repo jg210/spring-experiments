@@ -1,4 +1,4 @@
-language: java
+language: generic
 branches:
   # Travis is configured to build branches and PRs. Need to
   # restrict branch builds to just master branch, otherwise
