@@ -1,5 +1,5 @@
 plugins {
-    // Create npmInstall, npm_run_build and npm_run_ci tasks etc.
+    // Creates npmInstall, npm_run_build and npm_run_ci tasks etc.
     id "com.moowork.node" version "1.3.1"
 }
 
