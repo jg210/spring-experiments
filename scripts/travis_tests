@@ -20,7 +20,6 @@ trap 'backtrace' ERR
 ##########################################################
 
 SOURCE_DIR="$(dirname "$0")/.."
-find ~ -name 'nvm*' || true
-find / -name 'nvm*' || true
+. ~/.nvm/nvm.sh
 nvm install "$(cat ${SOURCE_DIR}/.node-version)"
 "${SOURCE_DIR}/gradlew" assemble check
