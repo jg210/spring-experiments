@@ -7,8 +7,9 @@
   - for development, proxy from react to spring app using create react app's proxy mechanism
     - add this to package.json
       - "proxy": "http://localhost:8080"
-
-  - update README's CORS section
+  - update README
+    - "The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues)."
+    - CORS section
 
 * versioning of build.gradle dependencies.
 

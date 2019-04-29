@@ -1,6 +1,6 @@
-A web application with a [React](https://reactjs.org/) frontend hosted by a [Spring Framework](https://spring.io/) server. The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues).
+A web application with a [React](https://reactjs.org/) frontend hosted by a [Spring Framework](https://spring.io/) server.
 
-The React frontend uses react state and props and makes some simple requests to a third-party REST API via a proxy implemented in Spring. There's no redux etc. Type checking is done using [TypeScript](https://www.typescriptlang.org/).
+The React [frontend](src/frontend) uses react state and props and makes some simple requests to a third-party REST API via a proxy implemented in Spring. There's no redux etc. Type checking is done using [TypeScript](https://www.typescriptlang.org/).
 
 [![Build Status](https://travis-ci.com/jg210/spring-experiments.svg?branch=master)](https://travis-ci.com/jg210/spring-experiments)
 
