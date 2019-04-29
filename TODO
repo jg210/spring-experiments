@@ -1,11 +1,69 @@
-* Embed react app in the project.
-  - commit unmodified source code
-  - set up build and development environment
-  - replace hello-world MVC web UI with the react app
-  - set up pass-through proxy for API server
+* Replace react source code in old repo with README pointing at new home.
+
+* set up pass-through proxy for API server
+  - proxy
+    - https://spring.io/projects/spring-cloud-gateway?
+  - reconfigure react app to use the proxy
+  - for development, proxy from react to spring app using create react app's proxy mechanism
+    - add this to package.json
+      - "proxy": "http://localhost:8080"
   - update README
-  - replace react source code in old repo with README pointing at new home.
+    - "The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues)."
+    - CORS section
+
+* versioning of build.gradle dependencies.
+
+* package-lock.json is not stable.
+
+* Some TODO comments live in aws-experiments repo.
 
 * Rename project.
+  - its not just spring any more.
 
 * Convert pass-through proxy into GraphQL server.
+
+* Set up EC2 instance with https certificate
+    - AWS certificates are free, but only work with load balancers etc., which aren't free
+    - let's encrypt + certbot on EC2
+      - but would need own DNS record
+      - certificates are listed publicly
+        - github site will be public too though
+
+* http redirection
+  - https://letsencrypt.org/docs/allow-port-80/
+
+* Proxy rate limiting.
+
+* Find way to automate npm audit
+  - currently have unfixed errors in dependencies of latest react-scripts
+  - only fail if errors are above low priority?
+    - there's no option for that
+  - there are wrapper projects for npm audit.
+  - can travis CI do warnings?
+  
+* Use https://fb.me/react-error-boundaries to mask back traces.
+
+* Failed-connection handling.
+
+* Verify json metadata in case get paged data.
+  - check meta.totalPages is 1.
+  - check meta.returncode is OK.
+
+* Download data using paged APIs, to prevent truncation.
+
+* Local Authority could be removed while app running.
+
+* Improve visual design.
+
+* Localization.
+
+* jest snapshot tests?
+
+* Automated browser tests.
+
+* Test for too many local authorities.
+
+* A way to refresh list of local authorities without refreshing whole page?
+
+* Actuator logging?
+  - https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html

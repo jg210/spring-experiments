@@ -1,10 +1,12 @@
-language: java
+language: generic
 branches:
   # Travis is configured to build branches and PRs. Need to
   # restrict branch builds to just master branch, otherwise
   # PRs from same repo are built twice.
   only:
     - master
+script:
+  - scripts/travis_tests
 deploy:
   provider: s3
   bucket: "aws-experiments"

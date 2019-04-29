@@ -1,0 +1,22 @@
+plugins {
+    // Create npmInstall, npm_run_build and npm_run_ci tasks etc.
+    id "com.moowork.node" version "1.3.1"
+}
+
+def nodeVersionFile = file("${project.projectDir}../../../.node-version");
+def nodeVersion = nodeVersionFile.getText("UTF-8");
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+node {
+    version = nodeVersion
+    workDir = file("${project.buildDir}/nodejs")
+    npmWorkDir = file("${project.buildDir}/npm")
+    //yarnWorkDir = file("${project.buildDir}/yarn")
+    nodeModulesDir = project.projectDir
+}
