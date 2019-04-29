@@ -1,5 +1,3 @@
-* Replace react source code in old repo with README pointing at new home.
-
 * set up pass-through proxy for API server
   - proxy
     - https://spring.io/projects/spring-cloud-gateway?
