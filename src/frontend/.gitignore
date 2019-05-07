@@ -3,8 +3,9 @@
 .#*
 \#*#
 
-# node
+# node and npm
 node_modules
+npm-debug.log
 
 # jest
 coverage
