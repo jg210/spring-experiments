@@ -1,4 +1,4 @@
-A web application with a [React](https://reactjs.org/) frontend hosted by a [Spring Framework](https://spring.io/) server.
+A web application with a [React](https://reactjs.org/) frontend hosted [here](http://aws.jeremygreen.me.uk) using [AWS and terraform](https://github.com/jg210/aws-experiments) by a [Spring Framework](https://spring.io/) server.
 
 The React [frontend](src/frontend) uses react state and props and makes some simple requests to a third-party REST API. There's no redux etc. Type checking is done using [TypeScript](https://www.typescriptlang.org/).
 
