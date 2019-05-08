@@ -18,7 +18,7 @@ http://localhost:3000/
 
 ## Release Build Instructions
 
-Build using the enclosing maven project.
+Build using the enclosing gradle project.
 
 ## Development Environment
 
