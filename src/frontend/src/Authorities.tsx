@@ -25,7 +25,7 @@ export class Authorities extends Component<Props,State> {
         if (this.state.localAuthorities === null) {
             dropdown = <div>loading...</div>
         } else {
-            dropdown = <select onClick={this.handleClick.bind(this)}>
+            dropdown = <select onClick={this.handleClick} onChange={this.handleClick}>
                 {this.state.localAuthorities.map((localAuthority: LocalAuthority, i: number) =>
                     <option key={i} value={localAuthority.localAuthorityId}>{localAuthority.name}</option>
                 )}
@@ -38,7 +38,7 @@ export class Authorities extends Component<Props,State> {
         );
     }
 
-    handleClick(event: React.FormEvent<HTMLSelectElement>) {
+    handleClick = (event: React.FormEvent<HTMLSelectElement>) => {
         const target = event.currentTarget;
         if (target) {
             this.props.onClick(parseInt(target.value));
