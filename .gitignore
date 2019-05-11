@@ -30,3 +30,6 @@ bin
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### ? ###
+.attach_pid*
