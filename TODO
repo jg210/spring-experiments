@@ -1,3 +1,5 @@
+* VSC has stopped supporting java.
+
 * Implement proxy server to avoid same-origin issues and allow use of https.
   - implement a server
   - reconfigure/rewrite react app to use the proxy
@@ -7,6 +9,8 @@
   - update README
     - "The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues)."
     - CORS section
+
+* Add VSC launch configs for npm install and npm start.
 
 * Merge some/all of the two README files.
 
@@ -68,3 +72,4 @@
 
 * Actuator logging?
   - https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html
+  - authentication or endpoints.trace.sensitive=false in debug only (or block with nginx)
