@@ -30,7 +30,3 @@ bin
 /dist/
 /nbdist/
 /.nb-gradle/
-
-### Visual Studio Code ###
-.vscode
-.project

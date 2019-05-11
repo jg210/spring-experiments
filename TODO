@@ -1,7 +1,10 @@
-* set up pass-through proxy for API server
-  - proxy
-    - https://spring.io/projects/spring-cloud-gateway?
-  - reconfigure react app to use the proxy
+* Is it possible to use VSC for both java and js development?
+
+* Merge some/all of the two README files.
+
+* Implement proxy server to avoid same-origin issues and allow use of https.
+  - implement a server
+  - reconfigure/rewrite react app to use the proxy
   - for development, proxy from react to spring app using create react app's proxy mechanism
     - add this to package.json
       - "proxy": "http://localhost:8080"
@@ -9,7 +12,7 @@
     - "The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues)."
     - CORS section
 
-* versioning of build.gradle dependencies.
+* Versioning of build.gradle dependencies.
 
 * package-lock.json is not stable.
 
@@ -17,8 +20,6 @@
 
 * Rename project.
   - its not just spring any more.
-
-* Convert pass-through proxy into GraphQL server.
 
 * Set up EC2 instance with https certificate
     - AWS certificates are free, but only work with load balancers etc., which aren't free
@@ -40,6 +41,10 @@
   - can travis CI do warnings?
   
 * Use https://fb.me/react-error-boundaries to mask back traces.
+
+* Java static analysis.
+
+* Java unit tests.
 
 * Failed-connection handling.
 

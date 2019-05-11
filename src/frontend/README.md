@@ -26,6 +26,12 @@ Same as Development Build Instructions, but also need to:
 
 * Install Visual Studio Code (VSC).
 
+* Start VSC by running this from root of repo:
+
+```
+code spring-experiments.code-workspace
+```
+
 * Accept "workspace recommendations" in VSC to install required plugins.
 
 * Restart VSC after installing plugins, otherwise chrome debugger doesn't work.

@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "spring backend",
+			"path": "."
+		},
+		{
+			"name": "react frontend",
+			"path": "src/frontend"
+		}
+	],
+  "settings": {}
+}
