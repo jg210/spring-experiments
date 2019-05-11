@@ -9,5 +9,11 @@
 			"path": "src/frontend"
 		}
 	],
-  "settings": {}
+  "settings": {
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
+    "flow.useNPMPackagedFlow": true,
+    "jest.rootPath": "src/frontend",
+    "jest.pathToJest": "node_modules/.bin/jest"
+  }
 }
