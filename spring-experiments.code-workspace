@@ -24,7 +24,8 @@
       "flowtype.flow-for-vscode",
       "vscjava.vscode-java-pack",
       "Pivotal.vscode-boot-dev-pack",
-      "eg2.vscode-npm-script"
+      "eg2.vscode-npm-script",
+      "naco-siren.gradle-language"
     ]
   },
   "launch": {
