@@ -15,5 +15,17 @@
     "flow.useNPMPackagedFlow": true,
     "jest.rootPath": "src/frontend",
     "jest.pathToJest": "npm test --"
+  },
+  "launch": {
+    "configurations": [],
+    "compounds": [
+      {
+        "name": "Launch server and frontend",
+        "configurations": [
+          "Launch server",
+          "Launch frontend"
+        ]
+      }
+    ]
   }
 }

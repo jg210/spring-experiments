@@ -7,7 +7,7 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome - react frontend",
+            "name": "Launch frontend",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}"
         }

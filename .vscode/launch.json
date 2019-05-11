@@ -5,15 +5,8 @@
     "version": "0.2.0",
     "configurations": [
       {
-        "name": "Launch Chrome - spring",
-        "type": "chrome",
-        "request": "launch",
-        "url": "http://localhost:8080",
-        "webRoot": "${workspaceFolder}"
-      },
-      {
         "type": "java",
-        "name": "Launch app",
+        "name": "Launch server",
         "request": "launch",
         "cwd": "${workspaceFolder}",
         "console": "internalConsole",
