@@ -1,7 +1,3 @@
-* Is it possible to use VSC for both java and js development?
-
-* Merge some/all of the two README files.
-
 * Implement proxy server to avoid same-origin issues and allow use of https.
   - implement a server
   - reconfigure/rewrite react app to use the proxy
@@ -11,6 +7,8 @@
   - update README
     - "The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues)."
     - CORS section
+
+* Merge some/all of the two README files.
 
 * Versioning of build.gradle dependencies.
 
