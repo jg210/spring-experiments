@@ -1,5 +1,4 @@
 import {
-    extractLocalAuthorities,
     formatRating,
     ratingsPercentages,
     RatingPercentage
@@ -9,23 +8,6 @@ import _ from 'lodash';
 // README.md explains how these json files were downloaded.
 const AUTHORITIES_JSON = require('../../example_json/authorities.json');
 const ESTABLISHMENTS_JSON = require('../../example_json/establishments_23.json');
-
-it('extracts local authorities from json', () => {
-    const localAuthorities = extractLocalAuthorities(AUTHORITIES_JSON);
-    expect(localAuthorities.length).toEqual(392);
-    expect(localAuthorities[7]).toEqual({
-        "localAuthorityId": 132,
-        "name": "Antrim and Newtownabbey"
-    });
-});
-
-it('extracts unique local authority ids from json', () => {
-    const localAuthorities = extractLocalAuthorities(AUTHORITIES_JSON);
-    const localAuthorityIds = new Set(
-        localAuthorities.map(localAuthority => localAuthority.localAuthorityId)
-    );
-    expect(localAuthorityIds.size).toEqual(localAuthorities.length);
-});
 
 function checkRatingPercentages(
     ratingPercentages: RatingPercentage[],

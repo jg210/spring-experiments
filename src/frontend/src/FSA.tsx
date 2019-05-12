@@ -15,7 +15,7 @@ export interface LocalAuthority {
 }
 
 // http://api.ratings.food.gov.uk/help
-function fetchFromAPI(url: string, cancelTokenSource: CancelTokenSource | null = null): Promise<AxiosResponse<any>> {
+function fetchFromAPI<T>(url: string, cancelTokenSource: CancelTokenSource | null = null): Promise<T> {
     const config: AxiosRequestConfig = {
         headers: {
             'Accept': 'application/json'
@@ -24,17 +24,17 @@ function fetchFromAPI(url: string, cancelTokenSource: CancelTokenSource | null =
     if (!(cancelTokenSource === null)) {
         config.cancelToken = cancelTokenSource.token;
     }
-    return axios.get(url, config).then(response => response.data);
+    return axios.get<T>(url, config).then(response => response.data);
 }
 
-export function fetchLocalAuthoritiesJson(): Promise<AxiosResponse<any>> {
+export function fetchLocalAuthoritiesJson(): Promise<LocalAuthority[]> {
     return fetchFromAPI(`${RATINGS_URL}/localAuthority`);
 }
 
 // http://api.ratings.food.gov.uk/Help/Api/GET-Establishments_name_address_longitude_latitude_maxDistanceLimit_businessTypeId_schemeTypeKey_ratingKey_ratingOperatorKey_localAuthorityId_countryId_sortOptionKey_pageNumber_pageSize
 export function fetchEstablishmentsJson(
     localAuthorityId: number,
-    cancelTokenSource: CancelTokenSource): Promise<AxiosResponse<any>> {
+    cancelTokenSource: CancelTokenSource): Promise<any> {
     const url = `${RATINGS_URL}/Establishments?localAuthorityId=${encodeURIComponent(localAuthorityId.toString())}&pageSize=0`;
     return fetchFromAPI(url, cancelTokenSource);
 }
