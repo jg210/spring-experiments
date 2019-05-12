@@ -1,4 +1,4 @@
-* VSC has stopped supporting java.
+* VSC auto completion doesn't work for java.
 
 * Implement proxy server to avoid same-origin issues and allow use of https.
   - implement a server
@@ -9,6 +9,24 @@
   - update README
     - "The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues)."
     - CORS section
+  - convert unit tests from js to java
+
+      it('extracts local authorities from json', () => {
+          const localAuthorities = extractLocalAuthorities(AUTHORITIES_JSON);
+          expect(localAuthorities.length).toEqual(392);
+          expect(localAuthorities[7]).toEqual({
+              "localAuthorityId": 132,
+              "name": "Antrim and Newtownabbey"
+          });
+      });
+
+      it('extracts unique local authority ids from json', () => {
+          const localAuthorities = extractLocalAuthorities(AUTHORITIES_JSON);
+          const localAuthorityIds = new Set(
+              localAuthorities.map(localAuthority => localAuthority.localAuthorityId)
+          );
+          expect(localAuthorityIds.size).toEqual(localAuthorities.length);
+      });
 
 * Add VSC launch configs for npm install and npm start.
 
