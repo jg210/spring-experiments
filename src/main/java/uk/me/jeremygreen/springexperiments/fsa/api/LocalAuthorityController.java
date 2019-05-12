@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uk.me.jeremygreen.springexperiments.fsa.FSA;
+import uk.me.jeremygreen.springexperiments.fsa.FsaAuthorities;
+import uk.me.jeremygreen.springexperiments.fsa.FsaAuthority;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -15,7 +18,9 @@ public final class LocalAuthorityController {
 
     @GetMapping(value="localAuthority")
     public final LocalAuthorities localAuthorities() {
-        return LocalAuthorities.createInstance(FSA.fetchAuthorities());
+        final FsaAuthorities fsaAuthorities = FSA.fetchAuthorities();
+        final List<FsaAuthority> authorities = fsaAuthorities.getAuthorities();
+        return LocalAuthorities.createInstance(authorities);
     }
 
     @GetMapping(value="localAuthority/{id}")

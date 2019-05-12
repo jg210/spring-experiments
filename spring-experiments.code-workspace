@@ -32,7 +32,7 @@
     "configurations": [],
     "compounds": [
       {
-        "name": "Launch server and frontend",
+        "name": "Launch server and browser",
         "configurations": [
           "Launch server",
           "Launch browser"

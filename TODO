@@ -2,34 +2,19 @@
   - just use IDEA for java work?
 
 * Implement proxy server to avoid same-origin issues and allow use of https.
-  - use FsaEstablishments not List<FsaEstablishment> in FSA.java
   - update README
     - "The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues)."
     - CORS section
   - convert unit tests from js to java
 
-      it('extracts local authorities from json', () => {
-          const localAuthorities = extractLocalAuthorities(AUTHORITIES_JSON);
-          expect(localAuthorities.length).toEqual(392);
-          expect(localAuthorities[7]).toEqual({
-              "localAuthorityId": 132,
-              "name": "Antrim and Newtownabbey"
-          });
-      });
-
-      it('extracts unique local authority ids from json', () => {
-          const localAuthorities = extractLocalAuthorities(AUTHORITIES_JSON);
-          const localAuthorityIds = new Set(
-              localAuthorities.map(localAuthority => localAuthority.localAuthorityId)
-          );
-          expect(localAuthorityIds.size).toEqual(localAuthorities.length);
-      });
-
 * Add VSC launch configs for npm install and npm start.
-
-* gradle bootRun task depends on react/npm tasks even though doesn't use their ooutput.
+  - add npm start config to spring-experiments.code-workspace compound launch config.
 
 * Merge some/all of the two README files.
+
+* Add favicon.ico.
+
+* gradle bootRun task depends on react/npm tasks even though doesn't use their ooutput.
 
 * Versioning of build.gradle dependencies.
 

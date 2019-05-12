@@ -45,11 +45,10 @@ public final class FSA {
 
     // http://api.ratings.food.gov.uk/Help/Api/GET-Authorities-basic
     // http://api.ratings.food.gov.uk/Authorities/basic
-    public static List<FsaAuthority> fetchAuthorities() {
-        final FsaAuthorities fsaAuthorities = fetchFromApi(
+    public static FsaAuthorities fetchAuthorities() {
+        return fetchFromApi(
                 URL + "/Authorities/basic",
                 FsaAuthorities.class);
-        return Collections.unmodifiableList(fsaAuthorities.getAuthorities());
     }
 
     // http://api.ratings.food.gov.uk/Help/Api/GET-Establishments_name_address_longitude_latitude_maxDistanceLimit_businessTypeId_schemeTypeKey_ratingKey_ratingOperatorKey_localAuthorityId_countryId_sortOptionKey_pageNumber_pageSize
