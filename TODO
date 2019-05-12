@@ -1,7 +1,7 @@
 * VSC auto completion doesn't work for java.
 
 * Implement proxy server to avoid same-origin issues and allow use of https.
-  - implement and use score-summation API
+  - use FsaEstablishments not List<FsaEstablishment> in FSA.java
   - update README
     - "The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues)."
     - CORS section

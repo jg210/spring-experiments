@@ -1,6 +1,7 @@
 package uk.me.jeremygreen.springexperiments.fsa.api;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uk.me.jeremygreen.springexperiments.fsa.FSA;
@@ -15,6 +16,11 @@ public final class LocalAuthorityController {
     @GetMapping(value="localAuthority")
     public final LocalAuthorities localAuthorities() {
         return LocalAuthorities.createInstance(FSA.fetchAuthorities());
+    }
+
+    @GetMapping(value="localAuthority/{id}")
+    public final Establishments localAuthorities(@PathVariable final long id) {
+        return Establishments.createInstance(FSA.fetchEstablishments(id));
     }
 
 }
