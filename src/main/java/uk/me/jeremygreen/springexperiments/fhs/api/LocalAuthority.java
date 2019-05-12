@@ -18,4 +18,26 @@ public final class LocalAuthority {
     return this.name;
   }
 
+  @Override
+  public final int hashCode() {
+    return this.localAuthorityId;
+  }
+
+  @Override
+  public final boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof LocalAuthority)) {
+      return false;
+    }
+    final LocalAuthority that = (LocalAuthority) o;
+    return localAuthorityId == that.localAuthorityId;
+  }
+
+  @Override
+  public final String toString() {
+    return this.name + "(" + this.localAuthorityId + ")";
+  }
+
 }
