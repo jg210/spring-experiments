@@ -13,10 +13,8 @@ import java.util.stream.Collectors;
 public final class LocalAuthorityController {
 
     @GetMapping(value="localAuthority")
-    public final Iterable<LocalAuthority> localAuthorities() {
-        return FSA.fetchAuthorities().stream().map(fsaAuthority -> {
-            return new LocalAuthority(fsaAuthority.getId(), fsaAuthority.getName());
-        }).collect(Collectors.toList());
+    public final LocalAuthorities localAuthorities() {
+        return LocalAuthorities.createInstance(FSA.fetchAuthorities());
     }
 
 }

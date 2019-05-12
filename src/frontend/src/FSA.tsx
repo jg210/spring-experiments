@@ -14,6 +14,10 @@ export interface LocalAuthority {
     localAuthorityId: number
 }
 
+export interface LocalAuthorities {
+    localAuthorities: LocalAuthority[]
+}
+
 // http://api.ratings.food.gov.uk/help
 function fetchFromAPI<T>(url: string, cancelTokenSource: CancelTokenSource | null = null): Promise<T> {
     const config: AxiosRequestConfig = {
@@ -28,7 +32,8 @@ function fetchFromAPI<T>(url: string, cancelTokenSource: CancelTokenSource | nul
 }
 
 export function fetchLocalAuthoritiesJson(): Promise<LocalAuthority[]> {
-    return fetchFromAPI(`${RATINGS_URL}/localAuthority`);
+    const localAuthorities: Promise<LocalAuthorities> = fetchFromAPI(`${RATINGS_URL}/localAuthority`);
+    return localAuthorities.then((x: LocalAuthorities) => { return x.localAuthorities });
 }
 
 // http://api.ratings.food.gov.uk/Help/Api/GET-Establishments_name_address_longitude_latitude_maxDistanceLimit_businessTypeId_schemeTypeKey_ratingKey_ratingOperatorKey_localAuthorityId_countryId_sortOptionKey_pageNumber_pageSize
