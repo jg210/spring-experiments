@@ -7,7 +7,7 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Launch frontend",
+            "name": "Launch browser",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}"
         }
