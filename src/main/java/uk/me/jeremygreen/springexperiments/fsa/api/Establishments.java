@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
 
-public class Establishments {
+public final class Establishments {
 
     public static Establishments createInstance(final FsaEstablishments fsaEstablishments) {
         final SortedMap<String,Long> ratingCountMap = fsaEstablishments.getRatingCounts();

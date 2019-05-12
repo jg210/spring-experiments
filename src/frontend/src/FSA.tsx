@@ -1,7 +1,5 @@
 import axios, { CancelTokenSource, AxiosRequestConfig } from 'axios';
 
-import _ from 'lodash';
-
 const RATINGS_URL = "/api/fsa";
 
 interface Establishments {

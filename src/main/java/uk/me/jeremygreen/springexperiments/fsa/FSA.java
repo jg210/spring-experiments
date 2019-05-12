@@ -9,7 +9,11 @@ import uk.me.jeremygreen.springexperiments.fsa.api.LocalAuthority;
 
 import java.util.*;
 
-public class FSA {
+public final class FSA {
+
+    private FSA() {
+        throw new AssertionError();
+    }
 
     private static final String URL = "http://api.ratings.food.gov.uk";
 

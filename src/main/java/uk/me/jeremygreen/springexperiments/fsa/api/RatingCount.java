@@ -1,6 +1,6 @@
 package uk.me.jeremygreen.springexperiments.fsa.api;
 
-public class RatingCount {
+public final class RatingCount {
 
     private final String rating;
     private final long count;
