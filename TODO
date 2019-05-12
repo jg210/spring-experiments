@@ -34,6 +34,9 @@
 
 * Some TODO comments live in aws-experiments repo.
 
+* Add /fsa context path to paths.
+  - redirect using nginx if use empty path.
+
 * Rename project.
   - its not just spring any more.
 
