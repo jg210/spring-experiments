@@ -1,8 +1,8 @@
-import axios, { CancelTokenSource, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { CancelTokenSource, AxiosRequestConfig } from 'axios';
 
 import _ from 'lodash';
 
-const RATINGS_URL = "/api/fhs";
+const RATINGS_URL = "/api/fsa";
 
 export interface RatingPercentage {
     rating: string,

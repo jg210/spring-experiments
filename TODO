@@ -1,11 +1,7 @@
 * VSC auto completion doesn't work for java.
 
 * Implement proxy server to avoid same-origin issues and allow use of https.
-  - implement a server
-  - reconfigure/rewrite react app to use the proxy
-  - for development, proxy from react to spring app using create react app's proxy mechanism
-    - add this to package.json
-      - "proxy": "http://localhost:8080"
+  - implement and use score-summation API
   - update README
     - "The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues)."
     - CORS section
@@ -92,3 +88,5 @@
 * Actuator logging?
   - https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html
   - authentication or endpoints.trace.sensitive=false in debug only (or block with nginx)
+
+* RestTemplate will be deprecated and asks that you use reactive WebClient instead.

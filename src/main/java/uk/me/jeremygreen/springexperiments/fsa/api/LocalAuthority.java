@@ -1,4 +1,4 @@
-package uk.me.jeremygreen.springexperiments.fhs.api;
+package uk.me.jeremygreen.springexperiments.fsa.api;
 
 public final class LocalAuthority {
 
