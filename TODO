@@ -5,6 +5,7 @@
   - update README
     - "The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues)."
     - CORS section
+  - are java unit tests running on travis?
   - convert unit tests from js to java
 
 * Add VSC launch configs for npm install and npm start.
