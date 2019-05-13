@@ -17,14 +17,14 @@ import java.util.stream.Collectors;
 public final class LocalAuthorityController {
 
     @GetMapping(value="localAuthority")
-    public final LocalAuthorities localAuthorities() {
+    public final LocalAuthorities localAuthorities() throws InterruptedException {
         final FsaAuthorities fsaAuthorities = FSA.fetchAuthorities();
         final List<FsaAuthority> authorities = fsaAuthorities.getAuthorities();
         return LocalAuthorities.createInstance(authorities);
     }
 
     @GetMapping(value="localAuthority/{id}")
-    public final Establishments localAuthorities(@PathVariable final long id) {
+    public final Establishments localAuthorities(@PathVariable final long id) throws InterruptedException {
         return Establishments.createInstance(FSA.fetchEstablishments(id));
     }
 

@@ -81,3 +81,5 @@
   - authentication or endpoints.trace.sensitive=false in debug only (or block with nginx)
 
 * RestTemplate will be deprecated and asks that you use reactive WebClient instead.
+
+* FSA.java could be a spring-managed bean.
