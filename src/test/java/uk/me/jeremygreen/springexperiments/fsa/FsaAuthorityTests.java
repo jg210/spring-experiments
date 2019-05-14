@@ -38,7 +38,7 @@ public final class FsaAuthorityTests {
                 new FsaEstablishment("AwaitingInspection").getFormattedRating());
         assertEquals(
                 "Awaiting Publication",
-                new FsaEstablishment("Awaiting Publication").getFormattedRating());
+                new FsaEstablishment("AwaitingPublication").getFormattedRating());
     }
 
 }
