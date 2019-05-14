@@ -21,6 +21,7 @@ public final class EstablishmentsTests {
         final List<RatingCount> actual = establishments.getRatingCounts();
         final SortedMap<String,Long> expected = fsaEstablishments.getRatingCounts();
         assertEquals(expected.size(), actual.size());
+        assertEquals(5, actual.size());
         final Iterator<RatingCount> actualIterator = actual.iterator();
         final Iterator<SortedMap.Entry<String,Long>> expectedIterator = expected.entrySet().iterator();
         while (expectedIterator.hasNext()) {
