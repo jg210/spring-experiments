@@ -6,8 +6,8 @@
     - "The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues)."
     - CORS section
   - check java unit tests running on travis.
-  - unit tests for RestController?
-    - mocking wrapped API.
+  - unit tests for RestController
+    - https://spring.io/guides/gs/testing-web/
   - unit tests for rest of classes?
 
 * Add VSC launch configs for npm install and npm start.
