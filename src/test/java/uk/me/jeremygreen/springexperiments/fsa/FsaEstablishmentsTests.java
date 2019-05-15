@@ -17,7 +17,7 @@ public final class FsaEstablishmentsTests {
     public final void getRatingCounts_one() {
         final SortedMap<String,Long> ratingCountsExpected = new TreeMap<>();
         ratingCountsExpected.put("1-star", 1L);
-        assertEquals(ratingCountsExpected, FsaEstablishments.createInstance().getRatingCounts());
+        assertEquals(ratingCountsExpected, FsaEstablishments.createInstance("1").getRatingCounts());
     }
 
     @Test
