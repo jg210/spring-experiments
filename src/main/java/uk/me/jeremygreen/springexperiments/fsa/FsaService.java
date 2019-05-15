@@ -26,7 +26,7 @@ public final class FsaService {
 
     private final int maxConnections = 3;
 
-    private final Semaphore maxConnectionsSemaphore= new Semaphore(
+    private final Semaphore maxConnectionsSemaphore = new Semaphore(
             this.maxConnections,
             /*fair*/true);
 
