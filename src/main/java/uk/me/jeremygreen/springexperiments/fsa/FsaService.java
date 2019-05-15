@@ -9,9 +9,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
-public final class FSA {
+public final class FsaService {
 
-    private FSA() {
+    private FsaService() {
         throw new AssertionError();
     }
 

@@ -17,8 +17,6 @@
 
 * Add favicon.ico.
 
-* Use main/frontend/ not src/frontend/?
-
 * gradle bootRun task depends on react/npm tasks even though doesn't use their ooutput.
 
 * Versioning of build.gradle dependencies.
