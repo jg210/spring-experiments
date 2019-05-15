@@ -4,24 +4,14 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
+@Service
 public final class FsaService {
-
-    private FsaService() {
-        throw new AssertionError();
-    }
-
-    private static final String URL = "http://api.ratings.food.gov.uk";
-
-    private static final int MAX_CONNECTIONS = 3;
-
-    private static final Semaphore MAX_CONNECTIONS_SEMAPHORE = new Semaphore(
-            MAX_CONNECTIONS,
-            /*fair*/true);
 
     private static final HttpHeaders HEADERS = createHeaders();
 
@@ -32,7 +22,15 @@ public final class FsaService {
         return HttpHeaders.readOnlyHttpHeaders(httpHeaders);
     }
 
-    private static <T> T fetchFromApi(
+    private final String url = "http://api.ratings.food.gov.uk";
+
+    private final int maxConnections = 3;
+
+    private final Semaphore maxConnectionsSemaphore= new Semaphore(
+            this.maxConnections,
+            /*fair*/true);
+
+    private final <T> T fetchFromApi(
             final String url,
             final Class<T> responseClass) throws InterruptedException {
             return fetchFromApi(
@@ -41,37 +39,37 @@ public final class FsaService {
                     /*params*/Collections.emptyMap());
     }
 
-    private static <T> T fetchFromApi(
+    private final <T> T fetchFromApi(
             final String url,
             final Class<T> responseClass,
             final Map<String,?> params) throws InterruptedException {
         try {
-            MAX_CONNECTIONS_SEMAPHORE.acquire();
+            this.maxConnectionsSemaphore.acquire();
             final RestTemplate restTemplate = new RestTemplate();
             final HttpEntity entity = new HttpEntity<T>(HEADERS);
             final ResponseEntity<T> response = restTemplate.exchange(
                     url, HttpMethod.GET, entity, responseClass, params);
             return response.getBody();
         } finally {
-            MAX_CONNECTIONS_SEMAPHORE.release();
+            this.maxConnectionsSemaphore.release();
         }
     }
 
     // http://api.ratings.food.gov.uk/Help/Api/GET-Authorities-basic
     // http://api.ratings.food.gov.uk/Authorities/basic
-    public static FsaAuthorities fetchAuthorities() throws InterruptedException {
+    public final FsaAuthorities fetchAuthorities() throws InterruptedException {
         return fetchFromApi(
-                URL + "/Authorities/basic",
+                this.url + "/Authorities/basic",
                 FsaAuthorities.class);
     }
 
     // http://api.ratings.food.gov.uk/Help/Api/GET-Establishments_name_address_longitude_latitude_maxDistanceLimit_businessTypeId_schemeTypeKey_ratingKey_ratingOperatorKey_localAuthorityId_countryId_sortOptionKey_pageNumber_pageSize
-    public static FsaEstablishments fetchEstablishments(final long fsaAuthorityId) throws InterruptedException {
+    public FsaEstablishments fetchEstablishments(final long fsaAuthorityId) throws InterruptedException {
         final Map<String,Object> params = new HashMap<>();
         params.put("localAuthorityId", fsaAuthorityId);
         params.put("pageSize", 0);
         return fetchFromApi(
-                URL + "/Establishments?localAuthorityId={localAuthorityId}&pageSize={pageSize}",
+                this.url+ "/Establishments?localAuthorityId={localAuthorityId}&pageSize={pageSize}",
                 FsaEstablishments.class,
                 params);
     }
