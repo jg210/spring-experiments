@@ -22,13 +22,19 @@ public final class FsaService {
         return HttpHeaders.readOnlyHttpHeaders(httpHeaders);
     }
 
-    private final String url = "http://api.ratings.food.gov.uk";
+    private final String url;
+    private final Semaphore maxConnectionsSemaphore;
 
-    private final int maxConnections = 3;
+    public FsaService() {
+        this("http://api.ratings.food.gov.uk", 3);
+    }
 
-    private final Semaphore maxConnectionsSemaphore = new Semaphore(
-            this.maxConnections,
-            /*fair*/true);
+    private FsaService(final String url, final int maxConnections) {
+       this.url = url;
+       this.maxConnectionsSemaphore = new Semaphore(
+                maxConnections,
+                /*fair*/true);
+    }
 
     private final <T> T fetchFromApi(
             final String url,
