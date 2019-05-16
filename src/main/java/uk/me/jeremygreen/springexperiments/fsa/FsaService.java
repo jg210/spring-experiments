@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 @Service
-public final class FsaService {
+public class FsaService {
 
     private static final HttpHeaders HEADERS = createHeaders();
 
