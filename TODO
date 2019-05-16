@@ -9,9 +9,12 @@
   - unit tests for RestController
     - https://spring.io/guides/gs/testing-web/
   - unit tests for rest of classes?
+  - test FsaService json parsing using file:/// URL?
 
 * Add VSC launch configs for npm install and npm start.
   - add npm start config to spring-experiments.code-workspace compound launch config.
+
+* Redirect localAuthority/ to localAuthority.
 
 * Merge some/all of the two README files.
 
