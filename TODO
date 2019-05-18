@@ -14,7 +14,7 @@
 * Add VSC launch configs for npm install and npm start.
   - add npm start config to spring-experiments.code-workspace compound launch config.
 
-* Redirect localAuthority/ to localAuthority.
+* Forward Last-Modified header.
 
 * Merge some/all of the two README files.
 

@@ -39,11 +39,13 @@ public class LocalAuthorityControllerTests {
         ));
         final FsaAuthorities fsaAuthorities = new FsaAuthorities(fsaAuthorityList);
         when(this.fsaService.fetchAuthorities()).thenReturn(fsaAuthorities);
-        // TODO Check response headers too.
-        this.mockMvc.perform(get("/api/fsa/localAuthority"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().json("{\"localAuthorities\":[{\"localAuthorityId\":1,\"name\":\"one\"},{\"localAuthorityId\":2,\"name\":\"two\"},{\"localAuthorityId\":3,\"name\":\"three\"}]}"));
+        for (final String path: Arrays.asList("/api/fsa/localAuthority", "/api/fsa/localAuthority/")) {
+            this.mockMvc.perform(get(path))
+                    .andDo(print())
+                    .andExpect(status().isOk())
+                    .andExpect(content().json("{\"localAuthorities\":[{\"localAuthorityId\":1,\"name\":\"one\"},{\"localAuthorityId\":2,\"name\":\"two\"},{\"localAuthorityId\":3,\"name\":\"three\"}]}"))
+                    .andExpect(header().string("Content-Type", "application/json;charset=UTF-8"));
+        }
     }
 
 }
