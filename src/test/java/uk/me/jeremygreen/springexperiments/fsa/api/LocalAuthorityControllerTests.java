@@ -1,11 +1,9 @@
 package uk.me.jeremygreen.springexperiments.fsa.api;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.mockito.Mockito.when;
 
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -32,25 +30,20 @@ public class LocalAuthorityControllerTests {
     @MockBean
     private FsaService fsaService;
 
-//    @Before
-//    public void setup(){
-//        MockitoAnnotations.initMocks(this);
-//    }
-
-// TODO FsaService is a MockitoMock, but method not mocked, so get NPE.
-//    @Test
-//    public void localAuthorities() throws Exception {
-//        final List<FsaAuthority> fsaAuthorityList = Collections.unmodifiableList(Arrays.asList(
-//                new FsaAuthority(1, "one"),
-//                new FsaAuthority(2,"two"),
-//                new FsaAuthority(3,"three")
-//        ));
-//        when(this.fsaService.fetchAuthorities()).thenReturn(new FsaAuthorities(fsaAuthorityList));
-//        // TODO Check response headers too.
-//        this.mockMvc.perform(get("/api/fsa/localAuthority"))
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect(content().json("something"));
-//    }
+    @Test
+    public void localAuthorities() throws Exception {
+        final List<FsaAuthority> fsaAuthorityList = Collections.unmodifiableList(Arrays.asList(
+                new FsaAuthority(1, "one"),
+                new FsaAuthority(2,"two"),
+                new FsaAuthority(3,"three")
+        ));
+        final FsaAuthorities fsaAuthorities = new FsaAuthorities(fsaAuthorityList);
+        when(this.fsaService.fetchAuthorities()).thenReturn(fsaAuthorities);
+        // TODO Check response headers too.
+        this.mockMvc.perform(get("/api/fsa/localAuthority"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"localAuthorities\":[{\"localAuthorityId\":1,\"name\":\"one\"},{\"localAuthorityId\":2,\"name\":\"two\"},{\"localAuthorityId\":3,\"name\":\"three\"}]}"));
+    }
 
 }

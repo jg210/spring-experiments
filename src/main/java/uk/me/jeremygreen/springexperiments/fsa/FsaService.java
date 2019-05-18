@@ -63,7 +63,7 @@ public class FsaService {
 
     // http://api.ratings.food.gov.uk/Help/Api/GET-Authorities-basic
     // http://api.ratings.food.gov.uk/Authorities/basic
-    public final FsaAuthorities fetchAuthorities() throws InterruptedException {
+    public FsaAuthorities fetchAuthorities() throws InterruptedException {
         return fetchFromApi(
                 this.url + "/Authorities/basic",
                 FsaAuthorities.class);
