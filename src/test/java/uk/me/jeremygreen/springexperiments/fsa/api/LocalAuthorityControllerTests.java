@@ -2,9 +2,9 @@ package uk.me.jeremygreen.springexperiments.fsa.api;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.junit.Assert.*;
 
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,10 +74,33 @@ public class LocalAuthorityControllerTests {
     }
 
     @Test
-    public void localAuthority_nonNumeric() throws Exception {
-        for (final String path: Arrays.asList(
-                "/api/fsa/localAuthority/foo",
-                "/api/fsa/localAuthority/foo/")) {
+    public void localAuthority_nonNumericId() throws Exception {
+        badRequestWithAndWithoutTrailingSlash("/api/fsa/localAuthority/foo");
+    }
+
+    @Test
+    public void localAuthority_minusOneId() throws Exception {
+        badRequestWithAndWithoutTrailingSlash("/api/fsa/localAuthority/-1");
+    }
+
+    @Test
+    public void localAuthority_integerMinValueId() throws Exception {
+        badRequestWithAndWithoutTrailingSlash("/api/fsa/localAuthority/" + Integer.MIN_VALUE);
+    }
+
+    @Test
+    public void localAuthority_tooLargeId() throws Exception {
+        badRequestWithAndWithoutTrailingSlash("/api/fsa/localAuthority/" + Integer.MAX_VALUE + 1);
+    }
+
+    final void badRequestWithAndWithoutTrailingSlash(final String path) throws Exception {
+        assertFalse(path, path.endsWith("/"));
+        badRequest(path, path + "/");
+    }
+
+
+    final void badRequest(final String... paths) throws Exception {
+        for (final String path: paths) {
             this.mockMvc.perform(get(path))
                     .andDo(print())
                     .andExpect(status().isBadRequest());

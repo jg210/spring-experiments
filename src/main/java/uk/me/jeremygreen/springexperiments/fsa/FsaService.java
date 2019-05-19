@@ -84,7 +84,7 @@ public class FsaService {
         return fetchFromApi(
                 this.url+ "/Establishments?localAuthorityId={localAuthorityId}&pageSize={pageSize}",
                 FsaEstablishments.class,
-                params);
+                params); // TODO return null if get Not Found response.
     }
 
 }

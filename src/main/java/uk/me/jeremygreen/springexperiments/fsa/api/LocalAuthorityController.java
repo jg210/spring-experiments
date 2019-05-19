@@ -1,10 +1,12 @@
 package uk.me.jeremygreen.springexperiments.fsa.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import uk.me.jeremygreen.springexperiments.fsa.FsaEstablishments;
 import uk.me.jeremygreen.springexperiments.fsa.FsaService;
 import uk.me.jeremygreen.springexperiments.fsa.FsaAuthorities;
 import uk.me.jeremygreen.springexperiments.fsa.FsaAuthority;
@@ -31,8 +33,18 @@ public final class LocalAuthorityController {
     }
 
     @GetMapping(value="localAuthority/{id}")
-    public final Establishments localAuthority(@PathVariable final int id) throws InterruptedException {
-        return Establishments.createInstance(this.fsaService.fetchEstablishments(id));
+    public final ResponseEntity<Establishments> localAuthority(@PathVariable final int id) throws InterruptedException {
+        final FsaEstablishments fsaEstablishments = this.fsaService.fetchEstablishments(id);
+        final ResponseEntity<Establishments> responseEntity;
+        if (id < 0) {
+            responseEntity = ResponseEntity.badRequest().build();
+        } else if (fsaEstablishments == null) {
+            responseEntity = ResponseEntity.notFound().build();
+        } else {
+            final Establishments establishments = Establishments.createInstance(fsaEstablishments);
+            responseEntity = ResponseEntity.ok(establishments);
+        }
+        return responseEntity;
     }
 
 }
