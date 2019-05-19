@@ -68,11 +68,11 @@
 * Verify json metadata in case get paged data.
   - check meta.totalPages is 1.
   - check meta.returncode is OK.
+  - check meta.totalCount is correct.
 
 * Download data using paged APIs, to prevent truncation.
 
 * Local Authority could be removed while app running.
-  - the 404 is ignored and loading... is shown forever.
 
 * Improve visual design.
 
