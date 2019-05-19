@@ -50,7 +50,8 @@ public class LocalAuthorityControllerTests {
                     .andDo(print())
                     .andExpect(status().isOk())
                     .andExpect(content().json("{\"localAuthorities\":[{\"localAuthorityId\":1,\"name\":\"one\"},{\"localAuthorityId\":2,\"name\":\"two\"},{\"localAuthorityId\":3,\"name\":\"three\"}]}"))
-                    .andExpect(header().string("Content-Type", "application/json;charset=UTF-8"));
+                    .andExpect(header().string("Content-Type", "application/json;charset=UTF-8"))
+                    .andExpect(header().string("Cache-Control", "max-age=" + LocalAuthorityController.MAX_AGE_SECONDS));
         }
     }
 
@@ -69,7 +70,8 @@ public class LocalAuthorityControllerTests {
                     .andDo(print())
                     .andExpect(status().isOk())
                     .andExpect(content().json("{\"ratingCounts\":[{\"rating\":\"1-star\",\"count\":3},{\"rating\":\"2-star\",\"count\":2},{\"rating\":\"3-star\",\"count\":1}]}"))
-                    .andExpect(header().string("Content-Type", "application/json;charset=UTF-8"));
+                    .andExpect(header().string("Content-Type", "application/json;charset=UTF-8"))
+                    .andExpect(header().string("Cache-Control", "max-age=" + LocalAuthorityController.MAX_AGE_SECONDS));
         }
     }
 
