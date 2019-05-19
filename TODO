@@ -14,7 +14,10 @@
 * Add VSC launch configs for npm install and npm start.
   - add npm start config to spring-experiments.code-workspace compound launch config.
 
-* Forward Last-Modified header.
+* Caching headers
+  - forward Last-Modified header.
+    - combining with time spring app last started
+  - set max-age headers
 
 * Merge some/all of the two README files.
 
