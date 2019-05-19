@@ -1,5 +1,9 @@
 * Caching headers
-  - forward Last-Modified header.
+  - set Last-Modified header.
+    - from response last modified header?
+      - No, since upstream server doesn't have this.
+    - from meta.extractDate field in json?
+      - Not usefully, since it just gives time data requested.
     - combining with time spring app last started
   - set max-age headers
 
