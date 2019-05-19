@@ -72,7 +72,17 @@ public class LocalAuthorityControllerTests {
         }
     }
 
+    @Test
+    public void localAuthority_nonNumeric() throws Exception {
+        for (final String path: Arrays.asList(
+                "/api/fsa/localAuthority/foo",
+                "/api/fsa/localAuthority/foo/")) {
+            this.mockMvc.perform(get(path))
+                    .andDo(print())
+                    .andExpect(status().isBadRequest());
+        }
+    }
+
     // TODO Test non-existent id.
-    // TODO Test non-numeric id.
 
 }
