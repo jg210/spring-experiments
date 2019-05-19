@@ -123,4 +123,25 @@ public class LocalAuthorityControllerTests {
         }
     }
 
+    @Test
+    public void localAuthority_hashCodeAndEquality() {
+        final int id1 = 123;
+        final int id2 = 456;
+        final LocalAuthority la1a = new LocalAuthority(id1, "one");
+        final LocalAuthority la1b = new LocalAuthority(id1, "one");
+        final LocalAuthority la2 = new LocalAuthority(id2, "two");
+        assertEquals(la1a.hashCode(), la1b.hashCode());
+        assertEquals(la1a.toString(), id1, la1a.hashCode());
+        assertEquals(la1b.toString(), id1, la1b.hashCode());
+        assertEquals(la2.toString(), id2, la2.hashCode());
+        assertEquals(la1a, la1b);
+        for (final LocalAuthority localAuthority : Arrays.asList(la1a, la1b, la2)) {
+            assertEquals(localAuthority, localAuthority);
+            assertNotEquals(localAuthority, null);
+            assertNotEquals(localAuthority, new Object());
+        }
+        assertNotEquals(la1a, la2);
+        assertNotEquals(la1b, la2);
+    }
+
 }

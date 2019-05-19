@@ -2,11 +2,20 @@ package uk.me.jeremygreen.springexperiments.fsa;
 
 import org.junit.Test;
 
+import javax.validation.constraints.Null;
 import java.util.*;
 
 import static org.junit.Assert.*;
 
 public final class FsaEstablishmentsTests {
+
+    @Test
+    public final void constructor_nullEstablishments() {
+        try {
+            new FsaEstablishments(null);
+            fail();
+        } catch (NullPointerException expected) {}
+    }
 
     @Test
     public final void getRatingCounts_empty() {
