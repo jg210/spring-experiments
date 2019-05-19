@@ -17,7 +17,7 @@
 
 * Coverage report.
 
-* NonNull annotations.
+* Nullable/NonNull annotations.
 
 * Spotbugs (formerly findbugs).
   - automated test
@@ -58,18 +58,14 @@
   
 * Use https://fb.me/react-error-boundaries to mask back traces.
 
-* Java static analysis.
-
-* Java unit tests.
-
-* Failed-connection handling.
+* Improved failed-connection handling.
 
 * Verify json metadata in case get paged data.
   - check meta.totalPages is 1.
   - check meta.returncode is OK.
   - check meta.totalCount is correct.
 
-* Download data using paged APIs, to prevent truncation.
+* Always download data using paged APIs.
 
 * Local Authority could be removed while app running.
 
@@ -80,8 +76,6 @@
 * jest snapshot tests?
 
 * Automated browser tests.
-
-* Test for too many local authorities.
 
 * A way to refresh list of local authorities without refreshing whole page?
 
