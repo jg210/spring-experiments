@@ -1,7 +1,10 @@
 * Implement proxy server to avoid same-origin issues and allow use of https.
   - 404 if localAuthority id doesn't exist
-  - don't show backtrace if use invalid id (including non integer, negative or out of range id).
-    - @Min(0)
+  - 400 if
+    - non integer id
+    - negative id
+      - @Min(0)
+    - out-of-range id
   - unit tests for rest of classes
   - test FsaService json parsing using file:/// URL?
 
