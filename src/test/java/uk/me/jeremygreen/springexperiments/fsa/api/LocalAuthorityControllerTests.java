@@ -107,6 +107,18 @@ public class LocalAuthorityControllerTests {
         }
     }
 
-    // TODO Test non-existent id.
+    @Test
+    public void localAuthority_nonExistentId() throws Exception {
+        when(this.fsaService.fetchEstablishments(anyInt())).thenReturn(null);
+        for (final String path: Arrays.asList(
+                "/api/fsa/localAuthority/1234567",
+                "/api/fsa/localAuthority/1234567/")) {
+            // In reality the underlying API returns an empty list, not a
+            // 204 response code.
+            this.mockMvc.perform(get(path))
+                    .andDo(print())
+                    .andExpect(status().isNotFound());
+        }
+    }
 
 }

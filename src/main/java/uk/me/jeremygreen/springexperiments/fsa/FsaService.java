@@ -1,10 +1,8 @@
 package uk.me.jeremygreen.springexperiments.fsa;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
@@ -40,7 +38,7 @@ public class FsaService {
                 /*fair*/true);
     }
 
-    private final <T> T fetchFromApi(
+    private final <T> ResponseEntity<T> fetchFromApi(
             final String url,
             final Class<T> responseClass) throws InterruptedException {
             return fetchFromApi(
@@ -49,7 +47,7 @@ public class FsaService {
                     /*params*/Collections.emptyMap());
     }
 
-    private final <T> T fetchFromApi(
+    private final <T> ResponseEntity<T> fetchFromApi(
             final String url,
             final Class<T> responseClass,
             final Map<String,?> params) throws InterruptedException {
@@ -57,9 +55,12 @@ public class FsaService {
             this.maxConnectionsSemaphore.acquire();
             final RestTemplate restTemplate = new RestTemplate();
             final HttpEntity entity = new HttpEntity<T>(HEADERS);
-            final ResponseEntity<T> response = restTemplate.exchange(
+            final ResponseEntity<T> responseEntity = restTemplate.exchange(
                     url, HttpMethod.GET, entity, responseClass, params);
-            return response.getBody();
+            if (responseEntity.getStatusCode().isError()) {
+                throw new RestClientException(responseEntity.toString());
+            }
+            return responseEntity;
         } finally {
             this.maxConnectionsSemaphore.release();
         }
@@ -70,7 +71,7 @@ public class FsaService {
     public FsaAuthorities fetchAuthorities() throws InterruptedException {
         return fetchFromApi(
                 this.url + "/Authorities/basic",
-                FsaAuthorities.class);
+                FsaAuthorities.class).getBody();
     }
 
     // http://api.ratings.food.gov.uk/Help/Api/GET-Establishments_name_address_longitude_latitude_maxDistanceLimit_businessTypeId_schemeTypeKey_ratingKey_ratingOperatorKey_localAuthorityId_countryId_sortOptionKey_pageNumber_pageSize
@@ -80,11 +81,18 @@ public class FsaService {
         }
         final Map<String,Object> params = new HashMap<>();
         params.put("localAuthorityId", fsaAuthorityId);
-        params.put("pageSize", 0);
-        return fetchFromApi(
-                this.url+ "/Establishments?localAuthorityId={localAuthorityId}&pageSize={pageSize}",
+        params.put("pageSize", 0); // Use maximum page size.
+        final ResponseEntity<FsaEstablishments> responseEntity = fetchFromApi(
+                this.url + "/Establishments?localAuthorityId={localAuthorityId}&pageSize={pageSize}",
                 FsaEstablishments.class,
-                params); // TODO return null if get Not Found response.
+                params);
+        if (HttpStatus.NOT_FOUND.equals(responseEntity.getStatusCode())) {
+            // The underlying API returns an empty list of establishments
+            // if the fsaAuthorityId is not known, not a NOT_FOUND HTTP
+            // response code.
+            return null;
+        }
+        return responseEntity.getBody();
     }
 
 }

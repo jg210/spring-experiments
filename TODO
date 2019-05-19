@@ -1,5 +1,4 @@
 * Implement proxy server to avoid same-origin issues and allow use of https.
-  - 404 if localAuthority id doesn't exist
   - unit tests for rest of classes
   - test FsaService json parsing using file:/// URL
 
