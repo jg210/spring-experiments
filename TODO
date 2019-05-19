@@ -2,7 +2,6 @@
   - just use IDEA for java work?
 
 * Implement proxy server to avoid same-origin issues and allow use of https.
-  - check java unit tests running on travis.
   - unit tests for RestController
     - https://spring.io/guides/gs/testing-web/
   - unit tests for rest of classes?
