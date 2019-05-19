@@ -1,3 +1,7 @@
+* README files.
+  - merge into one top-level README
+  - explain how to do development
+
 * Test FsaService json parsing using file:/// URLs.
 
 * VSC auto completion doesn't work for java.
@@ -5,8 +9,6 @@
 
 * Add VSC launch configs for npm install and npm start.
   - add npm start config to spring-experiments.code-workspace compound launch config.
-
-* Merge some/all of the two README files.
 
 * Coverage report.
 
@@ -18,7 +20,7 @@
 
 * Add favicon.ico.
 
-* gradle bootRun task depends on react/npm tasks even though doesn't use their ooutput.
+* gradle bootRun task depends on react/npm tasks even though doesn't use their output.
 
 * Versioning of build.gradle dependencies.
 
