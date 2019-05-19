@@ -22,6 +22,9 @@ public final class FsaEstablishments {
     public FsaEstablishments(
             @JsonProperty("establishments")
             final List<FsaEstablishment> establishments) {
+        if (establishments == null) {
+            throw new NullPointerException();
+        }
         this.establishments = establishments;
     }
 
