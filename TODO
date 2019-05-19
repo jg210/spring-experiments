@@ -1,13 +1,16 @@
-* VSC auto completion doesn't work for java.
-  - just use IDEA for java work?
-
 * Implement proxy server to avoid same-origin issues and allow use of https.
+  - 404 if localAuthority id doesn't exist
+  - don't show backtrace if use non-numeric id (including negative).
+  - very large local authority ids make the underlying API return 5000 5-star establishments.
+    - the largest id that works correctly is largest 32-bit signed integer
+      - curl 'http://api.ratings.food.gov.uk/Establishments?localAuthorityId=2147483647&pageSize=0' -H "x-api-version: 2" -H "accept: text/json" | jq .
   - unit tests for RestController
     - https://spring.io/guides/gs/testing-web/
   - unit tests for rest of classes?
   - test FsaService json parsing using file:/// URL?
 
-* Don't show backtrace if use non-numeric id.
+* VSC auto completion doesn't work for java.
+  - just use IDEA for java work?
 
 * Add VSC launch configs for npm install and npm start.
   - add npm start config to spring-experiments.code-workspace compound launch config.
