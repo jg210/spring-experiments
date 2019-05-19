@@ -2,9 +2,6 @@
   - just use IDEA for java work?
 
 * Implement proxy server to avoid same-origin issues and allow use of https.
-  - update README
-    - "The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues)."
-    - CORS section
   - check java unit tests running on travis.
   - unit tests for RestController
     - https://spring.io/guides/gs/testing-web/

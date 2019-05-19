@@ -4,6 +4,8 @@ The React [frontend](src/frontend) uses react state and props and makes some sim
 
 [![Build Status](https://travis-ci.com/jg210/spring-experiments.svg?branch=master)](https://travis-ci.com/jg210/spring-experiments)
 
+The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues).
+
 ## Development Build Instructions
 
 To do development work with the Spring server:
@@ -112,7 +114,7 @@ $ jq .establishments[].RatingValue example_json/establishments_23.json | sort | 
 
 ## Same Origin Policy and CORS
 
-The app makes FHS API requests from the browser. It is able to do this without using a proxy since the ratings server sets the "Access-Control-Allow-Origin: *" [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) header:
+Originally, for simplicity, the react app made FSA API requests from the browser. It was able to do this without using a proxy since the ratings server sets the "Access-Control-Allow-Origin: *" [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) header:
 
 ```
 $ curl 'http://api.ratings.food.gov.uk/Ratings' -H "x-api-version: 2" -H "accept: text/json" --verbose > /dev/null 
@@ -136,4 +138,4 @@ $ curl 'http://api.ratings.food.gov.uk/Ratings' -H "x-api-version: 2" -H "accept
 < Content-Length: 2333
 ```
 
-...and since it is hosted using http only.
+...and since it is hosted using http only (it's not possible to make http calls from an https-hosted web app). The FSA API is now proxied by an API provided by the same spring application that also hosts the react web app, avoiding these restrictions. 
