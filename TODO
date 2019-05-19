@@ -2,6 +2,8 @@
   - merge into one top-level README
   - explain how to do development
 
+* Add package javadoc explaining purpose of Fsa* and api classes.
+
 * Test FsaService json parsing using file:/// URLs.
 
 * VSC auto completion doesn't work for java.
