@@ -4,6 +4,8 @@
 
 * Add package javadoc explaining purpose of Fsa* and api classes.
 
+* More method/class javadoc.
+
 * Test FsaService json parsing using file:/// URLs.
 
 * VSC auto completion doesn't work for java.
