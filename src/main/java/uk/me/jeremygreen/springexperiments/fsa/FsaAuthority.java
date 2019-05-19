@@ -16,6 +16,12 @@ public final class FsaAuthority {
             final int id,
             @JsonProperty("Name")
             final String name) {
+        if (id < 0) {
+            throw new IllegalArgumentException(Integer.toString(id));
+        }
+        if (name == null) {
+            throw new NullPointerException();
+        }
         this.id = id;
         this.name = name;
     }

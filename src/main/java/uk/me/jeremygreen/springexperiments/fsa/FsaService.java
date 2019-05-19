@@ -26,7 +26,11 @@ public class FsaService {
     private final Semaphore maxConnectionsSemaphore;
 
     public FsaService() {
-        this("http://api.ratings.food.gov.uk", 3);
+        this("http://api.ratings.food.gov.uk");
+    }
+
+    FsaService(final String url) {
+        this(url, 3);
     }
 
     private FsaService(final String url, final int maxConnections) {
@@ -70,7 +74,10 @@ public class FsaService {
     }
 
     // http://api.ratings.food.gov.uk/Help/Api/GET-Establishments_name_address_longitude_latitude_maxDistanceLimit_businessTypeId_schemeTypeKey_ratingKey_ratingOperatorKey_localAuthorityId_countryId_sortOptionKey_pageNumber_pageSize
-    public FsaEstablishments fetchEstablishments(final long fsaAuthorityId) throws InterruptedException {
+    public FsaEstablishments fetchEstablishments(final int fsaAuthorityId) throws InterruptedException {
+        if (fsaAuthorityId < 0) {
+            throw new IllegalArgumentException(Integer.toString(fsaAuthorityId));
+        }
         final Map<String,Object> params = new HashMap<>();
         params.put("localAuthorityId", fsaAuthorityId);
         params.put("pageSize", 0);

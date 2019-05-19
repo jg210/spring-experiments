@@ -3,6 +3,7 @@ package uk.me.jeremygreen.springexperiments.fsa.api;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
@@ -60,7 +61,7 @@ public class LocalAuthorityControllerTests {
                 "2", "2",
                 "3"
         );
-        when(this.fsaService.fetchEstablishments(anyLong())).thenReturn(fsaEstablishments);
+        when(this.fsaService.fetchEstablishments(anyInt())).thenReturn(fsaEstablishments);
         for (final String path: Arrays.asList(
                 "/api/fsa/localAuthority/1",
                 "/api/fsa/localAuthority/1/")) {

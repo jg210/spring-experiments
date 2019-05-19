@@ -31,7 +31,7 @@ public final class LocalAuthorityController {
     }
 
     @GetMapping(value="localAuthority/{id}")
-    public final Establishments localAuthority(@PathVariable final long id) throws InterruptedException {
+    public final Establishments localAuthority(@PathVariable final int id) throws InterruptedException {
         return Establishments.createInstance(this.fsaService.fetchEstablishments(id));
     }
 
