@@ -3,6 +3,7 @@ package uk.me.jeremygreen.springexperiments.fsa;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.lang.NonNull;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +19,9 @@ public final class FsaEstablishment {
     public FsaEstablishment(
             @JsonProperty("RatingValue")
             final String ratingValue) {
+        if (ratingValue == null) {
+            throw new NullPointerException();
+        }
         this.ratingValue = ratingValue;
     }
 

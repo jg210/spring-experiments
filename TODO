@@ -20,6 +20,8 @@
 
 * Coverage report.
 
+* NonNull annotations.
+
 * Spotbugs (formerly findbugs).
   - automated test
   - idea plugin
