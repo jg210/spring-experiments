@@ -1,5 +1,3 @@
-* Check unit test coverage.
-
 * Test FsaService json parsing using file:/// URLs.
 
 * VSC auto completion doesn't work for java.
