@@ -1,17 +1,17 @@
-* Implement proxy server to avoid same-origin issues and allow use of https.
-  - unit tests for rest of classes
-  - test FsaService json parsing using file:/// URL
+* Caching headers
+  - forward Last-Modified header.
+    - combining with time spring app last started
+  - set max-age headers
+
+* Check unit test coverage.
+
+* Test FsaService json parsing using file:/// URLs.
 
 * VSC auto completion doesn't work for java.
   - just use IDEA for java work?
 
 * Add VSC launch configs for npm install and npm start.
   - add npm start config to spring-experiments.code-workspace compound launch config.
-
-* Caching headers
-  - forward Last-Modified header.
-    - combining with time spring app last started
-  - set max-age headers
 
 * Merge some/all of the two README files.
 
