@@ -2,6 +2,8 @@ package uk.me.jeremygreen.springexperiments.fsa.api;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import uk.me.jeremygreen.springexperiments.fsa.FsaAuthorities;
 import uk.me.jeremygreen.springexperiments.fsa.FsaAuthority;
+import uk.me.jeremygreen.springexperiments.fsa.FsaEstablishments;
 import uk.me.jeremygreen.springexperiments.fsa.FsaService;
 
 import java.util.Arrays;
@@ -39,7 +42,9 @@ public class LocalAuthorityControllerTests {
         ));
         final FsaAuthorities fsaAuthorities = new FsaAuthorities(fsaAuthorityList);
         when(this.fsaService.fetchAuthorities()).thenReturn(fsaAuthorities);
-        for (final String path: Arrays.asList("/api/fsa/localAuthority", "/api/fsa/localAuthority/")) {
+        for (final String path: Arrays.asList(
+                "/api/fsa/localAuthority",
+                "/api/fsa/localAuthority/")) {
             this.mockMvc.perform(get(path))
                     .andDo(print())
                     .andExpect(status().isOk())
@@ -47,5 +52,27 @@ public class LocalAuthorityControllerTests {
                     .andExpect(header().string("Content-Type", "application/json;charset=UTF-8"));
         }
     }
+
+    @Test
+    public void localAuthority() throws Exception {
+        final FsaEstablishments fsaEstablishments = FsaEstablishments.createInstance(
+                "1", "1", "1",
+                "2", "2",
+                "3"
+        );
+        when(this.fsaService.fetchEstablishments(anyLong())).thenReturn(fsaEstablishments);
+        for (final String path: Arrays.asList(
+                "/api/fsa/localAuthority/1",
+                "/api/fsa/localAuthority/1/")) {
+            this.mockMvc.perform(get(path))
+                    .andDo(print())
+                    .andExpect(status().isOk())
+                    .andExpect(content().json("{\"ratingCounts\":[{\"rating\":\"1-star\",\"count\":3},{\"rating\":\"2-star\",\"count\":2},{\"rating\":\"3-star\",\"count\":1}]}"))
+                    .andExpect(header().string("Content-Type", "application/json;charset=UTF-8"));
+        }
+    }
+
+    // TODO Test non-existent id.
+    // TODO Test non-numeric id.
 
 }
