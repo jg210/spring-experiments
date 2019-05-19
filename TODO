@@ -11,6 +11,8 @@
   - unit tests for rest of classes?
   - test FsaService json parsing using file:/// URL?
 
+* Don't show backtrace if use non-numeric id.
+
 * Add VSC launch configs for npm install and npm start.
   - add npm start config to spring-experiments.code-workspace compound launch config.
 
