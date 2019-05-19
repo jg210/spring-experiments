@@ -1,24 +1,36 @@
-* set up pass-through proxy for API server
-  - proxy
-    - https://spring.io/projects/spring-cloud-gateway?
-  - reconfigure react app to use the proxy
-  - for development, proxy from react to spring app using create react app's proxy mechanism
-    - add this to package.json
-      - "proxy": "http://localhost:8080"
-  - update README
-    - "The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues)."
-    - CORS section
+* Test FsaService json parsing using file:/// URLs.
 
-* versioning of build.gradle dependencies.
+* VSC auto completion doesn't work for java.
+  - just use IDEA for java work?
+
+* Add VSC launch configs for npm install and npm start.
+  - add npm start config to spring-experiments.code-workspace compound launch config.
+
+* Merge some/all of the two README files.
+
+* Coverage report.
+
+* Nullable/NonNull annotations.
+
+* Spotbugs (formerly findbugs).
+  - automated test
+  - idea plugin
+
+* Add favicon.ico.
+
+* gradle bootRun task depends on react/npm tasks even though doesn't use their ooutput.
+
+* Versioning of build.gradle dependencies.
 
 * package-lock.json is not stable.
 
 * Some TODO comments live in aws-experiments repo.
 
+* Add /fsa context path to paths.
+  - redirect using nginx if use empty path.
+
 * Rename project.
   - its not just spring any more.
-
-* Convert pass-through proxy into GraphQL server.
 
 * Set up EC2 instance with https certificate
     - AWS certificates are free, but only work with load balancers etc., which aren't free
@@ -30,8 +42,6 @@
 * http redirection
   - https://letsencrypt.org/docs/allow-port-80/
 
-* Proxy rate limiting.
-
 * Find way to automate npm audit
   - currently have unfixed errors in dependencies of latest react-scripts
   - only fail if errors are above low priority?
@@ -41,13 +51,14 @@
   
 * Use https://fb.me/react-error-boundaries to mask back traces.
 
-* Failed-connection handling.
+* Improved failed-connection handling.
 
 * Verify json metadata in case get paged data.
   - check meta.totalPages is 1.
   - check meta.returncode is OK.
+  - check meta.totalCount is correct.
 
-* Download data using paged APIs, to prevent truncation.
+* Always download data using paged APIs.
 
 * Local Authority could be removed while app running.
 
@@ -59,9 +70,12 @@
 
 * Automated browser tests.
 
-* Test for too many local authorities.
-
 * A way to refresh list of local authorities without refreshing whole page?
 
 * Actuator logging?
   - https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html
+  - authentication or endpoints.trace.sensitive=false in debug only (or block with nginx)
+
+* RestTemplate will be deprecated and asks that you use reactive WebClient instead.
+
+* Make FsaService into interface, so can mock it without having to make methods/class non-final.

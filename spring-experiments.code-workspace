@@ -1,0 +1,43 @@
+{
+  "folders": [
+    {
+      "name": "spring backend",
+      "path": "."
+    },
+    {
+      "name": "react frontend",
+      "path": "src/frontend"
+    }
+  ],
+  "settings": {
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
+    "flow.useNPMPackagedFlow": true,
+    "jest.rootPath": "src/frontend",
+    "jest.pathToJest": "npm test --"
+  },
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "msjsdiag.debugger-for-chrome",
+      "orta.vscode-jest",
+      "flowtype.flow-for-vscode",
+      "vscjava.vscode-java-pack",
+      "Pivotal.vscode-boot-dev-pack",
+      "eg2.vscode-npm-script",
+      "naco-siren.gradle-language"
+    ]
+  },
+  "launch": {
+    "configurations": [],
+    "compounds": [
+      {
+        "name": "Launch server and browser",
+        "configurations": [
+          "Launch server",
+          "Launch browser"
+        ]
+      }
+    ]
+  }
+}

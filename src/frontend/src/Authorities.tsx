@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-    extractLocalAuthorities,
     fetchLocalAuthoritiesJson,
     LocalAuthority
 } from './FSA';
@@ -47,7 +46,6 @@ export class Authorities extends Component<Props,State> {
 
     componentDidMount() {
         fetchLocalAuthoritiesJson()
-            .then(extractLocalAuthorities)
             .then((localAuthorities: LocalAuthority[]) => this.setState({ localAuthorities }));
     }
 
