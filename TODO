@@ -18,6 +18,12 @@
 
 * Merge some/all of the two README files.
 
+* Coverage report.
+
+* Spotbugs (formerly findbugs).
+  - automated test
+  - idea plugin
+
 * Add favicon.ico.
 
 * gradle bootRun task depends on react/npm tasks even though doesn't use their ooutput.
