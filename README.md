@@ -67,7 +67,7 @@ code spring-experiments.code-workspace
 
 * Accept "workspace recommendations" in VSC to install required plugins.
 
-* Restart VSC after installing plugins, otherwise chrome debugger doesn't work.
+* Restart VSC after installing its plugins, otherwise debugging using Chrome doesn't work.
 
 * Install Google Chrome (for debugging with VSC).
 
