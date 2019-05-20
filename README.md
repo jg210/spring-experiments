@@ -1,24 +1,82 @@
-A [Spring Framework](https://spring.io/) web application with a [React](https://reactjs.org/) frontend hosted [here](http://aws.jeremygreen.me.uk) using [AWS and terraform](https://github.com/jg210/aws-experiments).
+A [Spring Boot](https://spring.io/projects/spring-boot) application with a [React](https://reactjs.org/) front end hosted [here](http://aws.jeremygreen.me.uk) using [AWS and terraform](https://github.com/jg210/aws-experiments).
 
-The React [frontend](src/frontend) uses react state and props and makes some simple requests to a third-party REST API. There's no redux etc. Type checking is done using [TypeScript](https://www.typescriptlang.org/).
+The React [front end](src/frontend) uses react state and props and makes some simple requests to a [third-party REST API](http://api.ratings.food.gov.uk/help). There's no redux etc. Type checking is done using [TypeScript](https://www.typescriptlang.org/).
+
+The Spring server also provides a proxy for the third-party API (avoiding same-origin/[CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) issues).
 
 [![Build Status](https://travis-ci.com/jg210/spring-experiments.svg?branch=master)](https://travis-ci.com/jg210/spring-experiments)
 
-The server also provides a proxy for the underlying API (avoiding same-origin/CORS-related issues).
 
 ## Development Build Instructions
 
-To do development work with the Spring server:
+To build and run the Spring Boot server from the command line:
 
 ```
 ./gradlew build bootRun
 ```
 
-For the React front end, see its [README](src/frontend/README.md).
+Its API can be accessed directly using e.g.:
+
+* http://localhost:8080/api/fsa/localAuthority
+* http://localhost:8080/api/fsa/localAuthority/1
+
+
+The React front end is not bundled into the jar when doing development builds, and needs to be run separately. To do this...
+
+Install nodenv and node-build (or use any other way to put correct version of node on PATH):
+
+* https://github.com/nodenv/nodenv#installation
+* https://github.com/nodenv/node-build#installation
+
+Then run this:
+
+```
+cd src/frontend
+nodenv install $(cat .node-version)
+npm install
+npm start
+```
+
+View the application using:
+
+http://localhost:3000/
+
+When run in development mode, requests to port 3000 that aren't handled by React (i.e. API requests) get forwarded to the Spring Boot server running on port 8080.
+
+## Release Build Instructions
+
+Build using:
+
+```
+./gradlew bootJar
+```
+
+The React app will be built and bundled into the jar.
+
+## IDEs
+
+It is possible to build and run the Spring Boot server using Visual Studio Code. However, for development, [IntelliJ IDEA](https://www.jetbrains.com/idea/) is better. 
+
+For the React front end:
+
+* Install [Visual Studio Code](https://code.visualstudio.com/) (VSC), then run it like this:
+
+```
+code spring-experiments.code-workspace
+```
+
+* Accept "workspace recommendations" in VSC to install required plugins.
+
+* Restart VSC after installing plugins, otherwise chrome debugger doesn't work.
+
+* Install Google Chrome (for debugging with VSC).
+
+* Install React Developer Tools in Chrome.
+
 
 ## Analysis of API
 
-This app uses this API: http://api.ratings.food.gov.uk/help.
+This app aggregates data from this API: http://api.ratings.food.gov.uk/help.
 
 All HTTP requests are slow. The API is http only.
 
@@ -42,7 +100,7 @@ $ curl 'http://api.ratings.food.gov.uk/Establishments?localAuthorityId=23&pageSi
 
 The localAuthorityId in the URL is the LocalAuthorityId not the LocalAuthorityIdCode in Authorities json.
 
-These look like they should be hygiene scores but are from 0-20:
+These look like they should be hygiene scores, but are from 0 to 20 not 1 to 5:
 
 ```
 $ jq '.establishments[].scores.Hygiene' example_json/establishments_23.json | sort | uniq --count | sort -k2 -n
@@ -68,7 +126,7 @@ $ jq '.establishments[].RatingKey' example_json/establishments_23.json | sort | 
      75 "fhrs_3_en-gb"
 ```
 
-This API gives mapping from ratingKey (like fhrs_1_en-gb) to ratingName (e.g. 1):
+This API gives the mapping from ratingKey (like fhrs_1_en-gb) to ratingName (e.g. 1):
 
 ```
 $ curl 'http://api.ratings.food.gov.uk/Ratings' -H "x-api-version: 2" -H "accept: text/json" > ratings.json
@@ -114,7 +172,7 @@ $ jq .establishments[].RatingValue example_json/establishments_23.json | sort | 
 
 ## Same Origin Policy and CORS
 
-Originally, for simplicity, the react app made FSA API requests from the browser. It was able to do this without using a proxy since the ratings server sets the "Access-Control-Allow-Origin: *" [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) header:
+Originally, for simplicity, the React app made FSA API requests from the browser. It was able to do this without using a proxy since the ratings server sets the "Access-Control-Allow-Origin: *" [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) header:
 
 ```
 $ curl 'http://api.ratings.food.gov.uk/Ratings' -H "x-api-version: 2" -H "accept: text/json" --verbose > /dev/null 
@@ -138,4 +196,4 @@ $ curl 'http://api.ratings.food.gov.uk/Ratings' -H "x-api-version: 2" -H "accept
 < Content-Length: 2333
 ```
 
-...and since it is hosted using http only (it's not possible to make http calls from an https-hosted web app). The FSA API is now proxied by an API provided by the same spring application that also hosts the react web app, avoiding these restrictions. 
+...and since it was hosted using http only (it's not possible to make http calls from an https-hosted web app). The FSA API is now proxied by an API provided by the same spring application that also hosts the react web app, avoiding these restrictions. 

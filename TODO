@@ -1,6 +1,4 @@
-* README files.
-  - merge into one top-level README
-  - explain how to do development
+* Is travis building a release build?
 
 * Add package javadoc explaining purpose of Fsa* and api classes.
 
