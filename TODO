@@ -1,3 +1,8 @@
+* Client-side crash reporting.
+  - google analytics or sentry?
+
+* Server-side crash reporting.
+
 * Add package javadoc explaining purpose of Fsa* and api classes.
 
 * More method/class javadoc.

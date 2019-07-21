@@ -22,4 +22,7 @@ trap 'backtrace' ERR
 SOURCE_DIR="$(dirname "$0")/.."
 . ~/.nvm/nvm.sh
 nvm install "$(cat ${SOURCE_DIR}/.node-version)"
+if [ -n "${GOOGLE_ANALYTICS_TRACKING_ID:-}" ] ; then
+    sed -i "s,__GOOGLE_ANALYTICS_TRACKING_ID__,${GOOGLE_ANALYTICS_TRACKING_ID},g" "${SOURCE_DIR}/src/frontend/public/index.html"
+fi
 "${SOURCE_DIR}/gradlew" assemble check

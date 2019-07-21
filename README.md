@@ -4,6 +4,8 @@ The React [front end](src/frontend) uses react state and props and makes some si
 
 The Spring server also provides a proxy for the third-party API (avoiding same-origin/[CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) issues).
 
+The React front end uses [Google Analytics](https://analytics.google.com/analytics/web/) to track use.
+
 [![Build Status](https://travis-ci.com/jg210/spring-experiments.svg?branch=master)](https://travis-ci.com/jg210/spring-experiments)
 
 
@@ -73,6 +75,13 @@ code spring-experiments.code-workspace
 
 * Install React Developer Tools in Chrome.
 
+## Travis CI
+
+Configure the following environment variables (for master branch only):
+
+* GOOGLE_ANALYTICS_TRACKING_ID - the ID is available from the GA console under Tracking Info > Tracking Code.
+* AWS_ACCESS_KEY_ID
+* AWS_SECRET_ACCESS_KEY - with minimal permissions.
 
 ## Analysis of API
 
