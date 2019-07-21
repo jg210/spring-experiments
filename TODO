@@ -3,6 +3,8 @@
 
 * Server-side crash reporting.
 
+* Pass version information to google analytics.
+
 * Add package javadoc explaining purpose of Fsa* and api classes.
 
 * More method/class javadoc.
