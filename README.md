@@ -1,4 +1,6 @@
-A [Spring Boot](https://spring.io/projects/spring-boot) application with a [React](https://reactjs.org/) front end hosted [here](http://aws.jeremygreen.me.uk) using [AWS and terraform](https://github.com/jg210/aws-experiments).
+http://aws.jeremygreen.me.uk
+
+A [Spring Boot](https://spring.io/projects/spring-boot) application with a [React](https://reactjs.org/) front end hosted using [AWS and terraform](https://github.com/jg210/aws-experiments).
 
 The React [front end](src/frontend) uses react state and props. There's no redux, thunk, sagas etc. Type checking is done using [TypeScript](https://www.typescriptlang.org/).
 
