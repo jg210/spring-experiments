@@ -1,9 +1,15 @@
+* Cookie banner etc.
+  - https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage#analyticsjs
+  - https://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm
+
 * Client-side crash reporting.
   - google analytics or sentry?
 
 * Server-side crash reporting.
 
-* Pass version information to google analytics.
+* Pass more information to google analytics.
+  - version
+  - location in UI
 
 * Add package javadoc explaining purpose of Fsa* and api classes.
 
@@ -36,16 +42,19 @@
 * Rename project.
   - its not just spring any more.
 
-* Set up EC2 instance with https certificate
+* Configure https.
+  - nginx
+  - firewall
+  - GA "property" is configured with "http".
+  - link(s) in github repo.
+  - https certificate
     - AWS certificates are free, but only work with load balancers etc., which aren't free
     - let's encrypt + certbot on EC2
       - but would need own DNS record
       - certificates are listed publicly
         - github site will be public too though
-
-* http redirection
-  - https://letsencrypt.org/docs/allow-port-80/
-
+  - http redirection
+    - https://letsencrypt.org/docs/allow-port-80/
 
 * Use https://fb.me/react-error-boundaries to mask back traces.
 
