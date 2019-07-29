@@ -11,6 +11,10 @@
   - version
   - location in UI
 
+* Active "Google signals" in GA.
+  - google ask that get permission from users before do this.
+    => need to new or changed cookie for any existing users.
+
 * Add package javadoc explaining purpose of Fsa* and api classes.
 
 * More method/class javadoc.
