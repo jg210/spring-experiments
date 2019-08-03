@@ -6,8 +6,6 @@ The React [front end](src/frontend) uses react state and props. There's no redux
 
 The front end makes requests to an API provided by the Spring Boot server. The server handles these requests by aggregrating data provided by a [third-party REST API](http://api.ratings.food.gov.uk/help).
 
-The front end uses [Google Analytics](https://analytics.google.com/analytics/web/) to track use.
-
 [![Build Status](https://travis-ci.com/jg210/spring-experiments.svg?branch=master)](https://travis-ci.com/jg210/spring-experiments)
 
 
@@ -81,7 +79,6 @@ code spring-experiments.code-workspace
 
 Configure the following environment variables (for master branch only):
 
-* GOOGLE_ANALYTICS_TRACKING_ID - the ID is available from the GA console under Tracking Info > Tracking Code.
 * AWS_ACCESS_KEY_ID
 * AWS_SECRET_ACCESS_KEY - with minimal permissions.
 

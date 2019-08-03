@@ -1,19 +1,6 @@
-* Cookie banner etc.
-  - https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage#analyticsjs
-  - https://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm
-
 * Client-side crash reporting.
-  - google analytics or sentry?
 
 * Server-side crash reporting.
-
-* Pass more information to google analytics.
-  - version
-  - location in UI
-
-* Active "Google signals" and "Demographics and Interest Reports" in GA.
-  - google ask that get permission from users before do this.
-    => need to new or changed cookie for any existing users.
 
 * Add package javadoc explaining purpose of Fsa* and api classes.
 
