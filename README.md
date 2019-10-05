@@ -1,4 +1,4 @@
-http://aws-ec2.jeremygreen.me.uk
+http://spring-experiments.jeremygreen.me.uk
 
 A [Spring Boot](https://spring.io/projects/spring-boot) application with a [React](https://reactjs.org/) front end hosted using [AWS and terraform](https://github.com/jg210/aws-experiments).
 
