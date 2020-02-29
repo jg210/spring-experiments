@@ -34,7 +34,7 @@ Then run this:
 
 ```
 cd src/frontend
-nodenv install $(cat .node-version)
+nodenv install
 npm install
 npm start
 ```
