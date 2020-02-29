@@ -3,7 +3,7 @@
 // import App from './App';
 
 it('is run with correct node version', () => {
-  expect(process.versions.node).toEqual("10.15.3");
+  expect(process.versions.node).toEqual("12.16.1");
 });
 
 // TODO fetch() returns nothing when run from jest? Mockable?
