@@ -1,3 +1,9 @@
+* Upgrade gradle
+
+* Upgrade spring
+
+* Upgrade react etc. in frontend
+
 * Client-side crash reporting.
 
 * Server-side crash reporting.
