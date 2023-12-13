@@ -28,9 +28,9 @@ public final class EstablishmentsTests {
             final SortedMap.Entry<String,Long> expectedRatingCount = expectedIterator.next();
             final RatingCount actualRatingCount = actualIterator.next();
             assertEquals(
-                    expectedRatingCount.getKey(), actualRatingCount.getRating());
+                    expectedRatingCount.getKey(), actualRatingCount.rating());
             assertEquals(
-                    expectedRatingCount.getValue().longValue(), actualRatingCount.getCount());
+                    expectedRatingCount.getValue().longValue(), actualRatingCount.count());
         }
         assertFalse(actualIterator.hasNext());
     }
