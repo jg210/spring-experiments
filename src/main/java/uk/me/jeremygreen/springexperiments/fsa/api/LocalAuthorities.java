@@ -11,8 +11,8 @@ public final class LocalAuthorities {
 
     public static LocalAuthorities createInstance(final List<FsaAuthority> fsaAuthorities) {
         final List<LocalAuthority> localAuthorities = fsaAuthorities.stream().map(fsaAuthority -> new LocalAuthority(
-                fsaAuthority.getId(),
-                fsaAuthority.getName())
+                fsaAuthority.id(),
+                fsaAuthority.name())
         ).collect(Collectors.toList());
         return new LocalAuthorities(localAuthorities);
     }
