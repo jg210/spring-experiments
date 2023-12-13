@@ -1,10 +1,8 @@
-* A release branch, so can fix problems without breaking aws-experiments deployment?
-
-* Upgrade gradle
-
-* Upgrade spring
+* react-scripts isn't supported any more.
 
 * Upgrade react etc. in frontend
+
+* A release branch, so can fix problems without breaking aws-experiments deployment?
 
 * Client-side crash reporting.
 

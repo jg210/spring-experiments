@@ -38,8 +38,8 @@ public class LocalAuthorityControllerTests {
     public void localAuthorities() throws Exception {
         final List<FsaAuthority> fsaAuthorityList = Collections.unmodifiableList(Arrays.asList(
                 new FsaAuthority(1, "one"),
-                new FsaAuthority(2,"two"),
-                new FsaAuthority(3,"three")
+                new FsaAuthority(2, "two"),
+                new FsaAuthority(3, "three")
         ));
         final FsaAuthorities fsaAuthorities = new FsaAuthorities(fsaAuthorityList);
         when(this.fsaService.fetchAuthorities()).thenReturn(fsaAuthorities);
