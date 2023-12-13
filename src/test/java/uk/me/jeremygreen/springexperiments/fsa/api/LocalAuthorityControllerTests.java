@@ -92,7 +92,8 @@ public class LocalAuthorityControllerTests {
 
     @Test
     public void localAuthority_tooLargeId() throws Exception {
-        badRequestWithAndWithoutTrailingSlash("/api/fsa/localAuthority/" + Integer.MAX_VALUE + 1);
+        final long tooLargeId = Integer.MAX_VALUE + 1L;
+        badRequestWithAndWithoutTrailingSlash("/api/fsa/localAuthority/" + tooLargeId);
     }
 
     final void badRequestWithAndWithoutTrailingSlash(final String path) throws Exception {
