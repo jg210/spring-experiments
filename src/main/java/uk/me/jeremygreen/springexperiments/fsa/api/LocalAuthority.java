@@ -28,11 +28,10 @@ public final class LocalAuthority {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof LocalAuthority)) {
-      return false;
+    if (o instanceof LocalAuthority that) {
+      return localAuthorityId == that.localAuthorityId;
     }
-    final LocalAuthority that = (LocalAuthority) o;
-    return localAuthorityId == that.localAuthorityId;
+    return false;
   }
 
   @Override
