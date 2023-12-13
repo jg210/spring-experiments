@@ -5,15 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public final class FsaEstablishments {
 
     public static FsaEstablishments createInstance(final String... scores) {
-        final List<FsaEstablishment> establishments = Arrays.stream(scores).map(
-                (score) -> new FsaEstablishment(score)).collect(Collectors.toList());
-        return new FsaEstablishments(Collections.unmodifiableList(establishments));
+        final List<FsaEstablishment> establishments = Arrays.stream(scores).map(FsaEstablishment::new).toList();
+        return new FsaEstablishments(establishments);
     }
 
     private final List<FsaEstablishment> establishments;
