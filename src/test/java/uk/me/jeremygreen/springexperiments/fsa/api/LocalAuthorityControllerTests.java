@@ -15,13 +15,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import uk.me.jeremygreen.springexperiments.fsa.FsaAuthorities;
 import uk.me.jeremygreen.springexperiments.fsa.FsaAuthority;
 import uk.me.jeremygreen.springexperiments.fsa.FsaEstablishments;
 import uk.me.jeremygreen.springexperiments.fsa.FsaService;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -36,11 +36,11 @@ public class LocalAuthorityControllerTests {
 
     @Test
     public void localAuthorities() throws Exception {
-        final List<FsaAuthority> fsaAuthorityList = Collections.unmodifiableList(Arrays.asList(
+        final List<FsaAuthority> fsaAuthorityList = List.of(
                 new FsaAuthority(1, "one"),
                 new FsaAuthority(2, "two"),
                 new FsaAuthority(3, "three")
-        ));
+        );
         final FsaAuthorities fsaAuthorities = new FsaAuthorities(fsaAuthorityList);
         when(this.fsaService.fetchAuthorities()).thenReturn(fsaAuthorities);
         for (final String path: Arrays.asList(
@@ -136,6 +136,7 @@ public class LocalAuthorityControllerTests {
         assertEquals(la2.toString(), id2, la2.hashCode());
         assertEquals(la1a, la1b);
         for (final LocalAuthority localAuthority : Arrays.asList(la1a, la1b, la2)) {
+            //noinspection EqualsWithItself
             assertEquals(localAuthority, localAuthority);
             assertNotEquals(localAuthority, null);
             assertNotEquals(localAuthority, new Object());
