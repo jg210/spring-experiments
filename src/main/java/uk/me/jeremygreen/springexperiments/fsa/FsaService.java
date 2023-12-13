@@ -54,7 +54,7 @@ public class FsaService {
         try {
             this.maxConnectionsSemaphore.acquire();
             final RestTemplate restTemplate = new RestTemplate();
-            final HttpEntity entity = new HttpEntity<T>(HEADERS);
+            final HttpEntity<T> entity = new HttpEntity<>(HEADERS);
             final ResponseEntity<T> responseEntity = restTemplate.exchange(
                     url, HttpMethod.GET, entity, responseClass, params);
             if (responseEntity.getStatusCode().isError()) {
