@@ -1,11 +1,13 @@
+* github actions running tests etc.
+
+* No cancellation of requests in fetchLocalAuthoritiesJson().
+
 * react-scripts isn't supported any more.
   - e.g. won't work with typescript 5.x
   - https://github.com/reactjs/react.dev/pull/5487#issuecomment-1409720741
   - https://github.com/facebook/create-react-app/issues/13072
 
 * A release branch, so can fix problems without breaking aws-experiments deployment?
-
-* No cancellation of requests in fetchLocalAuthoritiesJson().
 
 * Client-side crash reporting.
 
@@ -22,17 +24,9 @@
 
 * Nullable/NonNull annotations.
 
-* Spotbugs (formerly findbugs).
-  - automated test
-  - idea plugin
-
 * Add favicon.ico.
 
 * gradle bootRun task depends on react/npm tasks even though doesn't use their output.
-
-* Versioning of build.gradle dependencies.
-
-* package-lock.json is not stable.
 
 * Some TODO comments live in aws-experiments repo.
 
