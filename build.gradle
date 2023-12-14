@@ -42,10 +42,6 @@ publishing {
     repositories {
         maven {
             name 'aws-experiments'
-            // credentials(AwsCredentials) {
-            //     accessKey awsCredentials.AWSAccessKeyId
-            //     secretKey awsCredentials.AWSSecretKey
-            // }
             authentication {
                 awsIm(AwsImAuthentication)
             }
