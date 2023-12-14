@@ -20,10 +20,6 @@ repositories {
     mavenCentral()
 }
 
-dependencyLocking {
-    lockAllConfigurations()
-}
-
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:${SPRING_BOOT_VERSION}"
     implementation "com.amazonaws.serverless:aws-serverless-java-container-spring:1.3.2"
