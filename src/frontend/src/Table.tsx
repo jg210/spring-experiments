@@ -1,5 +1,3 @@
-import axios, { CancelTokenSource } from 'axios';
-
 import React, { Component } from 'react';
 
 import {
@@ -26,7 +24,7 @@ export class Table extends Component<Props,State> {
     state: State = {
         ...LOADING_STATE
     };
-    cancelTokenSource: CancelTokenSource | null = null;
+    abortController: AbortController | null = null;
 
     render() {
         if (this.props.localAuthorityId === null) {
@@ -62,19 +60,25 @@ export class Table extends Component<Props,State> {
         if (localAuthorityId === prevProps.localAuthorityId) {
             return;
         }
-        if (!(this.cancelTokenSource === null)) {
-            this.cancelTokenSource.cancel();
+        if (this.abortController !== null) {
+            this.abortController.abort();
         }
         this.setState({...LOADING_STATE});
         if (localAuthorityId === null) {
             return;
         }
-        this.cancelTokenSource = axios.CancelToken.source()
-        fetchEstablishmentsJson(localAuthorityId, this.cancelTokenSource)
+        const abortController = new AbortController();
+        this.abortController = abortController
+        fetchEstablishmentsJson(localAuthorityId, this.abortController)
             .then(ratingsPercentages)
             .then((scores: RatingPercentage[]) => {
                 this.setState({ scores });
-                this.cancelTokenSource = null;
+                this.abortController = null;
+            })
+            .catch(e => {
+                if (!abortController.signal.aborted) {
+                    throw e;
+                }
             });
     }
 

@@ -1,4 +1,4 @@
-import axios, { CancelTokenSource, AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 const RATINGS_URL = "/api/fsa";
 
@@ -26,14 +26,14 @@ export interface LocalAuthorities {
 }
 
 // http://api.ratings.food.gov.uk/help
-function fetchFromAPI<T>(url: string, cancelTokenSource: CancelTokenSource | null = null): Promise<T> {
+function fetchFromAPI<T>(url: string, abortController: AbortController | null = null): Promise<T> {
     const config: AxiosRequestConfig = {
         headers: {
             'Accept': 'application/json'
         }
     };
-    if (!(cancelTokenSource === null)) {
-        config.cancelToken = cancelTokenSource.token;
+    if (abortController !== null) {
+        config.signal = abortController.signal;
     }
     return axios.get<T>(url, config).then(response => response.data);
 }
@@ -45,9 +45,9 @@ export function fetchLocalAuthoritiesJson(): Promise<LocalAuthority[]> {
 
 export function fetchEstablishmentsJson(
     localAuthorityId: number,
-    cancelTokenSource: CancelTokenSource): Promise<Establishments> {
+    abortController: AbortController): Promise<Establishments> {
     const url = `${RATINGS_URL}/localAuthority/${encodeURIComponent(localAuthorityId.toString())}`;
-    return fetchFromAPI(url, cancelTokenSource);
+    return fetchFromAPI(url, abortController);
 }
 
 export function ratingsPercentages(establishments: Establishments): RatingPercentage[] {
