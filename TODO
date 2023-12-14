@@ -1,5 +1,11 @@
 * react-scripts isn't supported any more.
 
+* Cancellation of requests crashes js
+
+  Cancel
+  handleError@http://localhost:3000/static/js/bundle.js:34706:58
+  ./node_modules/webpack-dev-server/client/overlay.js/createOverlay/<@http://localhost:3000/static/js/bundle.js:34729:18
+
 * Upgrade react etc. in frontend
 
 * A release branch, so can fix problems without breaking aws-experiments deployment?
