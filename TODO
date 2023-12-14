@@ -1,4 +1,4 @@
-* github actions running tests etc.
+* Enable branch protection rule for master.
 
 * No cancellation of requests in fetchLocalAuthoritiesJson().
 
@@ -8,6 +8,7 @@
   - https://github.com/facebook/create-react-app/issues/13072
 
 * A release branch, so can fix problems without breaking aws-experiments deployment?
+  - or single branch and versioned publishing
 
 * Client-side crash reporting.
 
@@ -23,6 +24,9 @@
   - add npm start config to spring-experiments.code-workspace compound launch config.
 
 * Nullable/NonNull annotations.
+
+* Role better than access key for publishing?
+  - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html?icmpid=docs_iam_console#Using_CreateAccessKey
 
 * Add favicon.ico.
 
@@ -86,3 +90,5 @@
 * RestTemplate will be deprecated and asks that you use reactive WebClient instead.
 
 * Make FsaService into interface, so can mock it without having to make methods/class non-final.
+
+* Lint for github actions config.

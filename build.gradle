@@ -9,6 +9,7 @@ plugins {
     id 'org.springframework.boot' version "${SPRING_BOOT_VERSION}"
     // https://plugins.gradle.org/plugin/io.spring.dependency-management
     id 'io.spring.dependency-management' version '1.1.4'
+    id 'maven-publish'
     id 'java'
 }
 
@@ -27,6 +28,26 @@ dependencies {
     annotationProcessor "org.springframework:spring-context-indexer:6.1.1"
     testImplementation "org.springframework.boot:spring-boot-starter-test:${SPRING_BOOT_VERSION}"
     testImplementation "junit:junit:4.13"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'uk.me.jeremygreen.springexperiments'
+            artifactId = 'springexperiments'
+            version = '1.0'
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name 'aws-experiments'
+            authentication {
+                awsIm(AwsImAuthentication)
+            }
+            url "s3://aws-experiments.s3-eu-west-1.amazonaws.com/artifacts"
+        }
+    }
 }
 
 // Add React frontend artifacts to the jar.
