@@ -77,7 +77,7 @@ code spring-experiments.code-workspace
 
 ## GitHub Action publishing
 
-Configure the following repository variables (for master branch only):
+Create access key for aws-experiments gha IAM user, then configure the following repository variables (for master branch only):
 
 * AWS_ACCESS_KEY_ID
 * AWS_SECRET_ACCESS_KEY - with minimal permissions.
