@@ -1,6 +1,13 @@
+* Publishing not working on github actions.
+  - https://github.com/jg210/spring-experiments/actions/runs/7214577980/job/19656984455
+
+* Cache npm files on github actions.
+
 * Enable branch protection rule for master.
 
 * No cancellation of requests in fetchLocalAuthoritiesJson().
+
+* Split gradle checks into multiple github actions steps?
 
 * react-scripts isn't supported any more.
   - e.g. won't work with typescript 5.x
