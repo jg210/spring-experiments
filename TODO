@@ -1,3 +1,12 @@
+* react-scripts isn't supported any more.
+  - e.g. won't work with typescript 5.x
+  - https://github.com/reactjs/react.dev/pull/5487#issuecomment-1409720741
+  - https://github.com/facebook/create-react-app/issues/13072
+
+* A release branch, so can fix problems without breaking aws-experiments deployment?
+
+* No cancellation of requests in fetchLocalAuthoritiesJson().
+
 * Client-side crash reporting.
 
 * Server-side crash reporting.

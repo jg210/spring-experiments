@@ -4,18 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
-public final class FsaAuthority {
-
-    private final int id;
-    private final String name;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record FsaAuthority(int id, String name) {
 
     @JsonCreator
     public FsaAuthority(
-            @JsonProperty("LocalAuthorityId")
-            final int id,
-            @JsonProperty("Name")
-            final String name) {
+            @JsonProperty("LocalAuthorityId") final int id,
+            @JsonProperty("Name") final String name) {
         if (id < 0) {
             throw new IllegalArgumentException(Integer.toString(id));
         }
@@ -24,14 +19,6 @@ public final class FsaAuthority {
         }
         this.id = id;
         this.name = name;
-    }
-
-    public final int getId() {
-        return this.id;
-    }
-
-    public final String getName() {
-        return this.name;
     }
 
 }

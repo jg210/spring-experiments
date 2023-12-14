@@ -24,13 +24,14 @@ public final class EstablishmentsTests {
         assertEquals(5, actual.size());
         final Iterator<RatingCount> actualIterator = actual.iterator();
         final Iterator<SortedMap.Entry<String,Long>> expectedIterator = expected.entrySet().iterator();
+        //noinspection WhileLoopReplaceableByForEach
         while (expectedIterator.hasNext()) {
             final SortedMap.Entry<String,Long> expectedRatingCount = expectedIterator.next();
             final RatingCount actualRatingCount = actualIterator.next();
             assertEquals(
-                    expectedRatingCount.getKey(), actualRatingCount.getRating());
+                    expectedRatingCount.getKey(), actualRatingCount.rating());
             assertEquals(
-                    expectedRatingCount.getValue().longValue(), actualRatingCount.getCount());
+                    expectedRatingCount.getValue().longValue(), actualRatingCount.count());
         }
         assertFalse(actualIterator.hasNext());
     }

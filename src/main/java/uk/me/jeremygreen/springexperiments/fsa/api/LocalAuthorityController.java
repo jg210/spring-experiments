@@ -39,7 +39,7 @@ public final class LocalAuthorityController {
     @GetMapping(value="localAuthority")
     public final ResponseEntity<LocalAuthorities> localAuthorities() throws InterruptedException {
         final FsaAuthorities fsaAuthorities = this.fsaService.fetchAuthorities();
-        final List<FsaAuthority> authorities = fsaAuthorities.getAuthorities();
+        final List<FsaAuthority> authorities = fsaAuthorities.authorities();
         final LocalAuthorities localAuthorities = LocalAuthorities.createInstance(authorities);
         return ResponseEntity.ok()
                 .headers(RESPONSE_HEADERS)

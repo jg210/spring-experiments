@@ -2,7 +2,6 @@ package uk.me.jeremygreen.springexperiments.fsa;
 
 import org.junit.Test;
 
-import javax.validation.constraints.Null;
 import java.util.*;
 
 import static org.junit.Assert.*;

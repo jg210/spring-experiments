@@ -10,9 +10,10 @@ public final class LocalAuthorities {
     private final List<LocalAuthority> localAuthorities;
 
     public static LocalAuthorities createInstance(final List<FsaAuthority> fsaAuthorities) {
-        final List<LocalAuthority> localAuthorities = fsaAuthorities.stream().map(fsaAuthority -> {
-            return new LocalAuthority(fsaAuthority.getId(), fsaAuthority.getName());
-        }).collect(Collectors.toList());
+        final List<LocalAuthority> localAuthorities = fsaAuthorities.stream().map(fsaAuthority -> new LocalAuthority(
+                fsaAuthority.id(),
+                fsaAuthority.name())
+        ).collect(Collectors.toList());
         return new LocalAuthorities(localAuthorities);
     }
 
