@@ -1,3 +1,5 @@
+* Enable branch protection rule for master.
+
 * No cancellation of requests in fetchLocalAuthoritiesJson().
 
 * react-scripts isn't supported any more.
