@@ -1,4 +1,5 @@
 * react-scripts isn't supported any more.
+  - e.g. won't work with typescript 5.x
 
 * Cancellation of requests crashes js
 
