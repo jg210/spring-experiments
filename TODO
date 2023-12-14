@@ -23,6 +23,9 @@
 
 * Nullable/NonNull annotations.
 
+* Role better than access key for publishing?
+  - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html?icmpid=docs_iam_console#Using_CreateAccessKey
+
 * Add favicon.ico.
 
 * gradle bootRun task depends on react/npm tasks even though doesn't use their output.
@@ -85,3 +88,5 @@
 * RestTemplate will be deprecated and asks that you use reactive WebClient instead.
 
 * Make FsaService into interface, so can mock it without having to make methods/class non-final.
+
+* Lint for github actions config.
