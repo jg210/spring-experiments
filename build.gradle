@@ -50,6 +50,13 @@ publishing {
     }
 }
 
+gradleEnterprise {
+    buildScan {
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = "yes"
+    }
+}
+
 // Add React frontend artifacts to the jar.
 bootJar.dependsOn('src:frontend:npm_run_build')
 bootJar {
