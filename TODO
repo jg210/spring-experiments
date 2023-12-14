@@ -1,5 +1,3 @@
-* github actions running tests etc.
-
 * No cancellation of requests in fetchLocalAuthoritiesJson().
 
 * react-scripts isn't supported any more.
@@ -8,6 +6,7 @@
   - https://github.com/facebook/create-react-app/issues/13072
 
 * A release branch, so can fix problems without breaking aws-experiments deployment?
+  - or single branch and versioned publishing
 
 * Client-side crash reporting.
 
