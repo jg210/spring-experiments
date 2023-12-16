@@ -30,6 +30,10 @@ dependencies {
     testImplementation "junit:junit:4.13"
 }
 
+springBoot {
+    mainClass = 'uk.me.jeremygreen.springexperiments.SpringExperimentsApplication'
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
@@ -50,10 +54,12 @@ publishing {
     }
 }
 
-gradleEnterprise {
-    buildScan {
-        termsOfServiceUrl = "https://gradle.com/terms-of-service"
-        termsOfServiceAgree = "yes"
+if (hasProperty('buildScan')) {
+    gradleEnterprise {
+        buildScan {
+            termsOfServiceUrl = "https://gradle.com/terms-of-service"
+            termsOfServiceAgree = "yes"
+        }
     }
 }
 
