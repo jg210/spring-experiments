@@ -14,7 +14,7 @@ plugins {
 }
 
 group = 'uk.me.jeremygreen'
-version = '0.0.1-SNAPSHOT'
+version = '1.0'
 sourceCompatibility = '17'
 
 repositories {
@@ -36,11 +36,8 @@ springBoot {
 
 publishing {
     publications {
-        maven(MavenPublication) {
-            groupId = 'uk.me.jeremygreen.springexperiments'
-            artifactId = 'springexperiments'
-            version = '1.0'
-            from components.java
+        bootJava(MavenPublication) {
+            artifact bootJar
         }
     }
     repositories {
