@@ -6,7 +6,7 @@ The React [front end](src/frontend) uses react state and props. There's no redux
 
 The front end makes requests to an API provided by the Spring Boot server. The server handles these requests by aggregrating data provided by a [third-party REST API](http://api.ratings.food.gov.uk/help).
 
-![build status](https://github.com/jg210/spring-experiments/actions/workflows/checks.yml/badge.svg)
+[![build status](https://github.com/jg210/spring-experiments/actions/workflows/checks.yml/badge.svg)](https://github.com/jg210/spring-experiments/actions/workflows/checks.yml)
 
 ## Development Build Instructions
 
