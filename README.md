@@ -49,7 +49,7 @@ When run in development mode, requests to port 3000 that aren't handled by React
 Build using:
 
 ```
-./gradlew bootJar
+./gradlew shadowJar
 ```
 
 The React app will be built and bundled into the jar.
