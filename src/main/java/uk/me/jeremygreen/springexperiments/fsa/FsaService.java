@@ -38,7 +38,7 @@ public class FsaService {
                 /*fair*/true);
     }
 
-    private final <T> ResponseEntity<T> fetchFromApi(
+    private <T> ResponseEntity<T> fetchFromApi(
             final String url,
             final Class<T> responseClass) throws InterruptedException {
             return fetchFromApi(
@@ -47,7 +47,7 @@ public class FsaService {
                     /*params*/Collections.emptyMap());
     }
 
-    private final <T> ResponseEntity<T> fetchFromApi(
+    private <T> ResponseEntity<T> fetchFromApi(
             final String url,
             final Class<T> responseClass,
             final Map<String,?> params) throws InterruptedException {
