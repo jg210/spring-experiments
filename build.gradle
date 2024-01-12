@@ -13,7 +13,7 @@ plugins {
     // with AWS lambda:
     //
     // https://docs.spring.io/spring-cloud-function/docs/current/reference/html/aws-intro.html#_notes_on_jar_layout
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'com.github.johnrengelman.shadow' version '8.1.0'
     id 'maven-publish'
     id 'java'
 }
