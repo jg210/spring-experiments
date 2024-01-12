@@ -46,10 +46,11 @@ When run in development mode, requests to port 3000 that aren't handled by React
 
 ## Release Build Instructions
 
-Build using:
+Build using one of:
 
 ```
-./gradlew shadowJar
+./gradlew bootJar # to run locally
+./gradlew shadowJar # for AWS lambda
 ```
 
 The React app will be built and bundled into the jar.
