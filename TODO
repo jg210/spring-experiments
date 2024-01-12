@@ -11,6 +11,9 @@
   - https://github.com/reactjs/react.dev/pull/5487#issuecomment-1409720741
   - https://github.com/facebook/create-react-app/issues/13072
 
+* Should be able to use shadowJar in place of bootJar
+  - shadowJar is lacking most manifest attributes so isn't executable.
+
 * A release branch, so can fix problems without breaking aws-experiments deployment?
   - or single branch and versioned publishing
 
