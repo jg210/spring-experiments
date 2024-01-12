@@ -43,25 +43,25 @@ springBoot {
 assemble.dependsOn = [bootJar, shadowJar]
 import com.github.jengelman.gradle.plugins.shadow.transformers.*
 shadowJar {
-	archiveClassifier = 'aws'
+    archiveClassifier = 'aws'
     from("${project('src:frontend').projectDir}/build") {
         into("public")
     }
-	// dependencies {
-	// 	exclude(
-	// 		dependency("org.springframework.cloud:spring-cloud-function-web:${springCloudFunctionVersion}"))
-	// }
-	// Required for Spring
-	mergeServiceFiles()
-	append 'META-INF/spring.handlers'
-	append 'META-INF/spring.schemas'
-	append 'META-INF/spring.tooling'
-	append 'META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports'
-	append 'META-INF/spring/org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration.imports'
-	transform(PropertiesFileTransformer) {
-		paths = ['META-INF/spring.factories']
-		mergeStrategy = "append"
-	}
+    // dependencies {
+    // 	exclude(
+    // 		dependency("org.springframework.cloud:spring-cloud-function-web:${springCloudFunctionVersion}"))
+    // }
+    // Required for Spring
+    mergeServiceFiles()
+    append 'META-INF/spring.handlers'
+    append 'META-INF/spring.schemas'
+    append 'META-INF/spring.tooling'
+    append 'META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports'
+    append 'META-INF/spring/org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration.imports'
+    transform(PropertiesFileTransformer) {
+        paths = ['META-INF/spring.factories']
+        mergeStrategy = "append"
+    }
 }
 
 publishing {
