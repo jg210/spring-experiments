@@ -65,11 +65,11 @@ shadowJar {
 }
 
 publishing {
-    // https://imperceptiblethoughts.com/shadow/publishing/#publishing-with-maven-publish-plugin
     publications {
         bootJava(MavenPublication) {
             artifact bootJar
         }
+        // https://imperceptiblethoughts.com/shadow/publishing/#publishing-with-maven-publish-plugin
         shadow(MavenPublication) { publication ->
             project.shadow.component(publication)
         }
