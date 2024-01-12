@@ -103,5 +103,4 @@ bootJar {
     }
 }
 
-
 test.dependsOn('src:frontend:npm_run_ci')
