@@ -14,7 +14,6 @@ plugins {
     //
     // https://docs.spring.io/spring-cloud-function/docs/current/reference/html/aws-intro.html#_notes_on_jar_layout
     id 'com.github.johnrengelman.shadow' version '8.1.1'
-    id 'org.springframework.boot.experimental.thin-launcher' version "1.0.31.RELEASE"
     id 'maven-publish'
     id 'java'
 }
@@ -41,12 +40,9 @@ springBoot {
     mainClass = 'uk.me.jeremygreen.springexperiments.SpringExperimentsApplication'
 }
 
-assemble.dependsOn = [thinJar, shadowJar]
+assemble.dependsOn = [bootJar, shadowJar]
 import com.github.jengelman.gradle.plugins.shadow.transformers.*
 shadowJar {
-    manifest {
-      inheritFrom(project.tasks.thinJar.manifest)
-    }
 	archiveClassifier = 'aws'
     from("${project('src:frontend').projectDir}/build") {
         into("public")
@@ -67,7 +63,6 @@ shadowJar {
 		mergeStrategy = "append"
 	}
 }
-shadowJar.mustRunAfter thinJar
 
 publishing {
     // https://imperceptiblethoughts.com/shadow/publishing/#publishing-with-maven-publish-plugin
