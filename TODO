@@ -1,6 +1,8 @@
 * Add unit tests.
   - latest react-testing-library needs newer jest (which now have)
 
+* More upgrades.
+
 * Convert class components to function components.
 
 * Try out redux-toolkit.

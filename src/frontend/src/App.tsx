@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import { Authorities } from './Authorities';
 import { Table } from './Table';
 
