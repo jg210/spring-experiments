@@ -3,8 +3,6 @@
   - https://github.com/reactjs/react.dev/pull/5487#issuecomment-1409720741
   - https://github.com/facebook/create-react-app/issues/13072
 
-* eslintrc probably needs react-app/jest
-
 * Add unit tests.
   - latest react-testing-library needs newer jest
     => need to replace react-scripts
