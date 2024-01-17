@@ -1,3 +1,7 @@
+* Try out redux-toolkit.
+
+* Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
+
 * Cache npm files on github actions.
 
 * Enable branch protection rule for master.
