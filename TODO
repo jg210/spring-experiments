@@ -1,3 +1,14 @@
+* react-scripts isn't supported any more.
+  - e.g. won't work with typescript 5.x
+  - https://github.com/reactjs/react.dev/pull/5487#issuecomment-1409720741
+  - https://github.com/facebook/create-react-app/issues/13072
+
+* Add unit tests.
+  - latest react-testing-library needs newer jest
+    => need to replace react-scripts
+
+* Convert class components to function components.
+
 * Try out redux-toolkit.
 
 * Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
@@ -9,11 +20,6 @@
 * No cancellation of requests in fetchLocalAuthoritiesJson().
 
 * Split gradle checks into multiple github actions steps?
-
-* react-scripts isn't supported any more.
-  - e.g. won't work with typescript 5.x
-  - https://github.com/reactjs/react.dev/pull/5487#issuecomment-1409720741
-  - https://github.com/facebook/create-react-app/issues/13072
 
 * Should be able to use shadowJar in place of bootJar
   - shadowJar is lacking most manifest attributes so isn't executable.
