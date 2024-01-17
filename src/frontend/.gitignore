@@ -13,3 +13,5 @@ coverage
 # react
 build
 
+# vite
+/dist
