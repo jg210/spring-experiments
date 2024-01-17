@@ -43,7 +43,7 @@ View the application using:
 
 http://localhost:3000/
 
-When run in development mode, requests to port 3000 that aren't handled by React (i.e. API requests) get forwarded to the Spring Boot server running on port 8080.
+API requests are forwarded to the spring boot server using proxy in vite.config.ts.
 
 ## Release Build Instructions
 
