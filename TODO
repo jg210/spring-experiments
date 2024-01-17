@@ -1,11 +1,5 @@
-* react-scripts isn't supported any more.
-  - e.g. won't work with typescript 5.x
-  - https://github.com/reactjs/react.dev/pull/5487#issuecomment-1409720741
-  - https://github.com/facebook/create-react-app/issues/13072
-
 * Add unit tests.
-  - latest react-testing-library needs newer jest
-    => need to replace react-scripts
+  - latest react-testing-library needs newer jest (which now have)
 
 * Convert class components to function components.
 
