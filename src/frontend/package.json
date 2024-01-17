@@ -8,22 +8,23 @@
     "@types/node": "20.10.4",
     "@types/react": "18.2.45",
     "@types/react-dom": "18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
     "axios": "1.6.2",
     "lodash": "4.17.21",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-scripts": "5.0.1",
-    "typescript": "4.9.5"
-  },
-  "devDependencies": {
+    "typescript": "4.9.5",
+    "vite": "5.0.11",
+    "vite-tsconfig-paths": "4.3.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "start": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "false",
     "eslint": "eslint src/**/*.{ts,tsx,js}",
-    "ci": "npm run eslint && CI=true npm run test -- --coverage",
-    "eject": "react-scripts eject"
+    "ci": "npm run eslint && CI=true npm run test -- --coverage"
   },
   "license": "MIT",
   "browserslist": [
