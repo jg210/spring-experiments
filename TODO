@@ -1,6 +1,10 @@
+* eslint-plugin-react
+
 * Add more unit tests.
 
 * More upgrades.
+
+* eslint-plugin-react-hooks
 
 * Convert class components to function components.
 
