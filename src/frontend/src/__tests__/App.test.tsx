@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import App from '../App';
 
 describe("App", () => {
@@ -7,8 +7,10 @@ describe("App", () => {
     expect(process.versions.node).toEqual("20.10.0");
   });
 
-  it('renders without crashing', () => {
-    render(<App />);
+  it('renders correctly while loading', () => {
+    render(<App/>);
+    const heading = screen.getByRole("heading");
+    expect(heading).toHaveTextContent("FSA Food Hygiene Ratings");
   });
 
 });
