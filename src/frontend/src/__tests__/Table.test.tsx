@@ -5,7 +5,7 @@ describe("Table component", () => {
 
   it("renders nothing if id is null", () => {
       const { container } = render(<Table localAuthorityId={null} />);
-      expect(container.firstChild).toBeNull();
+      expect(container.firstChild).toBeNull(); // eslint-disable-line testing-library/no-node-access
   });
 
 });
