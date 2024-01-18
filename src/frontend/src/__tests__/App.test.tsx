@@ -11,6 +11,9 @@ describe("App", () => {
     render(<App/>);
     const heading = screen.getByRole("heading");
     expect(heading).toHaveTextContent("FSA Food Hygiene Ratings");
+    expect(screen.getByText("https://ratings.food.gov.uk")).toBeInTheDocument();
+    expect(screen.getByText("https://www.food.gov.uk/terms-and-conditions")).toBeInTheDocument();
+    expect(screen.getByText("loading...")).toBeInTheDocument()
   });
 
 });
