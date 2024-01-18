@@ -9,7 +9,9 @@ describe("App", () => {
 
   it('renders correctly while loading', () => {
     render(<App/>);
-    expect(screen.getByRole("heading")).toHaveTextContent("FSA Food Hygiene Ratings");
+    const heading = screen.getByRole("heading");
+    expect(heading).toHaveClass("App-title");
+    expect(heading).toHaveTextContent("FSA Food Hygiene Ratings");
     expect(screen.getByText("The information provided here is based on data from the Food Standards Agency UK Food Hygiene Rating Data API.")).toBeInTheDocument();
     [
       "https://ratings.food.gov.uk",
