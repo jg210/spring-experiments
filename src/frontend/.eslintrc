@@ -3,11 +3,13 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:testing-library/react"
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint",
-    "eslint-plugin-testing-library"
+    "eslint-plugin-testing-library",
+    "eslint-plugin-jest-dom"
   ]
 }
