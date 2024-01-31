@@ -39,7 +39,7 @@ class App extends Component<Props,State> {
 
     handleLocalAuthorityClick = (localAuthorityId: number): void => {
         this.setState({ localAuthorityId });
-    }
+    };
 
 }
 

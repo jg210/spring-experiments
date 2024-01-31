@@ -22,13 +22,13 @@ export class Authorities extends Component<Props,State> {
     render() {
         let dropdown = null;
         if (this.state.localAuthorities === null) {
-            dropdown = <div>loading...</div>
+            dropdown = <div>loading...</div>;
         } else {
             dropdown = <select onClick={this.handleClick} onChange={this.handleClick} data-testid="authorities_select">
                 {this.state.localAuthorities.map((localAuthority: LocalAuthority, i: number) =>
                     <option key={i} value={localAuthority.localAuthorityId} data-testid="authorities_option">{localAuthority.name}</option>
                 )}
-            </select>
+            </select>;
         }
         return (
             <div className="Authority">
@@ -42,7 +42,7 @@ export class Authorities extends Component<Props,State> {
         if (target) {
             this.props.onClick(parseInt(target.value));
         }
-    }
+    };
 
     componentDidMount() {
         fetchLocalAuthoritiesJson()

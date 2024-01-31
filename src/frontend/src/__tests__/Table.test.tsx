@@ -5,7 +5,7 @@ describe("Table component", () => {
 
   it("renders nothing if id is null", () => {
       const { container } = render(<Table localAuthorityId={null} />);
-      expect(container).toBeEmptyDOMElement()
+      expect(container).toBeEmptyDOMElement();
   });
 
 });

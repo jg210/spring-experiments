@@ -1,10 +1,10 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react';
 import App from '../App';
 
 function checkBoilerplate() {
   // banner
   const banner = screen.getByRole("banner");
-  expect(banner).toHaveClass("App-header")
+  expect(banner).toHaveClass("App-header");
   // heading
   const heading = screen.getByRole("heading");
   expect(heading).toHaveClass("App-title");
@@ -31,7 +31,7 @@ describe("App", () => {
   it('renders correctly while loading', () => {
     render(<App/>);
     checkBoilerplate();
-    expect(screen.getByText("loading...")).toBeInTheDocument() // TODO check it's the right component that's showing loading - using e.g. test id.
+    expect(screen.getByText("loading...")).toBeInTheDocument(); // TODO check it's the right component that's showing loading - using e.g. test id.
   });
 
   // it('renders authorities', async () => {
