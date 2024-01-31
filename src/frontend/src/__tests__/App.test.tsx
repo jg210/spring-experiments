@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import App from '../App';
 import { fetchLocalAuthoritiesJson } from '../FSA';
 
@@ -40,13 +40,16 @@ describe("App", () => {
       { name: "one", localAuthorityId: 1 },
       { name: "two", localAuthorityId: 2 }
     ];
-    jest.mocked(fetchLocalAuthoritiesJson).mockResolvedValue(localAuthorities);
+    const mockApi = jest.mocked(fetchLocalAuthoritiesJson);
+    mockApi.mockResolvedValue(localAuthorities);
     render(<App/>);
     checkBoilerplate();
-    checkBoilerplate();
+    await waitFor(() => { expect(mockApi).toHaveBeenCalledTimes(2) }); // TODO called twice.
     const dropdown = screen.getByTestId("authorities_select");
     const options = within(dropdown).getAllByTestId("authorities_option");
-    expect(options).toBe([]);
+    expect(options.length).toBe(localAuthorities.length);
+    // TODO more assertions on options.
+    checkBoilerplate();
   });
 
   // TODO test clicking on authority.
