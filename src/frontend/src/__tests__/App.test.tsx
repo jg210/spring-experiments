@@ -37,8 +37,8 @@ describe("App", () => {
 
   it('renders authorities', async () => {
     const localAuthorities = [
-      { name: "one", localAuthorityId: 1 },
-      { name: "two", localAuthorityId: 2 }
+      { name: "one", localAuthorityId: 243433 },
+      { name: "two", localAuthorityId: 3823423 }
     ];
     const mockApi = jest.mocked(fetchLocalAuthoritiesJson);
     mockApi.mockResolvedValue(localAuthorities);
@@ -46,12 +46,15 @@ describe("App", () => {
     checkBoilerplate();
     await waitFor(() => { expect(mockApi).toHaveBeenCalledTimes(2) }); // TODO called twice.
     const dropdown = screen.getByTestId("authorities_select");
+    expect(dropdown).toHaveValue(localAuthorities[0].localAuthorityId.toString());
     const options = within(dropdown).getAllByTestId("authorities_option");
     expect(options.length).toBe(localAuthorities.length);
-    // TODO more assertions on options.
+    options.forEach((option, i) => {
+      expect(option).toHaveValue(localAuthorities[i].localAuthorityId.toString());
+    });
     checkBoilerplate();
+    // TODO test clicking on authority.
   });
 
-  // TODO test clicking on authority.
 
 });
