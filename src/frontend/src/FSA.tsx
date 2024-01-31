@@ -2,11 +2,11 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 const RATINGS_URL = "/api/fsa";
 
-interface Establishments {
+export interface Establishments {
   ratingCounts: RatingCount[]
 }
 
-interface RatingCount {
+export interface RatingCount {
     rating: string,
     count: number
 }

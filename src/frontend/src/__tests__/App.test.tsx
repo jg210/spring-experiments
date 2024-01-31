@@ -1,6 +1,7 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import App from '../App';
-import { fetchLocalAuthoritiesJson } from '../FSA';
+import { Establishments, LocalAuthority, fetchEstablishmentsJson, fetchLocalAuthoritiesJson } from '../FSA';
 
 function checkBoilerplate() {
   // banner
@@ -36,18 +37,36 @@ describe("App", () => {
   });
 
   it('renders authorities', async () => {
-    const localAuthorities = [
+    
+    const user = userEvent.setup();
+    
+    // Mock the local authorities API
+    const localAuthorities: LocalAuthority[] = [
       { name: "one", localAuthorityId: 243433 },
       { name: "two", localAuthorityId: 3823423 }
     ];
-    const mockApi = jest.mocked(fetchLocalAuthoritiesJson);
-    mockApi.mockResolvedValue(localAuthorities);
+    const fetchLocalAuthoritiesJsonMock = jest.mocked(fetchLocalAuthoritiesJson);
+    fetchLocalAuthoritiesJsonMock.mockResolvedValue(localAuthorities);
+    
+    // Mock the establishements API.
+    const establishmentsJson : Establishments = {
+      ratingCounts: [
+        // { rating: "good", count: 12334234 },
+        // { rating: "bad",  count: 232 }
+      ]
+    };
+    const fetchEstablishementsJsonMock = jest.mocked(fetchEstablishmentsJson);
+    fetchEstablishementsJsonMock.mockResolvedValue(establishmentsJson);
+
     render(<App/>);
+
+    // loading
     checkBoilerplate();
     await waitFor(() => {
-      // Called twice due to StrictMode.
-      expect(mockApi).toHaveBeenCalledTimes(2);
+      expect(fetchLocalAuthoritiesJsonMock).toHaveBeenCalledTimes(2);
     });
+
+    // authorities list loaded.
     const dropdown = screen.getByTestId("authorities_select");
     expect(dropdown).toHaveValue(localAuthorities[0].localAuthorityId.toString());
     const options = within(dropdown).getAllByTestId("authorities_option");
@@ -56,7 +75,17 @@ describe("App", () => {
       expect(option).toHaveValue(localAuthorities[i].localAuthorityId.toString());
     });
     checkBoilerplate();
-    // TODO test clicking on authority.
+    expect(fetchEstablishementsJsonMock).toHaveBeenCalledTimes(0);
+    
+    // Clicking on an authority
+    const toClickOn = 0;
+    await user.click(options[toClickOn]);
+    expect(fetchEstablishementsJsonMock).toHaveBeenCalledTimes(1);
+    expect(fetchEstablishementsJsonMock).toHaveBeenCalledWith(
+      localAuthorities[toClickOn].localAuthorityId,
+      expect.anything() // AbortController
+    );
+
   });
 
 
