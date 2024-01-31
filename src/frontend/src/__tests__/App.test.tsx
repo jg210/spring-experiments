@@ -36,7 +36,7 @@ describe("App", () => {
     expect(screen.getByText("loading...")).toBeInTheDocument(); // TODO check it's the right component that's showing loading - using e.g. test id.
   });
 
-  it('renders authorities', async () => {
+  it('shows rating if click on establishment', async () => {
     
     const user = userEvent.setup();
     
