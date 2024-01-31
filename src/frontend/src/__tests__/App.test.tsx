@@ -60,13 +60,13 @@ describe("App", () => {
 
     render(<App/>);
 
-    // loading
+    // Loading
     checkBoilerplate();
     await waitFor(() => {
       expect(fetchLocalAuthoritiesJsonMock).toHaveBeenCalledTimes(2);
     });
 
-    // authorities list loaded.
+    // Authorities list loaded.
     const dropdown = screen.getByTestId("authorities_select");
     expect(dropdown).toHaveValue(localAuthorities[0].localAuthorityId.toString());
     const options = within(dropdown).getAllByTestId("authorities_option");
