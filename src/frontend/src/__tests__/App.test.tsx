@@ -44,7 +44,10 @@ describe("App", () => {
     mockApi.mockResolvedValue(localAuthorities);
     render(<App/>);
     checkBoilerplate();
-    await waitFor(() => { expect(mockApi).toHaveBeenCalledTimes(2) }); // TODO called twice.
+    await waitFor(() => {
+      // Called twice due to StrictMode.
+      expect(mockApi).toHaveBeenCalledTimes(2);
+    });
     const dropdown = screen.getByTestId("authorities_select");
     expect(dropdown).toHaveValue(localAuthorities[0].localAuthorityId.toString());
     const options = within(dropdown).getAllByTestId("authorities_option");

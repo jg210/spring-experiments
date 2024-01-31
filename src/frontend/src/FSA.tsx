@@ -25,6 +25,8 @@ export interface LocalAuthorities {
     localAuthorities: LocalAuthority[]
 }
 
+// TODO Use AbortController.
+
 // http://api.ratings.food.gov.uk/help
 function fetchFromAPI<T>(url: string, abortController: AbortController | null = null): Promise<T> {
     const config: AxiosRequestConfig = {
