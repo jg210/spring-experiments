@@ -1,5 +1,6 @@
 * Add more unit tests.
-  - https://jestjs.io/docs/es6-class-mocks#replacing-the-mock-using-mockimplementation-or-mockimplementationonce
+  - loading state for local authority result
+  - FSA methods
 
 * More upgrades.
 
