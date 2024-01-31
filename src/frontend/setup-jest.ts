@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
 
 jest.mock("./src/FSA", () => {
-    const neverResolves = () => new Promise( () => {} )
+    const neverResolves = () => new Promise( () => {} );
     return {
-        fetchLocalAuthoritiesJson: neverResolves
+        fetchLocalAuthoritiesJson: jest.fn().mockImplementation(neverResolves)
     };
 });

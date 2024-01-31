@@ -1,5 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import App from '../App';
+import { fetchLocalAuthoritiesJson } from '../FSA';
 
 function checkBoilerplate() {
   // banner
@@ -34,27 +35,19 @@ describe("App", () => {
     expect(screen.getByText("loading...")).toBeInTheDocument(); // TODO check it's the right component that's showing loading - using e.g. test id.
   });
 
-  // it('renders authorities', async () => {
-    // const localAuthorities: LocalAuthorities = {
-    //   localAuthorities: [
-    //     { name: "one", localAuthorityId: 1 },
-    //     { name: "two", localAuthorityId: 2 }
-    //   ]
-    // }
-    // const mockApi = jest.fn().mockResolvedValue(localAuthorities);
-    // jest.mock("../FSA", () => {
-    //   return {
-    //     fetchLocalAuthoritiesJson: mockApi
-    //   };
-    // });
-    // render(<App/>);
-    // checkBoilerplate();
-    // await waitFor(() => { () => expect(mockApi).toHaveBeenCalled()});
-    // checkBoilerplate();
-    // // TODO test fails since still in loading, since mock redefinition not working.
-    //const dropdown = screen.getByTestId("authorities_select");
-    //const options = within(dropdown).getAllByTestId("authorities_option");
-  // });
+  it('renders authorities', async () => {
+    const localAuthorities = [
+      { name: "one", localAuthorityId: 1 },
+      { name: "two", localAuthorityId: 2 }
+    ];
+    jest.mocked(fetchLocalAuthoritiesJson).mockResolvedValue(localAuthorities);
+    render(<App/>);
+    checkBoilerplate();
+    checkBoilerplate();
+    const dropdown = screen.getByTestId("authorities_select");
+    const options = within(dropdown).getAllByTestId("authorities_option");
+    expect(options).toBe([]);
+  });
 
   // TODO test clicking on authority.
 
