@@ -2,11 +2,11 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 const RATINGS_URL = "/api/fsa";
 
-interface Establishments {
+export interface Establishments {
   ratingCounts: RatingCount[]
 }
 
-interface RatingCount {
+export interface RatingCount {
     rating: string,
     count: number
 }
@@ -24,6 +24,8 @@ export interface LocalAuthority {
 export interface LocalAuthorities {
     localAuthorities: LocalAuthority[]
 }
+
+// TODO Use AbortController.
 
 // http://api.ratings.food.gov.uk/help
 function fetchFromAPI<T>(url: string, abortController: AbortController | null = null): Promise<T> {

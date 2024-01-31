@@ -6,7 +6,7 @@ import {
     RatingPercentage
 } from './FSA';
 
-const LOADING_STATE = {
+const LOADING_STATE : State = {
     scores: null
 };
 

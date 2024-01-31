@@ -1,8 +1,11 @@
 import '@testing-library/jest-dom';
 
 jest.mock("./src/FSA", () => {
-    const neverResolves = () => new Promise( () => {} )
+    const originalModule = jest.requireActual('./src/FSA');
+    const neverResolves = () => new Promise( () => {} );
     return {
-        fetchLocalAuthoritiesJson: neverResolves
+        ...originalModule,
+        fetchLocalAuthoritiesJson: jest.fn().mockImplementation(neverResolves),
+        fetchEstablishmentsJson: jest.fn()
     };
 });
