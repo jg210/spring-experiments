@@ -78,7 +78,7 @@ describe("App", () => {
     expect(fetchEstablishementsJsonMock).toHaveBeenCalledTimes(0);
     
     // Clicking on an authority
-    const toClickOn = 0;
+    const toClickOn = 0; // TODO Why does test fail if change this to 1?
     await user.click(options[toClickOn]);
     expect(fetchEstablishementsJsonMock).toHaveBeenCalledTimes(1);
     expect(fetchEstablishementsJsonMock).toHaveBeenCalledWith(
