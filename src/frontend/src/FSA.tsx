@@ -40,7 +40,7 @@ function fetchFromAPI<T>(url: string, abortController: AbortController | null = 
 
 export function fetchLocalAuthoritiesJson(): Promise<LocalAuthority[]> {
     const localAuthorities: Promise<LocalAuthorities> = fetchFromAPI(`${RATINGS_URL}/localAuthority`);
-    return localAuthorities.then((x: LocalAuthorities) => { return x.localAuthorities; });
+    return localAuthorities.then((x: LocalAuthorities) => { return x.localAuthorities });
 }
 
 export function fetchEstablishmentsJson(
@@ -53,7 +53,7 @@ export function fetchEstablishmentsJson(
 export function ratingsPercentages(establishments: Establishments): RatingPercentage[] {
     const ratingCounts: RatingCount[] = establishments.ratingCounts;
     let totalCount = 0;
-    ratingCounts.forEach((ratingCount: RatingCount) => { totalCount += ratingCount.count;});
+    ratingCounts.forEach((ratingCount: RatingCount) => { totalCount += ratingCount.count});
     return ratingCounts.map((ratingCount: RatingCount) => { 
         const rating = ratingCount.rating;
         const percentage = 100 * ratingCount.count / totalCount;
