@@ -22,7 +22,7 @@ export class Authorities extends Component<Props,State> {
     render() {
         let dropdown = null;
         if (this.state.localAuthorities === null) {
-            dropdown = <div>loading...</div>;
+            dropdown = <div data-testid="authorities_loading">loading...</div>;
         } else {
             dropdown = <select onClick={this.handleClick} onChange={this.handleClick} data-testid="authorities_select">
                 {this.state.localAuthorities.map((localAuthority: LocalAuthority, i: number) =>

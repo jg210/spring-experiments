@@ -33,7 +33,7 @@ describe("App", () => {
   it('renders correctly while loading', () => {
     render(<App/>);
     checkBoilerplate();
-    expect(screen.getByText("loading...")).toBeInTheDocument(); // TODO check it's the right component that's showing loading - using e.g. test id.
+    expect(screen.getByTestId("authorities_loading")).toHaveTextContent(/^loading...$/);
   });
 
   it('shows rating if click on establishment', async () => {
