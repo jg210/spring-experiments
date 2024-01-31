@@ -111,6 +111,10 @@ describe("App", () => {
       totalPercentage += parseFloat(percentageCell.textContent!.replace(/%$/, ""));
     });
     expect(totalPercentage).toBeCloseTo(100);
+
+    // There's still boilerplate after clicking on authority.
+    checkBoilerplate();
+
   });
 
 
