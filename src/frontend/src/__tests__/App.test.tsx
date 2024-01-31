@@ -51,8 +51,9 @@ describe("App", () => {
     // Mock the establishements API.
     const establishmentsJson : Establishments = {
       ratingCounts: [
-        // { rating: "good", count: 12334234 },
-        // { rating: "bad",  count: 232 }
+        { rating: "good", count: 12334234 },
+        { rating: "bad",  count: 232 },
+        { rating: "ugly", count: 0 }
       ]
     };
     const fetchEstablishementsJsonMock = jest.mocked(fetchEstablishmentsJson);
@@ -86,6 +87,29 @@ describe("App", () => {
       expect.any(AbortController)
     );
 
+    // A table of ratings is visible
+    const table = screen.getByRole("table");
+    const rowGroups = within(table).getAllByRole("rowgroup");
+    expect(rowGroups.length).toBe(2);
+    const [ tableHeader, tableBody ] = rowGroups;
+    const headerRows = within(tableHeader).getAllByRole("row");
+    expect(headerRows.length).toBe(1);
+    const [ headerRow ] = headerRows;
+    const headerCells = within(headerRow).getAllByRole("columnheader");
+    expect(headerCells.length).toBe(2);
+    expect(headerCells[0]).toHaveTextContent("Rating");
+    expect(headerCells[1]).toHaveTextContent("Percentage");
+    const bodyRows = within(tableBody).getAllByRole("row");
+    expect(bodyRows.length).toEqual(establishmentsJson.ratingCounts.length);
+    let totalPercentage = 0;
+    bodyRows.forEach((bodyRow, i) => {
+      const bodyRowCells = within(bodyRow).getAllByRole("cell");
+      expect(bodyRowCells.length).toBe(2);
+      const [ ratingCell, percentageCell ] = bodyRowCells;
+      expect(ratingCell).toHaveTextContent(establishmentsJson.ratingCounts[i].rating);
+      totalPercentage += parseFloat(percentageCell.textContent!.replace(/%$/, ""));
+    });
+    expect(totalPercentage).toBeCloseTo(100);
   });
 
 
