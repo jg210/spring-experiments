@@ -83,7 +83,7 @@ describe("App", () => {
     expect(fetchEstablishementsJsonMock).toHaveBeenCalledTimes(1);
     expect(fetchEstablishementsJsonMock).toHaveBeenCalledWith(
       localAuthorities[toClickOn].localAuthorityId,
-      expect.anything() // AbortController
+      expect.any(AbortController)
     );
 
   });
