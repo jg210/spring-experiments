@@ -57,6 +57,6 @@ export function ratingsPercentages(establishments: Establishments): RatingPercen
     return ratingCounts.map((ratingCount: RatingCount) => { 
         const rating = ratingCount.rating;
         const percentage = 100 * ratingCount.count / totalCount;
-        return { rating, percentage }
+        return { rating, percentage };
     });
 }

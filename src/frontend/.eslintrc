@@ -2,10 +2,29 @@
   "root": true,
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jest-dom/recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:testing-library/react"
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": [
-    "@typescript-eslint"
-  ]
+    "@typescript-eslint",
+    "eslint-plugin-jest-dom",
+    "eslint-plugin-react",
+    "eslint-plugin-testing-library"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "semi": [ 2, "always", {
+        "omitLastInOneLineBlock": true
+      }
+    ]
+  }
+
 }

@@ -72,6 +72,8 @@ code spring-experiments.code-workspace
 
 * Restart VSC after installing its plugins, otherwise debugging using Chrome doesn't work.
 
+* Make sure VS code is using the project's TypeScript version (from package.json).
+
 * Install Google Chrome (for debugging with VSC).
 
 * Install React Developer Tools in Chrome.

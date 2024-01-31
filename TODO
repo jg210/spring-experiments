@@ -1,6 +1,9 @@
 * Add more unit tests.
+  - https://jestjs.io/docs/es6-class-mocks#replacing-the-mock-using-mockimplementation-or-mockimplementationonce
 
 * More upgrades.
+
+* eslint-plugin-react-hooks
 
 * Convert class components to function components.
 

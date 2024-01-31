@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import {
     ratingsPercentages,
     fetchEstablishmentsJson,
     RatingPercentage
-} from './FSA'
+} from './FSA';
 
 const LOADING_STATE = {
     scores: null
-}
+};
 
 interface Props {
     localAuthorityId: number | null;
@@ -68,7 +68,7 @@ export class Table extends Component<Props,State> {
             return;
         }
         const abortController = new AbortController();
-        this.abortController = abortController
+        this.abortController = abortController;
         fetchEstablishmentsJson(localAuthorityId, this.abortController)
             .then(ratingsPercentages)
             .then((scores: RatingPercentage[]) => {
