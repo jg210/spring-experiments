@@ -107,6 +107,7 @@ describe("App", () => {
       expect(bodyRowCells.length).toBe(2);
       const [ ratingCell, percentageCell ] = bodyRowCells;
       expect(ratingCell).toHaveTextContent(establishmentsJson.ratingCounts[i].rating);
+      expect(percentageCell).toHaveTextContent(/^[0-9]+%$/);
       totalPercentage += parseFloat(percentageCell.textContent!.replace(/%$/, ""));
     });
     expect(totalPercentage).toBeCloseTo(100);
