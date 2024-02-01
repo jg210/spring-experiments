@@ -12,6 +12,7 @@ interface Props {
 export const Authorities  = (props: Props) => {
 
     const [ localAuthorities, setLocalAuthorities ] = useState<LocalAuthority[] | null>(null);
+
     useEffect(() => {
         fetchLocalAuthoritiesJson()
         .then((localAuthorities: LocalAuthority[]) => setLocalAuthorities(localAuthorities));
@@ -25,16 +26,14 @@ export const Authorities  = (props: Props) => {
         }
     };
 
-    let dropdown = null;
-    if (localAuthorities === null) {
-        dropdown = <div data-testid="authorities_loading">loading...</div>;
-    } else {
-        dropdown = <select onClick={handleClick} onChange={handleClick} data-testid="authorities_select">
+    const dropdown = (localAuthorities === null) ?
+        <div data-testid="authorities_loading">loading...</div> :
+        <select onClick={handleClick} onChange={handleClick} data-testid="authorities_select">
             {localAuthorities.map((localAuthority: LocalAuthority, i: number) =>
                 <option key={i} value={localAuthority.localAuthorityId} data-testid="authorities_option">{localAuthority.name}</option>
             )}
         </select>;
-    }
+
     return (
         <div className="Authority">
             {dropdown}
