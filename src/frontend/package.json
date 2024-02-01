@@ -43,7 +43,7 @@
     "preview": "vite preview",
     "test": "jest",
     "eslint": "eslint src/**/*.{ts,tsx,js,cjs} jest.config.js vite.config.ts babel.config.cjs",
-    "ci": "npm run eslint && CI=true npm run test -- --coverage"
+    "ci": "npm run eslint && tsc && CI=true npm run test -- --coverage"
   },
   "license": "MIT",
   "browserslist": [
