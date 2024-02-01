@@ -32,7 +32,7 @@ export class Table extends Component<Props,State> {
         }
         if (this.state.scores === null) {
             return (
-                <div>loading...</div>
+                <div data-testid="table_loading">loading...</div>
             );
         }
         return (
