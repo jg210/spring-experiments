@@ -1,11 +1,18 @@
 import { Table } from "../Table";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 describe("Table component", () => {
 
   it("renders nothing if id is null", () => {
       const { container } = render(<Table localAuthorityId={null} />);
       expect(container).toBeEmptyDOMElement();
+  });
+
+  it("shows loading...", () => {
+    const localAuthorityId = 342748;
+    render(<Table localAuthorityId={localAuthorityId} />);
+    const loadingElement = screen.getByTestId("table_loading");
+    expect(loadingElement).toHaveTextContent("loading...");
   });
 
 });

@@ -6,6 +6,6 @@ jest.mock("./src/FSA", () => {
     return {
         ...originalModule,
         fetchLocalAuthoritiesJson: jest.fn().mockImplementation(neverResolves),
-        fetchEstablishmentsJson: jest.fn()
+        fetchEstablishmentsJson: jest.fn().mockImplementation(neverResolves)
     };
 });
