@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
     ratingsPercentages,
@@ -14,31 +14,27 @@ interface Props {
 export const Table = ({ localAuthorityId }: Props) => {
 
     const [ scores, setScores ] = useState<RatingPercentage[] | null>(null);
-    const abortControllerRef = useRef<AbortController | null>(null);
 
     useEffect(() => {
-        if (abortControllerRef.current !== null) {
-            abortControllerRef.current.abort();
-        }
+        const abortController = new AbortController();
         setScores(null);
         if (localAuthorityId === null) {
             return;
         }
-        const abortController = new AbortController();
-        abortControllerRef.current = abortController;
         fetchEstablishmentsJson(localAuthorityId, abortController)
             .then(ratingsPercentages)
             .then((scores: RatingPercentage[]) => {
                 setScores(scores);
-                abortControllerRef.current = null;
             })
             .catch(e => {
                 if (!abortController.signal.aborted) {
                     throw e;
                 }
             });
+        return () => {
+            abortController.abort();
+        };
     }, [localAuthorityId]);
-
 
     if (localAuthorityId === null) {
         return null;
