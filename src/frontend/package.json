@@ -41,7 +41,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "jest",
-    "eslint": "eslint src/**/*.{ts,tsx,js}",
+    "eslint": "eslint src/**/*.{ts,tsx,js,cjs}",
     "ci": "npm run eslint && CI=true npm run test -- --coverage"
   },
   "license": "MIT",
