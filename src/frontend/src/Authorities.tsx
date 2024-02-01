@@ -15,6 +15,7 @@ export const Authorities  = (props: Props) => {
     useEffect(() => {
         fetchLocalAuthoritiesJson()
         .then((localAuthorities: LocalAuthority[]) => setLocalAuthorities(localAuthorities));
+        // TODO AbortController
     }, []);
 
     const handleClick = (event: React.FormEvent<HTMLSelectElement>) => {
