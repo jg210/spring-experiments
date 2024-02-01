@@ -25,23 +25,19 @@ export interface LocalAuthorities {
     localAuthorities: LocalAuthority[]
 }
 
-// TODO Use AbortController.
-
 // http://api.ratings.food.gov.uk/help
-function fetchFromAPI<T>(url: string, abortController: AbortController | null = null): Promise<T> {
+function fetchFromAPI<T>(url: string, abortController: AbortController): Promise<T> {
     const config: AxiosRequestConfig = {
         headers: {
             'Accept': 'application/json'
-        }
+        },
+        signal: abortController.signal
     };
-    if (abortController !== null) {
-        config.signal = abortController.signal;
-    }
     return axios.get<T>(url, config).then(response => response.data);
 }
 
-export function fetchLocalAuthoritiesJson(): Promise<LocalAuthority[]> {
-    const localAuthorities: Promise<LocalAuthorities> = fetchFromAPI(`${RATINGS_URL}/localAuthority`);
+export function fetchLocalAuthoritiesJson(abortController: AbortController): Promise<LocalAuthority[]> {
+    const localAuthorities: Promise<LocalAuthorities> = fetchFromAPI(`${RATINGS_URL}/localAuthority`, abortController);
     return localAuthorities.then((x: LocalAuthorities) => { return x.localAuthorities });
 }
 

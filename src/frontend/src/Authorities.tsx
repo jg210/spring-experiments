@@ -14,9 +14,17 @@ export const Authorities  = (props: Props) => {
     const [ localAuthorities, setLocalAuthorities ] = useState<LocalAuthority[] | null>(null);
 
     useEffect(() => {
-        fetchLocalAuthoritiesJson()
-        .then((localAuthorities: LocalAuthority[]) => setLocalAuthorities(localAuthorities));
-        // TODO AbortController
+        const abortController = new AbortController();
+        fetchLocalAuthoritiesJson(abortController)
+            .then((localAuthorities: LocalAuthority[]) => setLocalAuthorities(localAuthorities))
+            .catch((e) => {
+                if (!abortController.signal.aborted) {
+                    throw e;
+                }
+            });
+        return () => {
+            abortController.abort();
+        };
     }, []);
 
     const handleClick = (event: React.FormEvent<HTMLSelectElement>) => {
