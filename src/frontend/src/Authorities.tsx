@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     fetchLocalAuthoritiesJson,
     LocalAuthority
@@ -8,45 +8,36 @@ interface Props {
     onClick: (localAuthorityId: number) => void
 }
 
-interface State {
-    localAuthorities: LocalAuthority[] | null
-}
-
 // Drop down list that populates itself with list of local authorities.
-export class Authorities extends Component<Props,State> {
+export const Authorities  = (props: Props) => {
 
-    state: State = {
-        localAuthorities: null
-    };
+    const [ localAuthorities, setLocalAuthorities ] = useState<LocalAuthority[] | null>(null);
 
-    render() {
-        let dropdown = null;
-        if (this.state.localAuthorities === null) {
-            dropdown = <div data-testid="authorities_loading">loading...</div>;
-        } else {
-            dropdown = <select onClick={this.handleClick} onChange={this.handleClick} data-testid="authorities_select">
-                {this.state.localAuthorities.map((localAuthority: LocalAuthority, i: number) =>
-                    <option key={i} value={localAuthority.localAuthorityId} data-testid="authorities_option">{localAuthority.name}</option>
-                )}
-            </select>;
-        }
-        return (
-            <div className="Authority">
-                {dropdown}
-            </div>
-        );
-    }
+    useEffect(() => {
+        fetchLocalAuthoritiesJson()
+        .then((localAuthorities: LocalAuthority[]) => setLocalAuthorities(localAuthorities));
+        // TODO AbortController
+    }, []);
 
-    handleClick = (event: React.FormEvent<HTMLSelectElement>) => {
+    const handleClick = (event: React.FormEvent<HTMLSelectElement>) => {
         const target = event.currentTarget;
         if (target) {
-            this.props.onClick(parseInt(target.value));
+            props.onClick(parseInt(target.value));
         }
     };
 
-    componentDidMount() {
-        fetchLocalAuthoritiesJson()
-            .then((localAuthorities: LocalAuthority[]) => this.setState({ localAuthorities }));
-    }
+    const dropdown = (localAuthorities === null) ?
+        <div data-testid="authorities_loading">loading...</div> :
+        <select onClick={handleClick} onChange={handleClick} data-testid="authorities_select">
+            {localAuthorities.map((localAuthority: LocalAuthority, i: number) =>
+                <option key={i} value={localAuthority.localAuthorityId} data-testid="authorities_option">{localAuthority.name}</option>
+            )}
+        </select>;
 
-}
+    return (
+        <div className="Authority">
+            {dropdown}
+        </div>
+    );
+
+};

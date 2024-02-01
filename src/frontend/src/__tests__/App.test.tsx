@@ -1,6 +1,6 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../App';
+import { App } from '../App';
 import { Establishments, LocalAuthority, fetchEstablishmentsJson, fetchLocalAuthoritiesJson } from '../FSA';
 
 function checkBoilerplate() {

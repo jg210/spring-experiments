@@ -6,6 +6,7 @@
     "plugin:jest-dom/recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended",
     "plugin:testing-library/react"
   ],
   "parser": "@typescript-eslint/parser",
@@ -13,6 +14,7 @@
     "@typescript-eslint",
     "eslint-plugin-jest-dom",
     "eslint-plugin-react",
+    "eslint-plugin-react-hooks",
     "eslint-plugin-testing-library"
   ],
   "settings": {

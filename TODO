@@ -1,7 +1,3 @@
-* eslint-plugin-react-hooks
-
-* Convert class components to function components.
-
 * Try out redux-toolkit.
 
 * Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
