@@ -41,13 +41,10 @@ jobs:
       run: ./gradlew --scan check
 
     - name: cypress end-to-end tests
-      uses: cypress-io/github-action@v6
-      with:
-        project: src/frontend
-        config: baseUrl=http://localhost:8080
-        install-command: true
-        start: java -jar build/libs/spring-experiments-1.0.jar
-        wait-on: http://localhost:8080
+      run: |
+        java -jar build/libs/spring-experiments-1.0.jar &
+        wait-on http://localhost:8080
+        cypress run --config baseUrl=http://localhost:8080 --project src/frontend
 
     # Publish to S3 for deployment
     - name: publish
