@@ -7,6 +7,8 @@
   - java -cp build/libs/spring-experiments-1.0-aws.jar uk.me.jeremygreen.springexperiments.SpringExperimentsApplication
   - better, faking lambda-style requests somehow
 
+* Add pip constraints file.
+
 * Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
 
 * Cache npm files on github actions.

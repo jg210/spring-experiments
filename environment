@@ -16,3 +16,14 @@ if which nodenv > /dev/null 2> /dev/null ; then
     eval "$(nodenv init -)"
 fi
 PATH="${SOURCE_DIR}/src/frontend/node_modules/.bin:${PATH}"
+
+# python
+if [ -d "${HOME}/.pyenv/bin" ] ; then
+    PATH="${HOME}/.pyenv/bin:${PATH}"
+fi
+eval "$(pyenv init -)"
+if [ -e "${SOURCE_DIR}/.venv/bin/activate" ] ; then
+    VIRTUAL_ENV_DISABLE_PROMPT=true source "${SOURCE_DIR}/.venv/bin/activate"
+else
+    printf "%s\n" "venv activate script missing - README.md explains how to set up your python environment." > /dev/stderr
+fi

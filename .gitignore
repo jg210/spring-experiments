@@ -33,3 +33,6 @@ bin
 
 ### ? ###
 .attach_pid*
+
+### python ###
+/.venv

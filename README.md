@@ -17,6 +17,18 @@ The front end makes requests to an API provided by the Spring Boot server. The s
 
 ## Development Build Instructions
 
+Configure python venv:
+
+```
+sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+eval "$(~/.pyenv/bin/pyenv init -)"
+~/.pyenv/bin/pyenv install
+pyenv exec python -m venv --clear .venv
+. environment
+pip install -r requirements.txt
+```
+
 To build and run the Spring Boot server from the command line:
 
 ```
@@ -83,6 +95,16 @@ code spring-experiments.code-workspace
 * Install Google Chrome (for debugging with VSC).
 
 * Install React Developer Tools in Chrome.
+
+## Debugging lambda function
+
+* https://aws.amazon.com/intellij/
+* `sam` is available via python pip:
+
+```
+. environment
+which sam
+```
 
 ## Cypress
 
