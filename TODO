@@ -1,8 +1,13 @@
-* Cypress tests or similar for jars.
-
 * Node.js 16 actions are deprecated. Please update the following actions to use Node.js 20: actions/checkout@v3, actions/setup-java@v3, gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25. For more information see: https://github.blog/changelog/2023-09-22-github-actions-transitioning-from-node-16-to-node-20/.
 
 * Try out redux-toolkit.
+
+* More cypress tests.
+
+* Run cypress test for shadow jar too.
+  - separate job or making sure stop process reliably
+  - java -cp build/libs/spring-experiments-1.0-aws.jar uk.me.jeremygreen.springexperiments.SpringExperimentsApplication
+  - better, faking lambda-style requests somehow
 
 * Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
 
