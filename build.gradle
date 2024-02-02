@@ -44,7 +44,7 @@ assemble.dependsOn = [bootJar, shadowJar]
 import com.github.jengelman.gradle.plugins.shadow.transformers.*
 shadowJar {
     archiveClassifier = 'aws'
-    from("${project('src:frontend').projectDir}/build") {
+    from("${project('src:frontend').projectDir}/dist") {
         into("public")
     }
     // dependencies {
@@ -99,7 +99,7 @@ if (hasProperty('buildScan')) {
     jar.dependsOn('src:frontend:npm_run_build')
 }
 bootJar {
-    from("${project('src:frontend').projectDir}/build") {
+    from("${project('src:frontend').projectDir}/dist") {
         into("public")
     }
 }
