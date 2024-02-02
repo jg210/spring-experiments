@@ -43,6 +43,8 @@ jobs:
     - name: cypress end-to-end tests
       uses: cypress-io/github-action@v6
       with:
+        project: src/frontend
+        config: baseUrl=http://localhost:8080
         start: java -jar build/libs/spring-experiments-1.0.jar
 
     # Publish to S3 for deployment
