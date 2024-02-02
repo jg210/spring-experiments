@@ -28,10 +28,19 @@ jobs:
 
     - name: assemble
       run: ./gradlew --scan assemble
+
+    # Store as artifacts for debugging.
+    - name: archive jars
+      uses: actions/upload-artifact@v4
+      with:
+        name: jars
+        path: |
+          build/libs/*.jar
     
     - name: check
       run: ./gradlew --scan check
 
+    # Publish to S3 for deployment
     - name: publish
       if: ${{ github.ref == 'refs/heads/master' }}
       run: ./gradlew --scan publish
