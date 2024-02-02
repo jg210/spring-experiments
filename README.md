@@ -7,8 +7,9 @@ The React [front end](src/frontend) uses react state and props. There's no redux
 
 Testing is done using:
 
-* [React Testing Library]( https://testing-library.com/docs/react-testing-library/intro/) etc. for unit/integration tests.
-* [Cypress](https://www.cypress.io/) for end to end tests.
+* [React Testing Library]( https://testing-library.com/docs/react-testing-library/intro/) etc. for front-end unit/integration tests.
+* [MockMvc](https://docs.spring.io/spring-framework/reference/testing/spring-mvc-test-framework.html) for testing server.
+* [Cypress](https://www.cypress.io/) for end-to-end tests.
 
 The front end makes requests to an API provided by the Spring Boot server. The server handles these requests by aggregrating data provided by a [third-party REST API](http://api.ratings.food.gov.uk/help).
 
