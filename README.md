@@ -83,6 +83,16 @@ code spring-experiments.code-workspace
 
 * Install React Developer Tools in Chrome.
 
+## Cypress
+
+To run cypress end-to-end tests against already-running development server:
+
+```
+. environment
+cd src/frontend
+cypress run
+```
+
 ## GitHub Action publishing
 
 Create access key for aws-experiments gha IAM user, then configure the following repository variables (for master branch only):
