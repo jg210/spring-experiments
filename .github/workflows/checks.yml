@@ -43,6 +43,9 @@ jobs:
     - name: cypress end-to-end tests
       run: |
         . environment
+        echo
+        echo $PATH
+        echo
         java -jar build/libs/spring-experiments-1.0.jar &
         wait-on http://localhost:8080
         cypress run --config baseUrl=http://localhost:8080 --project src/frontend
