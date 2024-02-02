@@ -1,3 +1,11 @@
+* Deployed app not working
+  - redux app not present/accessible, but spring is.
+  - bootJar build works locally
+  - https://s3.console.aws.amazon.com/s3/object/aws-experiments?region=eu-west-1&bucketType=general&prefix=artifacts/uk/me/jeremygreen/spring-experiments/1.0/spring-experiments-1.0.jar does not
+  - local jar from assemble task works
+
+* Node.js 16 actions are deprecated. Please update the following actions to use Node.js 20: actions/checkout@v3, actions/setup-java@v3, gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25. For more information see: https://github.blog/changelog/2023-09-22-github-actions-transitioning-from-node-16-to-node-20/.
+
 * Try out redux-toolkit.
 
 * Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
@@ -5,8 +13,6 @@
 * Cache npm files on github actions.
 
 * Enable branch protection rule for master.
-
-* No cancellation of requests in fetchLocalAuthoritiesJson().
 
 * Split gradle checks into multiple github actions steps?
 
