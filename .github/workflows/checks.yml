@@ -40,6 +40,11 @@ jobs:
     - name: check
       run: ./gradlew --scan check
 
+    - name: cypress end-to-end tests
+      uses: cypress-io/github-action@v6
+      with:
+        start: java -jar build/libs/spring-experiments-1.0.jar
+
     # Publish to S3 for deployment
     - name: publish
       if: ${{ github.ref == 'refs/heads/master' }}
