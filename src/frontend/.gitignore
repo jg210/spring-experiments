@@ -10,8 +10,5 @@ npm-debug.log
 # jest
 coverage
 
-# react
-build
-
 # vite
 /dist
