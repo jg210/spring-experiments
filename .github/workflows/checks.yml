@@ -40,6 +40,13 @@ jobs:
     - name: check
       run: ./gradlew --scan check
 
+    - name: cypress end-to-end tests
+      run: |
+        . environment
+        java -jar build/libs/spring-experiments-1.0.jar &
+        wait-on http://localhost:8080
+        cypress run --config baseUrl=http://localhost:8080 --project src/frontend
+
     # Publish to S3 for deployment
     - name: publish
       if: ${{ github.ref == 'refs/heads/master' }}

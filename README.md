@@ -3,7 +3,12 @@ A [Spring Boot](https://spring.io/projects/spring-boot) server with a [React](ht
 * https://aws.jeremygreen.me.uk
 * http://spring-experiments.jeremygreen.me.uk
 
-The React [front end](src/frontend) uses react state and props. There's no redux, RTK, thunk, sagas etc. Type checking is done using [TypeScript](https://www.typescriptlang.org/). [React Testing Library]( https://testing-library.com/docs/react-testing-library/intro/) etc. help with testing.
+The React [front end](src/frontend) uses react state and props. There's no redux, RTK, thunk, sagas etc. Type checking is done using [TypeScript](https://www.typescriptlang.org/).
+
+Testing is done using:
+
+* [React Testing Library]( https://testing-library.com/docs/react-testing-library/intro/) etc. for unit/integration tests.
+* [Cypress](https://www.cypress.io/) for end to end tests.
 
 The front end makes requests to an API provided by the Spring Boot server. The server handles these requests by aggregrating data provided by a [third-party REST API](http://api.ratings.food.gov.uk/help).
 
@@ -77,6 +82,16 @@ code spring-experiments.code-workspace
 * Install Google Chrome (for debugging with VSC).
 
 * Install React Developer Tools in Chrome.
+
+## Cypress
+
+To run cypress end-to-end tests against already-running development server:
+
+```
+. environment
+cd src/frontend
+cypress run
+```
 
 ## GitHub Action publishing
 

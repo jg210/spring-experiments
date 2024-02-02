@@ -28,6 +28,7 @@
     "@types/node": "20.11.5",
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "babel-jest": "29.7.0",
+    "cypress": "13.6.4",
     "eslint": "8.56.0",
     "eslint-plugin-jest-dom": "5.1.0",
     "eslint-plugin-react": "7.33.2",
@@ -35,14 +36,15 @@
     "eslint-plugin-testing-library": "6.2.0",
     "identity-obj-proxy": "3.0.0",
     "jest": "29.7.0",
-    "jest-environment-jsdom": "29.7.0"
+    "jest-environment-jsdom": "29.7.0",
+    "wait-on": "7.2.0"
   },
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "jest",
-    "eslint": "eslint src/**/*.{ts,tsx,js,cjs} jest.config.js vite.config.ts babel.config.cjs",
+    "eslint": "eslint src/**/*.{ts,tsx,js,cjs} cypress/**/*.{ts,tsx,js,cjs} cypress.config.ts jest.config.js vite.config.ts babel.config.cjs",
     "ci": "npm run eslint && tsc && CI=true npm run test -- --coverage"
   },
   "license": "MIT",
