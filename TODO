@@ -17,6 +17,11 @@
     - this explains how to use SAM with gradle build
       - https://aws.amazon.com/blogs/compute/building-serverless-java-applications-with-the-aws-sam-cli/
 
+* On CI:
+
+environment: line 24: pyenv: command not found
+venv activate script missing - README.md explains how to set up your python environment.
+
 * Try out redux-toolkit.
 
 * More cypress tests.
