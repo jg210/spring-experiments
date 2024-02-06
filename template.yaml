@@ -1,3 +1,5 @@
+# This file is only used for debugging the API locally using sam local
+# start-api etc.
 Resources:
   Function:
     Type: AWS::Serverless::Function
