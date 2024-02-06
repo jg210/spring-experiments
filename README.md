@@ -106,7 +106,7 @@ which sam
 ```
 
 * Build -aws shadow jar with gradle.
-* `sam local start-api -t template.yaml`
+* `sam local start-api`
 * https://aws.amazon.com/intellij/ (haven't tried using this).
 
 ## Cypress
