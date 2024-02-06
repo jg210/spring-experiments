@@ -1,3 +1,22 @@
+* Lambda function not working any more.
+  - API works, but not react app
+  - react app in the jar (after fixing path change from vite).
+  - sam local start-api -t template.yaml
+
+2024-02-06 11:07:17 127.0.0.1 - - [06/Feb/2024 11:07:17] "GET / HTTP/1.1" 200 -
+2024-02-06 11:07:17 127.0.0.1 - - [06/Feb/2024 11:07:17] "GET /assets/index-tz9LntmO.js HTTP/1.1" 403 -
+2024-02-06 11:07:17 127.0.0.1 - - [06/Feb/2024 11:07:17] "GET /assets/index-CreAXCMU.css HTTP/1.1" 403 -
+2024-02-06 11:07:17 127.0.0.1 - - [06/Feb/2024 11:07:17] "GET /favicon.ico HTTP/1.1" 403 -
+  - remote failure on AWS gets 404 for /.
+
+* unit tests for lambda
+  - https://github.com/aws/aws-lambda-java-libs/tree/main/aws-lambda-java-tests
+    - doesn't have API gateway support?
+  - https://github.com/brefphp/local-api-gateway
+  - sam local start-api
+    - this explains how to use SAM with gradle build
+      - https://aws.amazon.com/blogs/compute/building-serverless-java-applications-with-the-aws-sam-cli/
+
 * Try out redux-toolkit.
 
 * More cypress tests.
@@ -6,6 +25,8 @@
   - separate job or making sure stop process reliably
   - java -cp build/libs/spring-experiments-1.0-aws.jar uk.me.jeremygreen.springexperiments.SpringExperimentsApplication
   - better, faking lambda-style requests somehow
+
+* Add pip constraints file.
 
 * Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
 

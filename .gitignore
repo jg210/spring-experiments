@@ -33,3 +33,9 @@ bin
 
 ### ? ###
 .attach_pid*
+
+### python ###
+/.venv
+
+### AWS SAM ###
+.aws-sam

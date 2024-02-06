@@ -1,0 +1,28 @@
+# This file is only used for debugging the API locally using sam local
+# start-api etc.
+Resources:
+  Function:
+    Type: AWS::Serverless::Function
+    Metadata:
+      SkipBuild: True
+    Properties:
+      Timeout: 300
+      MemorySize: 128
+      Handler: uk.me.jeremygreen.springexperiments.StreamLambdaHandler
+      CodeUri: /home/jg210/repo/jg210/spring-experiments/build/libs/spring-experiments-1.0-aws.jar
+      Runtime: java17
+      Architectures:
+        - x86_64
+      Events:
+        ApiEventRoot:
+          Type: Api
+          Properties:
+            Path: /
+            Method: get
+        ApiEventWildcard:
+          Type: Api
+          Properties:
+            Path: /{Proxy+}
+            Method: get
+
+      
