@@ -12,10 +12,15 @@ Resources:
       Architectures:
         - x86_64
       Events:
-        ApiEvent:
+        ApiEventRoot:
           Type: Api
           Properties:
             Path: /
+            Method: get
+        ApiEventWildcard:
+          Type: Api
+          Properties:
+            Path: /{Proxy+}
             Method: get
 
       
