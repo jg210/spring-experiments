@@ -98,6 +98,8 @@ code spring-experiments.code-workspace
 
 ## Debugging lambda function
 
+Not too useful since only partially working and different to running on AWS.
+
 * `sam` is available via python pip:
 
 ```
