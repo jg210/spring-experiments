@@ -7,7 +7,7 @@
 2024-02-06 11:07:17 127.0.0.1 - - [06/Feb/2024 11:07:17] "GET /assets/index-tz9LntmO.js HTTP/1.1" 403 -
 2024-02-06 11:07:17 127.0.0.1 - - [06/Feb/2024 11:07:17] "GET /assets/index-CreAXCMU.css HTTP/1.1" 403 -
 2024-02-06 11:07:17 127.0.0.1 - - [06/Feb/2024 11:07:17] "GET /favicon.ico HTTP/1.1" 403 -
-
+  - remote failure on AWS gets 404 for /.
 
 * unit tests for lambda
   - https://github.com/aws/aws-lambda-java-libs/tree/main/aws-lambda-java-tests
