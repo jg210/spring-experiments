@@ -36,3 +36,6 @@ bin
 
 ### python ###
 /.venv
+
+### AWS SAM ###
+.aws-sam

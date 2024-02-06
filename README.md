@@ -98,13 +98,16 @@ code spring-experiments.code-workspace
 
 ## Debugging lambda function
 
-* https://aws.amazon.com/intellij/
 * `sam` is available via python pip:
 
 ```
 . environment
 which sam
 ```
+
+* Build -aws shadow jar with gradle.
+* `sam local start-api -t template.yaml`
+* https://aws.amazon.com/intellij/ (haven't tried using this).
 
 ## Cypress
 
