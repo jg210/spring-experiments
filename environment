@@ -18,11 +18,13 @@ fi
 PATH="${SOURCE_DIR}/src/frontend/node_modules/.bin:${PATH}"
 
 # python
-if [ -d "${HOME}/.pyenv/bin" ] ; then
-    PATH="${HOME}/.pyenv/bin:${PATH}"
-fi
-if which pyenv > /dev/null 2> /dev/null ; then
-    eval "$(pyenv init -)"
+if [ -z "${GITHUB_ACTIONS:-}"] ; then
+    if [ -d "${HOME}/.pyenv/bin" ] ; then
+        PATH="${HOME}/.pyenv/bin:${PATH}"
+    fi
+    if which pyenv > /dev/null 2> /dev/null ; then
+        eval "$(pyenv init -)"
+    fi
 fi
 if [ -e "${SOURCE_DIR}/.venv/bin/activate" ] ; then
     VIRTUAL_ENV_DISABLE_PROMPT=true source "${SOURCE_DIR}/.venv/bin/activate"

@@ -16,7 +16,7 @@ pythonVersonExpected="$(cat "${SOURCE_DIR}/.python-version")"
 if [ -n "${GITHUB_ACTIONS:-}" ] ; then
     # python configured with actions/setup-python
     true
-elif command -v pyenv > /dev/null 2> /dev/null ; then
+elif which pyenv > /dev/null 2> /dev/null ; then
     log "installing python ${pythonVersonExpected}"
     pyenv install "${pythonVersonExpected}" \
 	  --skip-existing \
