@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 2019-2021 Jeremy Green.
+# Copyright (c) 2019-2024 Jeremy Green.
 
 set -o errexit
 set -o nounset

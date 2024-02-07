@@ -1,6 +1,6 @@
 # -*- mode: shell-script -*-
 #
-# Copyright (c) 2019-2023 Jeremy Green.
+# Copyright (c) 2019-2024 Jeremy Green.
 
 SOURCE_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 
