@@ -96,20 +96,21 @@ code spring-experiments.code-workspace
 
 * Install React Developer Tools in Chrome.
 
-## Debugging lambda function
+## Debugging lambda function locally
 
-Not too useful since only partially working and different to running on AWS.
+The lambda function is deployed with terraform not SAM, but SAM can be used to run the lambda function locally.
 
-* `sam` is available via python pip:
+Need to use `--warm-containers EAGER`. Otherwise, concurrent requests from the browser make SAM crash when it tries to clean up files concurrently. Also, it's much faster.
+
+The `sam` executable is installed as a python pip.
+
+To start a local server running the lambda function (using template.yaml):
 
 ```
 . environment
-which sam
+./gradlew shadowJar
+sam local start-api --warm-containers EAGER
 ```
-
-* Build -aws shadow jar with gradle.
-* `sam local start-api`
-* https://aws.amazon.com/intellij/ (haven't tried using this).
 
 ## Cypress
 
