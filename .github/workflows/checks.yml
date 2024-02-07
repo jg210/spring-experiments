@@ -58,7 +58,6 @@ jobs:
     - name: cypress end-to-end tests - sam local start-api
       run: |
         . environment
-        test -f /home/jg210/repo/jg210/spring-experiments/build/libs/spring-experiments-1.0-aws.jar
         sam local start-api --warm-containers EAGER --debug &
         trap "kill $!" EXIT
         wait-on -t 60s http://localhost:3000
