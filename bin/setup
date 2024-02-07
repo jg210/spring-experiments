@@ -42,7 +42,11 @@ if [ "${pythonVersonExpected}" != "${pythonVersonActual}" ] ; then
 fi
 
 # pip
+log "clearing python venv"
 python -m venv --clear .venv
+log "pip install"
 pip install -r requirements.txt
 
 # TODO nodenv
+
+log "done"
