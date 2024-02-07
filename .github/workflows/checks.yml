@@ -52,7 +52,7 @@ jobs:
         . environment
         java -jar build/libs/spring-experiments-1.0.jar &
         pid=$!
-        wait-on http://localhost:8080
+        wait-on -t 60s http://localhost:8080
         TERM=linux cypress run --config baseUrl=http://localhost:8080 --project src/frontend
         kill "${pid}"
 
@@ -61,7 +61,7 @@ jobs:
         . environment
         sam local start-api --warm-containers EAGER &
         pid=$!
-        wait-on http://localhost:3000
+        wait-on -t 60s http://localhost:3000
         TERM=linux cypress run --config baseUrl=http://localhost:3000 --project src/frontend
         kill "${pid}"
 
