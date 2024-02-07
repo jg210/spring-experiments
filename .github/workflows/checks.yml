@@ -65,6 +65,7 @@ jobs:
 
     - name: archive sam local start-api logs
       uses: actions/upload-artifact@v4.3.0
+      if: success() || failure()
       with:
         name: sam_logs.txt
         path: ${{ env.RUNNER_TEMP }}/sam_logs.txt
