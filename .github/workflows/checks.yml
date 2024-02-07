@@ -58,7 +58,9 @@ jobs:
     - name: cypress end-to-end tests - sam local start-api
       run: |
         . environment
-        sam local start-api --warm-containers EAGER --debug > "${RUNNER_TEMP}/sam_logs.txt" 2>&1 &
+        logFile="${RUNNER_TEMP}/sam_logs.txt"
+        echo "starting server, logging to: ${logFile}"
+        sam local start-api --warm-containers EAGER --debug > "${logFile}" 2>&1 &
         trap "kill $!" EXIT
         wait-on -t 60s http://localhost:3000
         TERM=linux cypress run --config baseUrl=http://localhost:3000 --project src/frontend
