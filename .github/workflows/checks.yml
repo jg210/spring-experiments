@@ -59,7 +59,7 @@ jobs:
     - name: cypress end-to-end tests - sam local start-api
       run: |
         . environment
-        sam local start-cli --warm-containers EAGER &
+        sam local start-api --warm-containers EAGER &
         pid=$!
         wait-on http://localhost:3000
         TERM=linux cypress run --config baseUrl=http://localhost:3000 --project src/frontend
