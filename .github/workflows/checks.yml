@@ -51,19 +51,17 @@ jobs:
       run: |
         . environment
         java -jar build/libs/spring-experiments-1.0.jar &
-        pid=$!
+        trap "kill $!" EXIT
         wait-on -t 60s http://localhost:8080
         TERM=linux cypress run --config baseUrl=http://localhost:8080 --project src/frontend
-        kill "${pid}"
 
     - name: cypress end-to-end tests - sam local start-api
       run: |
         . environment
         sam local start-api --warm-containers EAGER --debug &
-        pid=$!
+        trap "kill $!" EXIT
         wait-on -t 60s http://localhost:3000
         TERM=linux cypress run --config baseUrl=http://localhost:3000 --project src/frontend
-        kill "${pid}"
 
     # Publish to S3 for deployment
     - name: publish
