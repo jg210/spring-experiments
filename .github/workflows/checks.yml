@@ -23,8 +23,15 @@ jobs:
       with:
         node-version-file: '.node-version'
 
+    - uses: actions/setup-python@v5.0.0
+      with:
+        cache: 'pip'
+
     - name: setup gradle
       uses: gradle/actions/setup-gradle@v3
+
+    - name: local bin/setup script
+      run: ./bin/setup
 
     - name: assemble
       run: ./gradlew --scan assemble

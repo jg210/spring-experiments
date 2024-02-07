@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+# Copyright (c) 2019-2024 Jeremy Green.
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+
+# shellcheck source=./common.sh
+source "$(dirname "$0")/.common.sh"
+SOURCE_DIR="$(dirname "$0")/.."
+
+# python
+pythonVersonExpected="$(cat "${SOURCE_DIR}/.python-version")"
+if [ -n "${GITHUB_ACTIONS:-}" ] ; then
+    # python configured with actions/setup-python
+    true
+elif which pyenv > /dev/null 2> /dev/null ; then
+    log "installing python ${pythonVersonExpected}"
+    pyenv install "${pythonVersonExpected}" \
+	  --skip-existing \
+	  --verbose
+    PATH="${HOME}/.pyenv/bin:${PATH}"
+    eval "$(pyenv init -)"
+else
+	cat <<EOF
+Install pyenv: https://github.com/pyenv/pyenv#installation
+
+...and re-run this script.
+
+EOF
+	exit 1
+fi
+pythonVersonActual="$(python -V | awk '{ print $2 }')"
+if [ "${pythonVersonExpected}" != "${pythonVersonActual}" ] ; then
+    log "ERROR: need python ${pythonVersonExpected} but have python ${pythonVersonActual}"
+    exit 1
+fi
+
+# pip
+log "clearing python venv"
+python -m venv --clear .venv
+log "pip install"
+pip install -r requirements.txt
+
+# TODO nodenv
+
+log "done"

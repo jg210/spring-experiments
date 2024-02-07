@@ -1,6 +1,6 @@
 # -*- mode: shell-script -*-
 #
-# Copyright (c) 2019-2023 Jeremy Green.
+# Copyright (c) 2019-2024 Jeremy Green.
 
 SOURCE_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 
@@ -18,10 +18,14 @@ fi
 PATH="${SOURCE_DIR}/src/frontend/node_modules/.bin:${PATH}"
 
 # python
-if [ -d "${HOME}/.pyenv/bin" ] ; then
-    PATH="${HOME}/.pyenv/bin:${PATH}"
+if [ -z "${GITHUB_ACTIONS:-}"] ; then
+    if [ -d "${HOME}/.pyenv/bin" ] ; then
+        PATH="${HOME}/.pyenv/bin:${PATH}"
+    fi
+    if which pyenv > /dev/null 2> /dev/null ; then
+        eval "$(pyenv init -)"
+    fi
 fi
-eval "$(pyenv init -)"
 if [ -e "${SOURCE_DIR}/.venv/bin/activate" ] ; then
     VIRTUAL_ENV_DISABLE_PROMPT=true source "${SOURCE_DIR}/.venv/bin/activate"
 else
