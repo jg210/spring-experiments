@@ -70,7 +70,7 @@ jobs:
       if: success() || failure()
       with:
         name: sam_logs.txt
-        path: ${{ env.RUNNER_TEMP }}/sam_logs.txt
+        path: ${{ runner.temp }}/sam_logs.txt
 
     # Publish to S3 for deployment
     - name: publish
