@@ -58,10 +58,16 @@ jobs:
     - name: cypress end-to-end tests - sam local start-api
       run: |
         . environment
-        sam local start-api --warm-containers EAGER --debug &
+        sam local start-api --warm-containers EAGER --debug > "${RUNNER_TEMP}/sam_logs.txt" 2>&1 &
         trap "kill $!" EXIT
         wait-on -t 60s http://localhost:3000
         TERM=linux cypress run --config baseUrl=http://localhost:3000 --project src/frontend
+
+    - name: archive sam local start-api logs
+      uses: actions/upload-artifact@v4.3.0
+      with:
+        name: sam_logs.txt
+        path: ${{ env.RUNNER_TEMP }}/sam_logs.txt
 
     # Publish to S3 for deployment
     - name: publish
