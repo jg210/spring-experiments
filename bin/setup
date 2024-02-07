@@ -25,10 +25,7 @@ elif which pyenv > /dev/null 2> /dev/null ; then
     eval "$(pyenv init -)"
 else
 	cat <<EOF
-You need to:
-
-* Install pyenv: https://github.com/pyenv/pyenv#installation
-* Install python-build as an pyenv plugin: https://github.com/pyenv/python-build#installation
+Install pyenv: https://github.com/pyenv/pyenv#installation
 
 ...and re-run this script.
 
