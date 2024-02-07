@@ -9,7 +9,7 @@ Resources:
       Timeout: 300
       MemorySize: 128
       Handler: uk.me.jeremygreen.springexperiments.StreamLambdaHandler
-      CodeUri: /home/jg210/repo/jg210/spring-experiments/build/libs/spring-experiments-1.0-aws.jar
+      CodeUri: build/libs/spring-experiments-1.0-aws.jar
       Runtime: java17
       Architectures:
         - x86_64
@@ -18,7 +18,7 @@ Resources:
           Type: Api
           Properties:
             Path: /
-            Method: get
+            Method: ANY
         ApiEventWildcard:
           Type: Api
           Properties:

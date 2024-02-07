@@ -47,12 +47,30 @@ jobs:
     - name: check
       run: ./gradlew --scan check
 
-    - name: cypress end-to-end tests
+    - name: cypress end-to-end tests - spring boot jar
       run: |
         . environment
         java -jar build/libs/spring-experiments-1.0.jar &
-        wait-on http://localhost:8080
+        trap "kill $!" EXIT
+        wait-on -t 60s http://localhost:8080
         TERM=linux cypress run --config baseUrl=http://localhost:8080 --project src/frontend
+
+    - name: cypress end-to-end tests - sam local start-api
+      run: |
+        . environment
+        logFile="${RUNNER_TEMP}/sam_logs.txt"
+        echo "starting server, logging to: ${logFile}"
+        sam local start-api --warm-containers EAGER --debug > "${logFile}" 2>&1 &
+        trap "kill $!" EXIT
+        wait-on -t 60s http://localhost:3000
+        TERM=linux cypress run --config baseUrl=http://localhost:3000 --project src/frontend
+
+    - name: archive sam local start-api logs
+      uses: actions/upload-artifact@v4.3.0
+      if: success() || failure()
+      with:
+        name: sam_logs.txt
+        path: ${{ runner.temp }}/sam_logs.txt
 
     # Publish to S3 for deployment
     - name: publish

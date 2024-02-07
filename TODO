@@ -1,11 +1,3 @@
-* unit tests for lambda
-  - https://github.com/aws/aws-lambda-java-libs/tree/main/aws-lambda-java-tests
-    - doesn't have API gateway support?
-  - https://github.com/brefphp/local-api-gateway
-  - sam local start-api
-    - this explains how to use SAM with gradle build
-      - https://aws.amazon.com/blogs/compute/building-serverless-java-applications-with-the-aws-sam-cli/
-
 * Try out redux-toolkit.
 
 * More cypress tests.
@@ -43,6 +35,11 @@
 * More method/class javadoc.
 
 * Test FsaService json parsing using file:/// URLs.
+
+* Unit tests for lambda (in addition to cypress end-to-end tests).
+  - https://github.com/aws/aws-lambda-java-libs/tree/main/aws-lambda-java-tests
+    - doesn't have API gateway support?
+  - https://github.com/brefphp/local-api-gateway
 
 * Add VSC launch configs for npm install and npm start.
   - add npm start config to spring-experiments.code-workspace compound launch config.
