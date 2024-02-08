@@ -79,7 +79,6 @@ describe("App", () => {
     const fetchEstablishementsJsonMock = vi.mocked(fetchEstablishmentsJson);
     fetchEstablishementsJsonMock.mockResolvedValue(establishmentsJson);
 
-
     render(<RenderWithStore><App/></RenderWithStore>);
 
     // Loading
