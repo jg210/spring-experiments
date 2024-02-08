@@ -101,7 +101,7 @@
 
 * Localization.
 
-* jest snapshot tests.
+* snapshot tests.
 
 * Actuator logging?
   - https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html

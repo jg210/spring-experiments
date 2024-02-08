@@ -45,7 +45,7 @@ describe("App", () => {
       { name: "one", localAuthorityId: 243433 },
       { name: "two", localAuthorityId: 3823423 }
     ];
-    const fetchLocalAuthoritiesJsonMock = jest.mocked(fetchLocalAuthoritiesJson);
+    const fetchLocalAuthoritiesJsonMock = vi.mocked(fetchLocalAuthoritiesJson);
     fetchLocalAuthoritiesJsonMock.mockResolvedValue(localAuthorities);
     
     // Mock the establishements API.
@@ -56,7 +56,7 @@ describe("App", () => {
         { rating: "ugly", count: 0 }
       ]
     };
-    const fetchEstablishementsJsonMock = jest.mocked(fetchEstablishmentsJson);
+    const fetchEstablishementsJsonMock = vi.mocked(fetchEstablishmentsJson);
     fetchEstablishementsJsonMock.mockResolvedValue(establishmentsJson);
 
     render(<App/>);
