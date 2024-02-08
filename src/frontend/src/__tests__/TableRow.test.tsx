@@ -11,7 +11,7 @@ describe("TableRow component", () => {
             rating: "Supercalifragilisticexpialidocious",
             percentage: 23.123
         };
-        render(
+        const { container } = render(
             <table>
                 <tbody>
                     <TableRow ratingPercentage={ratingPercentage}/>
@@ -26,5 +26,6 @@ describe("TableRow component", () => {
         expect(percentageCell).toHaveTextContent(matchWholeString('23%'));
         const barGraph = within(percentageCell).getByTestId("barGraph");
         expect(barGraph).toHaveStyle({ width: `${ratingPercentage.percentage}%`});
+        expect(container).toMatchSnapshot();
     });
 });
