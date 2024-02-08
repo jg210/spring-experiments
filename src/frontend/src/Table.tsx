@@ -49,8 +49,8 @@ export const Table = ({ localAuthorityId }: TableProps) => {
         <table className="Table">
             <thead>
                 <tr>
-                    <th>Rating</th>
-                    <th>Percentage</th>
+                    <th className="tableCell">Rating</th>
+                    <th className="tableCell">Percentage</th>
                 </tr>
             </thead>
             <tbody>
