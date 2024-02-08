@@ -1,11 +1,12 @@
 import '@testing-library/jest-dom/vitest';
+import { vi } from 'vitest';
 
-jest.mock("./src/FSA", () => {
-    const originalModule = jest.requireActual('./src/FSA');
+vi.mock("./src/FSA", async () => {
+    const originalModule = await vi.importActual('./src/FSA');
     const neverResolves = () => new Promise( () => {} );
     return {
         ...originalModule,
-        fetchLocalAuthoritiesJson: jest.fn().mockImplementation(neverResolves),
-        fetchEstablishmentsJson: jest.fn().mockImplementation(neverResolves)
+        fetchLocalAuthoritiesJson: vi.fn().mockImplementation(neverResolves),
+        fetchEstablishmentsJson: vi.fn().mockImplementation(neverResolves)
     };
 });

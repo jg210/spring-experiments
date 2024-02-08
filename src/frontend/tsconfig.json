@@ -8,7 +8,7 @@
     ],
     "types": [
       "vite/client",
-      "jest",
+      "vitest/globals",
       "node"
     ],
     "allowJs": true,

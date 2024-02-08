@@ -7,7 +7,7 @@
 node_modules
 npm-debug.log
 
-# jest
+# vitest
 coverage
 
 # vite
