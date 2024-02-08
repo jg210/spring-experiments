@@ -122,7 +122,7 @@ code spring-experiments.code-workspace
 
 The lambda function is deployed with terraform not SAM, but SAM can be used to run the lambda function locally.
 
-Need to use `--warm-containers EAGER`. Otherwise, concurrent requests from the browser make SAM crash when it tries to clean up files concurrently. Also, it's much faster.
+Need to use `--warm-containers EAGER`. Otherwise, concurrent requests from the browser make SAM [crash](https://github.com/aws/aws-sam-cli/issues/6663) when it tries to clean up files concurrently. Also, it's much faster.
 
 The `sam` executable is installed as a python pip.
 
