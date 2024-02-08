@@ -6,6 +6,11 @@ export default {
     '\\.(css|less)$': 'identity-obj-proxy',
   },
   setupFilesAfterEnv: [
+    "@testing-library/jest-dom",
     "<rootDir>/setup-jest.ts"
-  ]
+  ],
+  testEnvironmentOptions: {
+    // https://github.com/mswjs/msw/issues/1786
+    customExportConditions: [''],
+  }
 };

@@ -1,3 +1,4 @@
+import 'whatwg-fetch';
 import '@testing-library/jest-dom';
 
 jest.mock("./src/FSA", () => {
@@ -5,7 +6,6 @@ jest.mock("./src/FSA", () => {
     const neverResolves = () => new Promise( () => {} );
     return {
         ...originalModule,
-        fetchLocalAuthoritiesJson: jest.fn().mockImplementation(neverResolves),
         fetchEstablishmentsJson: jest.fn().mockImplementation(neverResolves)
     };
 });

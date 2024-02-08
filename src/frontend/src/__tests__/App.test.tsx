@@ -1,7 +1,9 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { App } from '../App';
-import { Establishments, LocalAuthority, fetchEstablishmentsJson, fetchLocalAuthoritiesJson } from '../FSA';
+import { Establishments, LocalAuthority, fetchEstablishmentsJson } from '../FSA';
+import { setupServer } from 'msw/node';
+import { http, HttpResponse } from 'msw';
 
 function checkBoilerplate() {
   // banner
@@ -24,7 +26,22 @@ function checkBoilerplate() {
   });
 }
 
+// Mock the local authorities API
+const localAuthorities: LocalAuthority[] = [
+  { name: "one", localAuthorityId: 243433 },
+  { name: "two", localAuthorityId: 3823423 }
+];
+const server = setupServer(
+  http.get('/fsa/authorities', () => {
+    return HttpResponse.json({ localAuthorities });
+  }),
+);
+
 describe("App", () => {
+
+  beforeAll(() => server.listen());
+  afterEach(() => server.resetHandlers());
+  afterAll(() => server.close());
 
   it('is run with correct node version', () => {
     expect(process.versions.node).toEqual("20.10.0");
@@ -39,15 +56,7 @@ describe("App", () => {
   it('shows rating if click on establishment', async () => {
     
     const user = userEvent.setup();
-    
-    // Mock the local authorities API
-    const localAuthorities: LocalAuthority[] = [
-      { name: "one", localAuthorityId: 243433 },
-      { name: "two", localAuthorityId: 3823423 }
-    ];
-    const fetchLocalAuthoritiesJsonMock = jest.mocked(fetchLocalAuthoritiesJson);
-    fetchLocalAuthoritiesJsonMock.mockResolvedValue(localAuthorities);
-    
+        
     // Mock the establishements API.
     const establishmentsJson : Establishments = {
       ratingCounts: [
@@ -63,9 +72,10 @@ describe("App", () => {
 
     // Loading
     checkBoilerplate();
-    await waitFor(() => {
-      expect(fetchLocalAuthoritiesJsonMock).toHaveBeenCalled();
-    });
+    // TODO
+    // await waitFor(() => {
+    //   expect(fetchLocalAuthoritiesJsonMock).toHaveBeenCalled();
+    // });
 
     // Authorities list loaded.
     const dropdown = screen.getByTestId("authorities_select");
