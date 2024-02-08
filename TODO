@@ -11,8 +11,9 @@
 
 * Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
 
-* Bar chart for percentages.
-  - e.g. by shading a box inside the table cells
+* 0% rows generally have non-zero bar graph size
+  - from rounding
+  - show count in html title tooltip or extra column?
 
 * Cache npm files on github actions.
 

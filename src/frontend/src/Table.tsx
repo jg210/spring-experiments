@@ -5,13 +5,14 @@ import {
     fetchEstablishmentsJson,
     RatingPercentage
 } from './FSA';
+import { TableRow } from './TableRow';
 
-interface Props {
+interface TableProps {
     localAuthorityId: number | null;
 }
 
 // Table showing percentage of establishments with each rating.
-export const Table = ({ localAuthorityId }: Props) => {
+export const Table = ({ localAuthorityId }: TableProps) => {
 
     const [ scores, setScores ] = useState<RatingPercentage[] | null>(null);
 
@@ -48,16 +49,13 @@ export const Table = ({ localAuthorityId }: Props) => {
         <table className="Table">
             <thead>
                 <tr>
-                    <th>Rating</th>
-                    <th>Percentage</th>
+                    <th className="tableCell">Rating</th>
+                    <th className="tableCell">Percentage</th>
                 </tr>
             </thead>
             <tbody>
-                {scores.map((score: RatingPercentage, i) => (
-                    <tr key={i}>
-                        <td>{score.rating}</td>
-                        <td>{Math.round(score.percentage)}%</td>
-                    </tr>
+                {scores.map((ratingPercentage: RatingPercentage, i) => (
+                    <TableRow ratingPercentage={ratingPercentage} key={i}/>
                 ))}
             </tbody>
         </table>

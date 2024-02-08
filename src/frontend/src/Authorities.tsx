@@ -4,12 +4,12 @@ import {
     LocalAuthority
 } from './FSA';
 
-interface Props {
+interface AuthoritiesProps {
     onClick: (localAuthorityId: number) => void
 }
 
 // Drop down list that populates itself with list of local authorities.
-export const Authorities  = (props: Props) => {
+export const Authorities  = (props: AuthoritiesProps) => {
 
     const [ localAuthorities, setLocalAuthorities ] = useState<LocalAuthority[] | null>(null);
 
