@@ -28,7 +28,7 @@ classDiagram
         localAuthorityId
     }
     class TableRow {
-        RatingPercentage score
+        RatingPercentage ratingPercentage
         number key
     }
     App --> "1" Authorities

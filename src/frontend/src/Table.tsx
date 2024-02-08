@@ -11,15 +11,15 @@ interface TableProps {
 }
 
 interface TableRowProps {
-    score: RatingPercentage;
+    ratingPercentage: RatingPercentage;
     key: number
 }
 
-const TableRow = ({ score, key }: TableRowProps) => {
+const TableRow = ({ ratingPercentage, key }: TableRowProps) => {
     return (
         <tr key={key}>
-            <td>{score.rating}</td>
-            <td>{Math.round(score.percentage)}%</td>
+            <td>{ratingPercentage.rating}</td>
+            <td>{Math.round(ratingPercentage.percentage)}%</td>
         </tr>
     );
 };
@@ -67,8 +67,8 @@ export const Table = ({ localAuthorityId }: TableProps) => {
                 </tr>
             </thead>
             <tbody>
-                {scores.map((score: RatingPercentage, key) => (
-                    <TableRow score={score} key={key}/>
+                {scores.map((ratingPercentage: RatingPercentage, key) => (
+                    <TableRow ratingPercentage={ratingPercentage} key={key}/>
                 ))}
             </tbody>
         </table>
