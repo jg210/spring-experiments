@@ -6,12 +6,12 @@ import {
     RatingPercentage
 } from './FSA';
 
-interface Props {
+interface TableProps {
     localAuthorityId: number | null;
 }
 
 // Table showing percentage of establishments with each rating.
-export const Table = ({ localAuthorityId }: Props) => {
+export const Table = ({ localAuthorityId }: TableProps) => {
 
     const [ scores, setScores ] = useState<RatingPercentage[] | null>(null);
 
