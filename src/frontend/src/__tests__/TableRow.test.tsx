@@ -1,7 +1,7 @@
 import { escapeRegExp } from "lodash";
 import { RatingPercentage } from "../FSA";
 import { TableRow } from "../TableRow";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 
 const matchWholeString = (string: string) => new RegExp("^" + escapeRegExp(string) + "$");
 
@@ -24,5 +24,7 @@ describe("TableRow component", () => {
         expect(ratingCell).toHaveTextContent(matchWholeString(ratingPercentage.rating));
         // The value is rounded to nearest whole percentage.
         expect(percentageCell).toHaveTextContent(matchWholeString('23%'));
+        const barGraph = within(percentageCell).getByTestId("barGraph");
+        expect(barGraph).toHaveStyle({ width: `${ratingPercentage.percentage}%`});
     });
 });

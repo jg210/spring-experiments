@@ -9,7 +9,7 @@ export const TableRow = ({ ratingPercentage }: TableRowProps) => {
         <tr>
             <td className="tableCell">{ratingPercentage.rating}</td>
             <td>
-                <div className="barGraph" style={{width: `${ratingPercentage.percentage}%`}}>
+                <div className="barGraph" data-testid="barGraph" style={{width: `${ratingPercentage.percentage}%`}}>
                     <div className="tableCell">{Math.round(ratingPercentage.percentage)}%</div>
                 </div>
             </td>
