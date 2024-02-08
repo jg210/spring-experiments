@@ -11,6 +11,10 @@
 
 * Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
 
+* 0% rows generally have non-zero bar graph size
+  - from rounding
+  - show count in html title tooltip or extra column?
+
 * Cache npm files on github actions.
 
 * Enable branch protection rule for master.
