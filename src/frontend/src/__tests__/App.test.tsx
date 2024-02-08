@@ -56,8 +56,7 @@ describe("App", () => {
   it('shows rating if click on establishment', async () => {
     
     const user = userEvent.setup();
-        
-    // Mock the establishements API.
+
     const establishmentsJson : Establishments = {
       ratingCounts: [
         { rating: "good", count: 12334234 },
@@ -65,7 +64,7 @@ describe("App", () => {
         { rating: "ugly", count: 0 }
       ]
     };
-    const fetchEstablishementsJsonMock = jest.mocked(fetchEstablishmentsJson);
+    const fetchEstablishementsJsonMock = vi.mocked(fetchEstablishmentsJson);
     fetchEstablishementsJsonMock.mockResolvedValue(establishmentsJson);
 
     render(<App/>);
