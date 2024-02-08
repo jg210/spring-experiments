@@ -27,6 +27,6 @@
   },
   "include": [
     "src",
-    "./setup-jest.ts"
+    "./vitest-setup.ts"
   ]
 }
