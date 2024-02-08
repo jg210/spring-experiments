@@ -15,14 +15,25 @@ Testing is done using:
 
 ```mermaid
 classDiagram
-    class Table {
-        localAuthorityId
+    %% Data Model
+    class RatingPercentage {
+       string rating
+       number percentage
     }
+    %% Components
     class Authorities {
          onClick
     }
+    class Table {
+        localAuthorityId
+    }
+    class TableRow {
+        RatingPercentage score
+        number key
+    }
     App --> "1" Authorities
     App --> "1" Table
+    Table --> "*" TableRow
 ```
 The React [front end](src/frontend) uses react state and props. There's no redux, RTK, thunk, sagas etc. Type checking is done using [TypeScript](https://www.typescriptlang.org/).
 

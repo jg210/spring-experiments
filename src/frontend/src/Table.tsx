@@ -10,6 +10,20 @@ interface TableProps {
     localAuthorityId: number | null;
 }
 
+interface TableRowProps {
+    score: RatingPercentage;
+    key: number
+}
+
+const TableRow = ({ score, key }: TableRowProps) => {
+    return (
+        <tr key={key}>
+            <td>{score.rating}</td>
+            <td>{Math.round(score.percentage)}%</td>
+        </tr>
+    );
+};
+
 // Table showing percentage of establishments with each rating.
 export const Table = ({ localAuthorityId }: TableProps) => {
 
@@ -53,11 +67,8 @@ export const Table = ({ localAuthorityId }: TableProps) => {
                 </tr>
             </thead>
             <tbody>
-                {scores.map((score: RatingPercentage, i) => (
-                    <tr key={i}>
-                        <td>{score.rating}</td>
-                        <td>{Math.round(score.percentage)}%</td>
-                    </tr>
+                {scores.map((score: RatingPercentage, key) => (
+                    <TableRow score={score} key={key}/>
                 ))}
             </tbody>
         </table>
