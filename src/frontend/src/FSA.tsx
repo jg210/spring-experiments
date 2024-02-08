@@ -1,5 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
 const RATINGS_URL = "/api/fsa";
 
 export interface Establishments {
@@ -36,11 +38,6 @@ function fetchFromAPI<T>(url: string, abortController: AbortController): Promise
     return axios.get<T>(url, config).then(response => response.data);
 }
 
-export function fetchLocalAuthoritiesJson(abortController: AbortController): Promise<LocalAuthority[]> {
-    const localAuthorities: Promise<LocalAuthorities> = fetchFromAPI(`${RATINGS_URL}/localAuthority`, abortController);
-    return localAuthorities.then((x: LocalAuthorities) => { return x.localAuthorities });
-}
-
 export function fetchEstablishmentsJson(
     localAuthorityId: number,
     abortController: AbortController): Promise<Establishments> {
@@ -58,3 +55,17 @@ export function ratingsPercentages(establishments: Establishments): RatingPercen
         return { rating, percentage };
     });
 }
+
+
+export const fsaApi = createApi({
+  reducerPath: 'fsaApi',
+  baseQuery: fetchBaseQuery({ baseUrl: RATINGS_URL }),
+  endpoints: (builder) => ({
+    getLocalAuthorities: builder.query<LocalAuthority[], void>({
+      query: () => `localAuthority`,
+      transformResponse: (response: LocalAuthorities) => response.localAuthorities
+    }),
+  }),
+});
+
+export const { useGetLocalAuthoritiesQuery } = fsaApi;
