@@ -11,9 +11,6 @@
 
 * Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
 
-* Bar chart for percentages.
-  - e.g. by shading a box inside the table cells
-
 * Cache npm files on github actions.
 
 * Enable branch protection rule for master.

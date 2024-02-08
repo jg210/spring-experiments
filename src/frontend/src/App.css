@@ -23,17 +23,22 @@
   border-collapse: collapse;
 }
 
-.Table td {
-  text-align: left;
-  padding-left: 1em;
-  padding-right: 1em;
-}
-
 .Table table, th, td {
   border: 1px solid black;
 }
 
 .Table th {
+  text-align: left;
   padding-left: 1em;
   padding-right: 1em;
+}
+
+.tableCell {
+  text-align: left;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.barGraph {
+  background-color: bisque;
 }

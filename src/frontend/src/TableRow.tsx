@@ -7,8 +7,12 @@ interface TableRowProps {
 export const TableRow = ({ ratingPercentage }: TableRowProps) => {
     return (
         <tr>
-            <td>{ratingPercentage.rating}</td>
-            <td>{Math.round(ratingPercentage.percentage)}%</td>
+            <td className="tableCell">{ratingPercentage.rating}</td>
+            <td>
+                <div className="barGraph" style={{width: `${ratingPercentage.percentage}%`}}>
+                    <div className="tableCell">{Math.round(ratingPercentage.percentage)}%</div>
+                </div>
+            </td>
         </tr>
     );
 };
