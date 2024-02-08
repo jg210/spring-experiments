@@ -4,6 +4,9 @@ import { App } from '../App';
 import { Establishments, LocalAuthority, fetchEstablishmentsJson } from '../FSA';
 import { setupServer } from 'msw/node';
 import { http, HttpResponse } from 'msw';
+import { createStore } from '../store';
+import { Provider } from 'react-redux';
+import React from 'react';
 
 function checkBoilerplate() {
   // banner
@@ -37,6 +40,15 @@ const server = setupServer(
   }),
 );
 
+interface RenderWithStoreProps {}
+
+const RenderWithStore = (props: React.PropsWithChildren<RenderWithStoreProps>) => {
+  const store = createStore();
+  return <Provider store={store}>
+      {props.children}
+    </Provider>;
+};
+
 describe("App", () => {
 
   beforeAll(() => server.listen());
@@ -48,7 +60,7 @@ describe("App", () => {
   });
 
   it('renders correctly while loading', () => {
-    render(<App/>);
+    render(<RenderWithStore><App/></RenderWithStore>);
     checkBoilerplate();
     expect(screen.getByTestId("authorities_loading")).toHaveTextContent(/^loading...$/);
   });
@@ -67,7 +79,8 @@ describe("App", () => {
     const fetchEstablishementsJsonMock = vi.mocked(fetchEstablishmentsJson);
     fetchEstablishementsJsonMock.mockResolvedValue(establishmentsJson);
 
-    render(<App/>);
+
+    render(<RenderWithStore><App/></RenderWithStore>);
 
     // Loading
     checkBoilerplate();

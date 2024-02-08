@@ -1,6 +1,7 @@
 * Try out redux-toolkit.
   X use RTK query for Authorities
   - fix unit test
+  - use App.test.tsx RenderWithStore in Authorities.test.tsx too.
   - what is RTK query storing in redux?
   - use RTK query for Table
   - use redux for App's localAuthorityId
