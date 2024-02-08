@@ -11,7 +11,13 @@ describe("TableRow component", () => {
             rating: "Supercalifragilisticexpialidocious",
             percentage: 23.123
         };
-        render(<TableRow ratingPercentage={ratingPercentage}/>);
+        render(
+            <table>
+                <tbody>
+                    <TableRow ratingPercentage={ratingPercentage}/>
+                </tbody>
+            </table>
+        );
         const cells = screen.getAllByRole("cell");
         expect(cells.length).toBe(2);
         const [ ratingCell, percentageCell ] = cells;
