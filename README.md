@@ -29,7 +29,6 @@ classDiagram
     }
     class TableRow {
         RatingPercentage ratingPercentage
-        number key
     }
     App --> "1" Authorities
     App --> "1" Table
