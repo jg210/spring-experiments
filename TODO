@@ -1,10 +1,8 @@
 * Try out redux-toolkit.
-  X use RTK query for Authorities
-  - TestingLibraryElementError: Unable to find an element by: [data-testid="authorities_select"]
-  - need to clear RTK query cache between test cases?
-  - use App.test.tsx RenderWithStore in Authorities.test.tsx too.
-  - what is RTK query storing in redux?
   - use RTK query for Table
+  - need to clear RTK query cache between test cases?
+  - what is RTK query storing in redux?
+  - use App.test.tsx RenderWithStore in Authorities.test.tsx too.
   - use redux for App's localAuthorityId
 
 * vitest failures don't appear in VSC.
