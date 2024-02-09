@@ -1,5 +1,4 @@
 * Try out redux-toolkit query.
-  - why is App.test.tsx failing?
   - https://redux-toolkit.js.org/rtk-query/api/createApi#refetchonmountorargchange
   - https://mswjs.io/docs/best-practices/typescript#request-handlers
 
