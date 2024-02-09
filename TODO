@@ -1,5 +1,15 @@
 * Try out redux-toolkit query.
-  - https://redux-toolkit.js.org/rtk-query/api/createApi#refetchonmountorargchange
+  - cache duration
+    - https://redux-toolkit.js.org/rtk-query/api/createApi#refetchonmountorargchange
+    - numeric refetchOnMountOrArgChange doesn't work
+    - setting true does turn off caching
+    - can set when use hook or for whole API
+      - former is probably better
+        - different endpoints need different times generally
+	- only use end points
+  - unit test caching of data
+    - subscribe (and unsubscribe) to api response events)
+  - unit test cache expiry
   - https://mswjs.io/docs/best-practices/typescript#request-handlers
 
 * Use redux for App's localAuthorityId
