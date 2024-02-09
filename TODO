@@ -1,7 +1,5 @@
 * Try out redux-toolkit query.
   - why is App.test.tsx failing?
-  - need to clear RTK query cache between test cases?
-    - https://stackoverflow.com/questions/67999073/how-to-clear-rtk-query-cache-in-tests-between-requests-when-using-msw-and-jest
   - https://redux-toolkit.js.org/rtk-query/api/createApi#refetchonmountorargchange
   - https://mswjs.io/docs/best-practices/typescript#request-handlers
 
