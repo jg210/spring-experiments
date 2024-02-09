@@ -1,8 +1,13 @@
-* Try out redux-toolkit.
+* Try out redux-toolkit query.
+  - why is App.test.tsx failing?
   - need to clear RTK query cache between test cases?
-  - what is RTK query storing in redux?
+  - https://redux-toolkit.js.org/rtk-query/api/createApi#refetchonmountorargchange
   - https://mswjs.io/docs/best-practices/typescript#request-handlers
-  - use redux for App's localAuthorityId
+
+* Use redux for App's localAuthorityId
+
+* https://redux-toolkit.js.org/rtk-query/usage/polling
+  - maybe with UI for configuring interval?
 
 * vitest failures don't appear in VSC.
 
