@@ -27,6 +27,7 @@ export interface LocalAuthorities {
     localAuthorities: LocalAuthority[]
 }
 
+// Convert counts to percentages.
 export function ratingsPercentages(establishments: Establishments): RatingPercentage[] {
     const ratingCounts: RatingCount[] = establishments.ratingCounts;
     let totalCount = 0;
@@ -37,7 +38,6 @@ export function ratingsPercentages(establishments: Establishments): RatingPercen
         return { rating, percentage };
     });
 }
-
 
 // http://api.ratings.food.gov.uk/help
 export const fsaApi = createApi({
