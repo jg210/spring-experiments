@@ -83,13 +83,10 @@ describe("App", () => {
 
     // Loading
     checkBoilerplate();
-    // TODO
-    // await waitFor(() => {
-    //   expect(fetchLocalAuthoritiesJsonMock).toHaveBeenCalled();
-    // });
 
     // Authorities list loaded.
-    const dropdown = screen.getByTestId("authorities_select");
+    const dropdown = await screen.findByTestId("authorities_select");
+    //screen.debug(dropdown);
     expect(dropdown).toHaveValue(localAuthorities[0].localAuthorityId.toString());
     const options = within(dropdown).getAllByTestId("authorities_option");
     expect(options.length).toBe(localAuthorities.length);
@@ -137,6 +134,5 @@ describe("App", () => {
     checkBoilerplate();
 
   });
-
 
 });
