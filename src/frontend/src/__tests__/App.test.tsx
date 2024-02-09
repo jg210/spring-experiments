@@ -45,7 +45,19 @@ const server = setupServer(
     return HttpResponse.json({ localAuthorities });
   }),
   http.get(serverURL("localAuthority/:localAuthorityId"), ( { params }) => {
-    expect(params.localAuthorityId).toEqual(localAuthorities[toClickOn].localAuthorityId.toString()); // Failure doesn't cause logging!
+    const { localAuthorityId } = params;
+    if (localAuthorityId !== localAuthorities[toClickOn].localAuthorityId.toString()) {
+      // Throwing exception here fails test since prevents http response, but there's
+      // no logging, which is confusing. Instead, return unexpected response and rely on test
+      // not getting the values it expects. It's not logged either by default, but would be
+      // visible if uncomment MSW event logging below...
+      return new HttpResponse(`wrong localAuthorityId: ${localAuthorityId}`, {
+        status: 404,
+        headers: {
+          'Content-Type': 'text/plain',
+        }
+      });
+    }
     return HttpResponse.json(establishmentsJson);
   })
 );
