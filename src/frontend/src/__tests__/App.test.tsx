@@ -1,12 +1,10 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { App } from '../App';
-import { Establishments, LocalAuthority, RATINGS_URL, fetchEstablishmentsJson } from '../FSA';
+import { Establishments, LocalAuthority } from '../FSA';
 import { setupServer } from 'msw/node';
 import { http, HttpResponse } from 'msw';
-import { createStore } from '../store';
-import { Provider } from 'react-redux';
-import React from 'react';
+import { RenderWithStore, serverURL } from './util';
 
 function checkBoilerplate() {
   // banner
@@ -29,39 +27,34 @@ function checkBoilerplate() {
   });
 }
 
-const serverURL = (path: string) => {
-  let base = RATINGS_URL;
-  // new URL() mangles the base URL if it doesn't end in a slash.
-  if (!base.endsWith("/")) {
-    base = base + "/";
-  }
-  return new URL(path, base).href;
-};
-
-// Mock the local authorities API
+// Mock the API.
 const localAuthorities: LocalAuthority[] = [
   { name: "one", localAuthorityId: 243433 },
   { name: "two", localAuthorityId: 3823423 }
 ];
+const establishmentsJson : Establishments = {
+  ratingCounts: [
+    { rating: "good", count: 12334234 },
+    { rating: "bad",  count: 232 },
+    { rating: "ugly", count: 0 }
+  ]
+};
 const server = setupServer(
   http.get(serverURL("localAuthority"), () => {
     return HttpResponse.json({ localAuthorities });
   }),
+  http.get(serverURL("localAuthority/:localAuthorityId"), ( { params }) => {
+    expect(params.id).toEqual(localAuthorities[0].localAuthorityId);
+    return HttpResponse.json(establishmentsJson);
+  })
 );
 //console.log(JSON.stringify(server.listHandlers(), null, "  "));
 
-interface RenderWithStoreProps {}
-
-const RenderWithStore = (props: React.PropsWithChildren<RenderWithStoreProps>) => {
-  const store = createStore();
-  return <Provider store={store}>
-      {props.children}
-    </Provider>;
-};
-
 describe("App", () => {
 
-  beforeAll(() => server.listen());
+  beforeAll(() => server.listen({
+    onUnhandledRequest: 'error'
+  }));
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
 
@@ -79,16 +72,6 @@ describe("App", () => {
     
     const user = userEvent.setup();
 
-    const establishmentsJson : Establishments = {
-      ratingCounts: [
-        { rating: "good", count: 12334234 },
-        { rating: "bad",  count: 232 },
-        { rating: "ugly", count: 0 }
-      ]
-    };
-    const fetchEstablishementsJsonMock = vi.mocked(fetchEstablishmentsJson);
-    fetchEstablishementsJsonMock.mockResolvedValue(establishmentsJson);
-
     render(<RenderWithStore><App/></RenderWithStore>);
 
     // Loading
@@ -103,19 +86,13 @@ describe("App", () => {
       expect(option).toHaveValue(localAuthorities[i].localAuthorityId.toString());
     });
     checkBoilerplate();
-    expect(fetchEstablishementsJsonMock).toHaveBeenCalledTimes(0);
     
     // Clicking on an authority
     const toClickOn = 0; // TODO Why does test fail if change this to 1?
     await user.click(options[toClickOn]);
-    expect(fetchEstablishementsJsonMock).toHaveBeenCalledTimes(1);
-    expect(fetchEstablishementsJsonMock).toHaveBeenCalledWith(
-      localAuthorities[toClickOn].localAuthorityId,
-      expect.any(AbortController)
-    );
 
     // A table of ratings is visible
-    const table = screen.getByRole("table");
+    const table = await screen.findByRole("table");
     const rowGroups = within(table).getAllByRole("rowgroup");
     expect(rowGroups.length).toBe(2);
     const [ tableHeader, tableBody ] = rowGroups;

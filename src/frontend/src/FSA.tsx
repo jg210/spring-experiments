@@ -1,5 +1,3 @@
-import axios, { AxiosRequestConfig } from 'axios';
-
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 // node.js unit tests can't use relative URLs. Development and production both use
@@ -29,24 +27,6 @@ export interface LocalAuthorities {
     localAuthorities: LocalAuthority[]
 }
 
-// http://api.ratings.food.gov.uk/help
-function fetchFromAPI<T>(url: string, abortController: AbortController): Promise<T> {
-    const config: AxiosRequestConfig = {
-        headers: {
-            'Accept': 'application/json'
-        },
-        signal: abortController.signal
-    };
-    return axios.get<T>(url, config).then(response => response.data);
-}
-
-export function fetchEstablishmentsJson(
-    localAuthorityId: number,
-    abortController: AbortController): Promise<Establishments> {
-    const url = `${RATINGS_URL}/localAuthority/${encodeURIComponent(localAuthorityId.toString())}`;
-    return fetchFromAPI(url, abortController);
-}
-
 export function ratingsPercentages(establishments: Establishments): RatingPercentage[] {
     const ratingCounts: RatingCount[] = establishments.ratingCounts;
     let totalCount = 0;
@@ -59,6 +39,7 @@ export function ratingsPercentages(establishments: Establishments): RatingPercen
 }
 
 
+// http://api.ratings.food.gov.uk/help
 export const fsaApi = createApi({
   reducerPath: 'fsaApi',
   baseQuery: fetchBaseQuery({ baseUrl: RATINGS_URL }),
@@ -67,7 +48,10 @@ export const fsaApi = createApi({
       query: () => `localAuthority`,
       transformResponse: (response: LocalAuthorities) => response.localAuthorities
     }),
+    getEstablishments: builder.query<Establishments,number>({
+      query: (localAuthorityId) => `localAuthority/${encodeURIComponent(localAuthorityId.toString())}`
+    })
   }),
 });
 
-export const { useGetLocalAuthoritiesQuery } = fsaApi;
+export const { useGetLocalAuthoritiesQuery, useGetEstablishmentsQuery } = fsaApi;
