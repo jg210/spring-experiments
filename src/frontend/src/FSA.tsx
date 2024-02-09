@@ -51,7 +51,7 @@ export const fsaApi = createApi({
     getEstablishments: builder.query<Establishments,number>({
       query: (localAuthorityId) => `localAuthority/${encodeURIComponent(localAuthorityId.toString())}`
     })
-  }),
+  })
 });
 
 export const { useGetLocalAuthoritiesQuery, useGetEstablishmentsQuery } = fsaApi;
