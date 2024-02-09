@@ -1,5 +1,6 @@
 * Try out redux-toolkit.
   - use RTK query for Table
+  - remove axios
   - need to clear RTK query cache between test cases?
   - what is RTK query storing in redux?
   - use App.test.tsx RenderWithStore in Authorities.test.tsx too.
