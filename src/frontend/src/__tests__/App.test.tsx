@@ -1,4 +1,4 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { App } from '../App';
 import { Establishments, LocalAuthority } from '../FSA';
@@ -28,6 +28,7 @@ function checkBoilerplate() {
 }
 
 // Mock the API.
+const toClickOn = 0; // TODO Why doesn't test fail if change to 1?
 const localAuthorities: LocalAuthority[] = [
   { name: "one", localAuthorityId: 243433 },
   { name: "two", localAuthorityId: 3823423 }
@@ -44,27 +45,27 @@ const server = setupServer(
     return HttpResponse.json({ localAuthorities });
   }),
   http.get(serverURL("localAuthority/:localAuthorityId"), ( { params }) => {
-    expect(params.id).toEqual(localAuthorities[0].localAuthorityId);
+    expect(params.localAuthorityId).toEqual(localAuthorities[toClickOn].localAuthorityId.toString()); // Failure doesn't cause logging!
     return HttpResponse.json(establishmentsJson);
   })
 );
 //console.log(JSON.stringify(server.listHandlers(), null, "  "));
 // Log https://mswjs.io/docs/api/life-cycle-events
-server.events.on('request:start', ({ request, requestId }) => {
-  console.log('request:start:', requestId, request.method, request.url);
-});
-server.events.on('request:match', ({ request, requestId }) => {
-  console.log("request:match:", requestId, request.method, request.url);
-});
-server.events.on('response:mocked', ({ request, response }) => {
-  console.log(
-    'response:mocked: %s %s %s %s',
-    request.method,
-    request.url,
-    response.status,
-    response.statusText
-  );
-});
+// server.events.on('request:start', ({ request, requestId }) => {
+//   console.log('request:start:', requestId, request.method, request.url);
+// });
+// server.events.on('request:match', ({ request, requestId }) => {
+//   console.log("request:match:", requestId, request.method, request.url);
+// });
+// server.events.on('response:mocked', ({ request, response }) => {
+//   console.log(
+//     'response:mocked: %s %s %s %s',
+//     request.method,
+//     request.url,
+//     response.status,
+//     response.statusText
+//   );
+// });
 
 describe("App", () => {
 
@@ -104,11 +105,9 @@ describe("App", () => {
     checkBoilerplate();
     
     // Clicking on an authority
-    const toClickOn = 0; // TODO Why does test fail if change this to 1?
     await user.click(options[toClickOn]);
 
     // A table of ratings is visible
-    //await waitFor(() => screen.getByRole("table"));
     const table = await screen.findByRole("table");
     const rowGroups = within(table).getAllByRole("rowgroup");
     expect(rowGroups.length).toBe(2);
