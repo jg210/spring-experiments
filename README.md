@@ -34,7 +34,7 @@ classDiagram
     App --> "1" Table
     Table --> "*" TableRow
 ```
-The React [front end](src/frontend) uses react state and props. There's no redux, RTK, thunk, sagas etc. Type checking is done using [TypeScript](https://www.typescriptlang.org/).
+The [front end](src/frontend) uses [React](https://react.dev/). It uses [React Tool Kit Query](https://redux-toolkit.js.org/rtk-query/overview) to connect to the API. Type checking is done using [TypeScript](https://www.typescriptlang.org/).
 
 ## Server
 
