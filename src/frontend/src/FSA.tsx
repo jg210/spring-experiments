@@ -2,7 +2,9 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const RATINGS_URL = "/api/fsa";
+// node.js unit tests can't use relative URLs. Development and production both use
+// relative URL since it's same host that runs server and front end.
+export const RATINGS_URL = process.env.NODE_ENV === "test" ? "http://example.com/api/fsa" : "/api/fsa";
 
 export interface Establishments {
   ratingCounts: RatingCount[]

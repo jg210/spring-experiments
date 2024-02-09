@@ -1,6 +1,14 @@
-import { Establishments, ratingsPercentages } from "../FSA";
+import { Establishments, RATINGS_URL, ratingsPercentages } from "../FSA";
 
 describe("FSA", () => {
+
+    describe("RATING_URL", () => {
+
+        it("isn't relative when running unit tests", () => {
+            expect(RATINGS_URL).toMatch(/^http:/);
+        });
+
+    });
 
     describe("ratingsPercentages", () => {
         it("no ratings", () => {

@@ -7,6 +7,8 @@
   - use RTK query for Table
   - use redux for App's localAuthorityId
 
+* vitest failures don't appear in VSC.
+
 * More cypress tests.
 
 * Run cypress test for shadow jar too.

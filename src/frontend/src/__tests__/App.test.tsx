@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { App } from '../App';
-import { Establishments, LocalAuthority, fetchEstablishmentsJson } from '../FSA';
+import { Establishments, LocalAuthority, RATINGS_URL, fetchEstablishmentsJson } from '../FSA';
 import { setupServer } from 'msw/node';
 import { http, HttpResponse } from 'msw';
 import { createStore } from '../store';
@@ -29,16 +29,26 @@ function checkBoilerplate() {
   });
 }
 
+const serverURL = (path: string) => {
+  let base = RATINGS_URL;
+  // new URL() mangles the base URL if it doesn't end in a slash.
+  if (!base.endsWith("/")) {
+    base = base + "/";
+  }
+  return new URL(path, base).href;
+};
+
 // Mock the local authorities API
 const localAuthorities: LocalAuthority[] = [
   { name: "one", localAuthorityId: 243433 },
   { name: "two", localAuthorityId: 3823423 }
 ];
 const server = setupServer(
-  http.get('/fsa/authorities', () => {
+  http.get(serverURL("localAuthority"), () => {
     return HttpResponse.json({ localAuthorities });
   }),
 );
+//console.log(JSON.stringify(server.listHandlers(), null, "  "));
 
 interface RenderWithStoreProps {}
 
@@ -86,7 +96,6 @@ describe("App", () => {
 
     // Authorities list loaded.
     const dropdown = await screen.findByTestId("authorities_select");
-    //screen.debug(dropdown);
     expect(dropdown).toHaveValue(localAuthorities[0].localAuthorityId.toString());
     const options = within(dropdown).getAllByTestId("authorities_option");
     expect(options.length).toBe(localAuthorities.length);
