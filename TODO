@@ -7,6 +7,8 @@
   - unit test polling
   - https://mswjs.io/docs/best-practices/typescript#request-handlers
 
+* Add current epoch to API and show in UI.
+
 * Use redux for App's localAuthorityId
 
 * https://redux-toolkit.js.org/rtk-query/usage/polling
