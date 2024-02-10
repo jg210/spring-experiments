@@ -11,7 +11,7 @@ interface AuthoritiesProps {
 // Drop down list that populates itself with list of local authorities.
 export const Authorities  = (props: AuthoritiesProps) => {
 
-    const { data } = useGetLocalAuthoritiesQuery(undefined, {
+    const { currentData } = useGetLocalAuthoritiesQuery(undefined, {
         pollingInterval: RATINGS_REFRESH_INTERVAL_SECONDS * 1000,
         refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS
     });
@@ -23,10 +23,10 @@ export const Authorities  = (props: AuthoritiesProps) => {
         }
     };
 
-    const dropdown = (data == undefined) ?
+    const dropdown = (currentData == undefined) ?
         <div data-testid="authorities_loading">loading...</div> :
         <select onClick={handleClick} onChange={handleClick} data-testid="authorities_select">
-            {data.map((localAuthority: LocalAuthority, i: number) =>
+            {currentData.map((localAuthority: LocalAuthority, i: number) =>
                 <option key={i} value={localAuthority.localAuthorityId} data-testid="authorities_option">{localAuthority.name}</option>
             )}
         </select>;

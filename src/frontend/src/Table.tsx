@@ -12,16 +12,16 @@ interface TableProps {
 
 // Table showing percentage of establishments with each rating.
 export const Table = ({ localAuthorityId }: TableProps) => {
-    const { data } = useGetEstablishmentsQuery(localAuthorityId, {
+    const { currentData } = useGetEstablishmentsQuery(localAuthorityId, {
         pollingInterval: RATINGS_REFRESH_INTERVAL_SECONDS * 1000,
         refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS
     });
-    if (data == undefined) {
+    if (currentData == undefined) {
         return (
             <div data-testid="table_loading">loading...</div>
         );
     }
-    const scores = ratingsPercentages(data);
+    const scores = ratingsPercentages(currentData);
     return (
         <table className="Table">
             <thead>
