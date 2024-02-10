@@ -4,6 +4,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // relative URL since it's same host that runs server and front end.
 export const RATINGS_URL = process.env.NODE_ENV === "test" ? "http://example.com/api/fsa" : "/api/fsa";
 
+export const RATINGS_REFRESH_INTERVAL_SECONDS = 15 * 60;
+
 export interface Establishments {
   ratingCounts: RatingCount[]
 }
