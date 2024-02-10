@@ -19,6 +19,9 @@
 
 * vitest failures don't appear in VSC.
 
+* Export OpenAPI spec. from spring boot server and use it in front end
+  - generate RTK Query API
+
 * More cypress tests.
 
 * Run cypress test for shadow jar too.
