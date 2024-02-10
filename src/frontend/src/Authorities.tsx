@@ -1,5 +1,5 @@
 import {
-    LocalAuthority, useGetLocalAuthoritiesQuery
+    LocalAuthority, RATINGS_POLLING_INTERVAL_MS, useGetLocalAuthoritiesQuery
 } from './FSA';
 
 interface AuthoritiesProps {
@@ -9,7 +9,9 @@ interface AuthoritiesProps {
 // Drop down list that populates itself with list of local authorities.
 export const Authorities  = (props: AuthoritiesProps) => {
 
-    const { data } = useGetLocalAuthoritiesQuery();
+    const { data } = useGetLocalAuthoritiesQuery(undefined, {
+        pollingInterval: RATINGS_POLLING_INTERVAL_MS
+    });
 
     const handleClick = (event: React.FormEvent<HTMLSelectElement>) => {
         const target = event.currentTarget;
