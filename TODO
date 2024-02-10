@@ -13,8 +13,7 @@
 
 * Use redux for App's localAuthorityId
 
-* https://redux-toolkit.js.org/rtk-query/usage/polling
-  - maybe with UI for configuring interval?
+* Get rid of narrow white gap around bar graph bars.
 
 * vitest failures don't appear in VSC.
 
