@@ -1,10 +1,12 @@
 * Try out redux-toolkit query.
   - unit test caching of data
     - subscribe (and unsubscribe) to api response events)
+  - unit test cache expiry
+    - might need to reduce below polling interval to make this possible?
+  - unit test polling
   - unit test changing Table localAuthorityId
     - would have found data/currentData bug
     - should go back to loading... state
-  - unit test polling
   - https://mswjs.io/docs/best-practices/typescript#request-handlers
   - add current epoch to API and show in UI.
     - since now have caching
