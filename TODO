@@ -1,15 +1,7 @@
 * Try out redux-toolkit query.
-  - cache duration
-    - https://redux-toolkit.js.org/rtk-query/api/createApi#refetchonmountorargchange
-    - numeric refetchOnMountOrArgChange doesn't work
-    - setting true does turn off caching
-    - can set when use hook or for whole API
-      - former is probably better
-        - different endpoints need different times generally
-	- only use end points
   - unit test caching of data
     - subscribe (and unsubscribe) to api response events)
-  - unit test cache expiry
+  - unit test polling
   - https://mswjs.io/docs/best-practices/typescript#request-handlers
 
 * Use redux for App's localAuthorityId
@@ -24,10 +16,9 @@
 
 * More cypress tests.
 
-* Run cypress test for shadow jar too.
-  - separate job or making sure stop process reliably
-  - java -cp build/libs/spring-experiments-1.0-aws.jar uk.me.jeremygreen.springexperiments.SpringExperimentsApplication
-  - better, faking lambda-style requests somehow
+* Analytics.
+
+* Sentry.
 
 * Add pip constraints file.
 
@@ -72,6 +63,10 @@
 
 * Role better than access key for publishing?
   - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html?icmpid=docs_iam_console#Using_CreateAccessKey
+
+* Polling of APIs could mean that a localAuthorityId disappears.
+  - with much much greater probability than is currently possible.
+  - but still not very likely
 
 * Add favicon.ico.
 
