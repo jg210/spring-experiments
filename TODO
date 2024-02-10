@@ -1,4 +1,11 @@
 * Try out redux-toolkit query.
+  - cache duration
+    - https://redux-toolkit.js.org/rtk-query/api/createApi#refetchonmountorargchange
+    - numeric refetchOnMountOrArgChange doesn't work
+    - setting true does turn off caching
+    - can set when use hook or for whole API
+      - former is probably better
+        - different endpoints need different times generally
 	- only use end points
   - unit test caching of data
     - subscribe (and unsubscribe) to api response events)
