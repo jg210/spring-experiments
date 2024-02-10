@@ -29,6 +29,7 @@
 * Add pip constraints file.
 
 * Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
+  - https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#automatic-retries
   - https://mswjs.io/docs/api/http#once should allow this to be tested?
 
 * 0% rows generally have non-zero bar graph size
