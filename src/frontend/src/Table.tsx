@@ -2,7 +2,7 @@ import {
     ratingsPercentages,
     RatingPercentage,
     useGetEstablishmentsQuery,
-    RATINGS_POLLING_INTERVAL_MS
+    RATINGS_REFRESH_INTERVAL_SECONDS
 } from './FSA';
 import { TableRow } from './TableRow';
 
@@ -13,7 +13,8 @@ interface TableProps {
 // Table showing percentage of establishments with each rating.
 export const Table = ({ localAuthorityId }: TableProps) => {
     const { data } = useGetEstablishmentsQuery(localAuthorityId, {
-        pollingInterval: RATINGS_POLLING_INTERVAL_MS
+        pollingInterval: RATINGS_REFRESH_INTERVAL_SECONDS * 1000,
+        refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS
     });
     if (data == undefined) {
         return (

@@ -1,5 +1,7 @@
 import {
-    LocalAuthority, RATINGS_POLLING_INTERVAL_MS, useGetLocalAuthoritiesQuery
+    LocalAuthority,
+    RATINGS_REFRESH_INTERVAL_SECONDS,
+    useGetLocalAuthoritiesQuery
 } from './FSA';
 
 interface AuthoritiesProps {
@@ -10,7 +12,8 @@ interface AuthoritiesProps {
 export const Authorities  = (props: AuthoritiesProps) => {
 
     const { data } = useGetLocalAuthoritiesQuery(undefined, {
-        pollingInterval: RATINGS_POLLING_INTERVAL_MS
+        pollingInterval: RATINGS_REFRESH_INTERVAL_SECONDS * 1000,
+        refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS
     });
 
     const handleClick = (event: React.FormEvent<HTMLSelectElement>) => {
