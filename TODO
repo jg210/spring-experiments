@@ -6,8 +6,8 @@
     - should go back to loading... state
   - unit test polling
   - https://mswjs.io/docs/best-practices/typescript#request-handlers
-
-* Add current epoch to API and show in UI.
+  - add current epoch to API and show in UI.
+    - since now have caching
 
 * Use redux for App's localAuthorityId
 
