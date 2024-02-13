@@ -1,5 +1,5 @@
 import { render, screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import userEvent, { UserEvent } from '@testing-library/user-event';
 import { App } from '../App';
 import { Establishments, LocalAuthorities, LocalAuthority } from '../FSA';
 import { setupServer } from 'msw/node';
@@ -25,6 +25,41 @@ function checkBoilerplate() {
     const element = screen.getByText(url);
     expect(element).toHaveAttribute("href", url);
   });
+}
+
+async function clickOn(
+  option: HTMLOptionElement,
+  user: UserEvent
+) {
+  await user.click(option);
+
+  // A table of ratings is visible
+  const table = await screen.findByRole("table");
+  const rowGroups = within(table).getAllByRole("rowgroup");
+  expect(rowGroups.length).toBe(2);
+  const [tableHeader, tableBody] = rowGroups;
+  const headerRows = within(tableHeader).getAllByRole("row");
+  expect(headerRows.length).toBe(1);
+  const [headerRow] = headerRows;
+  const headerCells = within(headerRow).getAllByRole("columnheader");
+  expect(headerCells.length).toBe(2);
+  expect(headerCells[0]).toHaveTextContent("Rating");
+  expect(headerCells[1]).toHaveTextContent("Percentage");
+  const bodyRows = within(tableBody).getAllByRole("row");
+  expect(bodyRows.length).toEqual(establishmentsJson.ratingCounts.length);
+  let totalPercentage = 0;
+  bodyRows.forEach((bodyRow, i) => {
+    const bodyRowCells = within(bodyRow).getAllByRole("cell");
+    expect(bodyRowCells.length).toBe(2);
+    const [ratingCell, percentageCell] = bodyRowCells;
+    expect(ratingCell).toHaveTextContent(establishmentsJson.ratingCounts[i].rating);
+    expect(percentageCell).toHaveTextContent(/^[0-9]+%$/);
+    totalPercentage += parseFloat(percentageCell.textContent!.replace(/%$/, ""));
+  });
+  expect(totalPercentage).toBeCloseTo(100);
+
+  // There's still boilerplate after clicking on authority.
+  checkBoilerplate();
 }
 
 // Mock the API.
@@ -119,7 +154,7 @@ describe("App", () => {
     // Authorities list loaded.
     const dropdown = await screen.findByTestId("authorities_select");
     expect(dropdown).toHaveValue(localAuthorities[0].localAuthorityId.toString());
-    const options = within(dropdown).getAllByTestId("authorities_option");
+    const options = within(dropdown).getAllByTestId("authorities_option") as HTMLOptionElement[];
     expect(options.length).toBe(localAuthorities.length);
     options.forEach((option, i) => {
       expect(option).toHaveValue(localAuthorities[i].localAuthorityId.toString());
@@ -127,35 +162,8 @@ describe("App", () => {
     checkBoilerplate();
     
     // Clicking on an authority
-    await user.click(options[toClickOn]);
-
-    // A table of ratings is visible
-    const table = await screen.findByRole("table");
-    const rowGroups = within(table).getAllByRole("rowgroup");
-    expect(rowGroups.length).toBe(2);
-    const [ tableHeader, tableBody ] = rowGroups;
-    const headerRows = within(tableHeader).getAllByRole("row");
-    expect(headerRows.length).toBe(1);
-    const [ headerRow ] = headerRows;
-    const headerCells = within(headerRow).getAllByRole("columnheader");
-    expect(headerCells.length).toBe(2);
-    expect(headerCells[0]).toHaveTextContent("Rating");
-    expect(headerCells[1]).toHaveTextContent("Percentage");
-    const bodyRows = within(tableBody).getAllByRole("row");
-    expect(bodyRows.length).toEqual(establishmentsJson.ratingCounts.length);
-    let totalPercentage = 0;
-    bodyRows.forEach((bodyRow, i) => {
-      const bodyRowCells = within(bodyRow).getAllByRole("cell");
-      expect(bodyRowCells.length).toBe(2);
-      const [ ratingCell, percentageCell ] = bodyRowCells;
-      expect(ratingCell).toHaveTextContent(establishmentsJson.ratingCounts[i].rating);
-      expect(percentageCell).toHaveTextContent(/^[0-9]+%$/);
-      totalPercentage += parseFloat(percentageCell.textContent!.replace(/%$/, ""));
-    });
-    expect(totalPercentage).toBeCloseTo(100);
-
-    // There's still boilerplate after clicking on authority.
-    checkBoilerplate();
+    const option = options[toClickOn];
+    await clickOn(option, user);
 
   });
 
