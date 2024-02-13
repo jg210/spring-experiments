@@ -1,13 +1,26 @@
-import { Establishments, RATINGS_URL, ratingsPercentages } from "../FSA";
+import { Establishments, RATINGS_URL, ratingsPercentages, ratingsUrl } from "../FSA";
 
 describe("FSA", () => {
 
-    describe("RATING_URL", () => {
+    describe("ratingsUrl()", () => {
+        const unmockedProcessEnv = process.env;
+        afterEach(() => {
+            process.env = unmockedProcessEnv;
+        });
+        it("isn't relative when running unit tests", () => {
+            expect(ratingsUrl().startsWith("http://")).toBe(true);
+        });
+        it("is relative when running in production", () => {
+            process.env = { ...process.env };
+            delete process.env.NODE_ENV;
+            expect(ratingsUrl().startsWith("/")).toBe(true);
+        });
+    });
 
+    describe("RATINGS_URL", () => {
         it("isn't relative when running unit tests", () => {
             expect(RATINGS_URL).toMatch(/^http:/);
         });
-
     });
 
     describe("ratingsPercentages", () => {

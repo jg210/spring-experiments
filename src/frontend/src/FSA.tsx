@@ -1,8 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+// For unit testing - since RATINGS_URL is a const.
+export const ratingsUrl = () => process.env.NODE_ENV === "test" ? "http://example.com/api/fsa" : "/api/fsa";
+
 // node.js unit tests can't use relative URLs. Development and production both use
 // relative URL since it's same host that runs server and front end.
-export const RATINGS_URL = process.env.NODE_ENV === "test" ? "http://example.com/api/fsa" : "/api/fsa";
+export const RATINGS_URL = ratingsUrl();
 
 // Configures polling and cache expiry.
 export const RATINGS_REFRESH_INTERVAL_SECONDS = 15 * 60;
