@@ -72,13 +72,6 @@ const localAuthorityIdToName = (localAuthorityId: number) => `localAuthorityId_$
 // A hack, so test can wait for this data to appear. String needs to be different to the localAuthorityIdToName() return values.
 // It ends in _ to make sure don't match e.g. id 12345 with token for 123.
 const localAuthorityIdToToken = (localAuthorityId: number) => `LOCAL_AUTHORITY_ID_TOKEN_${localAuthorityId}_`;
-// const localAuthorityNameToId = (name: string) => {
-//   const match = name.match(/^localAuthorityId_([0-9]+)/)!;  
-//   const id = parseInt(match[1]);
-//   if (localAuthorityIdToName(id) !== name) {
-//     throw new Error(name);
-//   }
-// };
 
 // Mock the API.
 const localAuthorities: LocalAuthority[] = [
