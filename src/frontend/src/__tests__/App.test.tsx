@@ -27,13 +27,13 @@ function checkBoilerplate() {
   });
 }
 
-async function clickOn(
+async function selectLocalAuthority(
   localAuthorityId: number,
   user: UserEvent
 ) {
 
-  const option = screen.getByRole("option", {name: localAuthorityIdToName(localAuthorityId)});
-  await user.click(option);
+  const authoritiesSelect = screen.getByTestId("authorities_select");
+  await user.selectOptions(authoritiesSelect, [localAuthorityId.toString()]);
 
   // Wait for data to appear, using localAuthorityId passed as a fake rating.
   const localAuthorityIdToken = localAuthorityIdToToken(localAuthorityId);
@@ -166,7 +166,9 @@ describe("App", () => {
     checkBoilerplate();
     
     // Clicking on an authority
-    await clickOn(localAuthorities[0].localAuthorityId, user);
+    await selectLocalAuthority(localAuthorities[0].localAuthorityId, user);
+    await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
+    await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
 
   });
 
