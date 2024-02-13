@@ -28,7 +28,7 @@ function checkBoilerplate() {
 }
 
 // Mock the API.
-const toClickOn = 0; // TODO Why doesn't test fail if change to 1?
+const toClickOn = 0; // TODO Why does test fail if change to 1?
 const localAuthorities: LocalAuthority[] = [
   { name: "one", localAuthorityId: 243433 },
   { name: "two", localAuthorityId: 3823423 }
