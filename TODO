@@ -1,4 +1,6 @@
 * Try out redux-toolkit query.
+  - https://mswjs.io/docs/best-practices/typescript#request-handlers
+  - https://redux-toolkit.js.org/usage/usage-with-typescript
   - unit test caching of data
     - subscribe (and unsubscribe) to api response events
   - unit test cache expiry
@@ -7,7 +9,6 @@
   - unit test changing Table localAuthorityId
     - would have found data/currentData bug
     - should go back to loading... state
-  - https://mswjs.io/docs/best-practices/typescript#request-handlers
   - add current epoch to API and show in UI.
     - since now have caching
   - disable redux dev tools in production
