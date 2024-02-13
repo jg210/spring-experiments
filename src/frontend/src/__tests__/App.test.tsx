@@ -40,30 +40,35 @@ const establishmentsJson : Establishments = {
     { rating: "ugly", count: 0 }
   ]
 };
+type LocalAuthorityParams = Record<string,never>;
+type LocalAuthorityRequestBody = Record<string,never>;
+type LocalAuthorityResponseBody = LocalAuthorities;
+type LocalAuthoritiesParams = { localAuthorityId: string };
+type LocalAuthoritiesRequestBody = Record<string,never>;
+type LocalAuthoritiesResponseBody = Establishments | never;
 const server = setupServer(
-  http.get<Record<string,never>, Record<string,never>, LocalAuthorities>(serverURL("localAuthority"), () => {
+  http.get<LocalAuthorityParams, LocalAuthorityRequestBody, LocalAuthorityResponseBody>(serverURL("localAuthority"), () => {
     return HttpResponse.json({ localAuthorities });
   }),
-  http.get<
-    {localAuthorityId: string},
-    Record<string,never>,
-    Establishments | never
-    >(serverURL("localAuthority/:localAuthorityId"), ({ params }) => {
-    const { localAuthorityId } = params;
-    if (localAuthorityId !== localAuthorities[toClickOn].localAuthorityId.toString()) {
-      // Throwing exception here fails test since prevents http response, but there's
-      // no logging, which is confusing. Instead, return unexpected response and rely on test
-      // not getting the values it expects. It's not logged either by default, but would be
-      // visible if uncomment MSW event logging below...
-      return new HttpResponse(`wrong localAuthorityId: ${localAuthorityId}`, {
-        status: 404,
-        headers: {
-          'Content-Type': 'text/plain',
-        }
-      }) as StrictResponse<never>; // https://github.com/mswjs/msw/issues/1792#issuecomment-1785273131
+  http.get<LocalAuthoritiesParams, LocalAuthoritiesRequestBody, LocalAuthoritiesResponseBody>(
+    serverURL("localAuthority/:localAuthorityId"),
+    ({ params }) => {
+      const { localAuthorityId } = params;
+      if (localAuthorityId !== localAuthorities[toClickOn].localAuthorityId.toString()) {
+        // Throwing exception here fails test since prevents http response, but there's
+        // no logging, which is confusing. Instead, return unexpected response and rely on test
+        // not getting the values it expects. It's not logged either by default, but would be
+        // visible if uncomment MSW event logging below...
+        return new HttpResponse(`wrong localAuthorityId: ${localAuthorityId}`, {
+          status: 404,
+          headers: {
+            'Content-Type': 'text/plain',
+          }
+        }) as StrictResponse<never>; // https://github.com/mswjs/msw/issues/1792#issuecomment-1785273131
+      }
+      return HttpResponse.json(establishmentsJson);
     }
-    return HttpResponse.json(establishmentsJson);
-  })
+  )
 );
 //console.log(JSON.stringify(server.listHandlers(), null, "  "));
 // Log https://mswjs.io/docs/api/life-cycle-events
