@@ -10,6 +10,8 @@
   - https://mswjs.io/docs/best-practices/typescript#request-handlers
   - add current epoch to API and show in UI.
     - since now have caching
+  - disable redux dev tools in production
+    - enabled by Redux Tool Kit
 
 * Use redux for App's localAuthorityId
 
