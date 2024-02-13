@@ -1,7 +1,8 @@
 * Try out redux-toolkit query.
   - unit test caching of data
+    X refactor code to allow clicking on different items
+    - mock will need to provide different data in each case
     - work out why toClickOn not working
-    - refactor code to allow clicking on different items
     - can't wait for loading -> data table transition anymore, need to wait for specific id to appear
     - click on same id twice
     - click on one id then another?
@@ -16,6 +17,9 @@
     - since now have caching
   - disable redux dev tools in production
     - enabled by Redux Tool Kit
+
+* Assert correct id selected in list in App.test.tsx.
+  - https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
 
 * Use redux for App's localAuthorityId
   - https://redux-toolkit.js.org/usage/usage-with-typescript

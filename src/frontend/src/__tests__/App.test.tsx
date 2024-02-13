@@ -3,7 +3,7 @@ import userEvent, { UserEvent } from '@testing-library/user-event';
 import { App } from '../App';
 import { Establishments, LocalAuthorities, LocalAuthority } from '../FSA';
 import { setupServer } from 'msw/node';
-import { http, HttpResponse, StrictResponse } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { RenderWithStore, serverURL } from './util';
 
 function checkBoilerplate() {
@@ -28,13 +28,19 @@ function checkBoilerplate() {
 }
 
 async function clickOn(
-  option: HTMLOptionElement,
+  localAuthorityId: number,
   user: UserEvent
 ) {
+
+  const option = screen.getByRole("option", {name: localAuthorityIdToName(localAuthorityId)});
   await user.click(option);
 
+  // Wait for data to appear, using localAuthorityId passed as a fake rating.
+  const localAuthorityIdToken = localAuthorityIdToToken(localAuthorityId);
+  await screen.findByText(localAuthorityIdToken);
+
   // A table of ratings is visible
-  const table = await screen.findByRole("table");
+  const table = screen.getByRole("table");
   const rowGroups = within(table).getAllByRole("rowgroup");
   expect(rowGroups.length).toBe(2);
   const [tableHeader, tableBody] = rowGroups;
@@ -46,13 +52,13 @@ async function clickOn(
   expect(headerCells[0]).toHaveTextContent("Rating");
   expect(headerCells[1]).toHaveTextContent("Percentage");
   const bodyRows = within(tableBody).getAllByRole("row");
-  expect(bodyRows.length).toEqual(establishmentsJson.ratingCounts.length);
+  expect(bodyRows.length).toEqual(establishmentsJson(localAuthorityId).ratingCounts.length);
   let totalPercentage = 0;
   bodyRows.forEach((bodyRow, i) => {
     const bodyRowCells = within(bodyRow).getAllByRole("cell");
     expect(bodyRowCells.length).toBe(2);
     const [ratingCell, percentageCell] = bodyRowCells;
-    expect(ratingCell).toHaveTextContent(establishmentsJson.ratingCounts[i].rating);
+    expect(ratingCell).toHaveTextContent(establishmentsJson(localAuthorityId).ratingCounts[i].rating);
     expect(percentageCell).toHaveTextContent(/^[0-9]+%$/);
     totalPercentage += parseFloat(percentageCell.textContent!.replace(/%$/, ""));
   });
@@ -62,26 +68,43 @@ async function clickOn(
   checkBoilerplate();
 }
 
+const localAuthorityIdToName = (localAuthorityId: number) => `localAuthorityId_${localAuthorityId}`;
+// A hack, so test can wait for this data to appear. String needs to be different to the localAuthorityIdToName() return values.
+// It ends in _ to make sure don't match e.g. id 12345 with token for 123.
+const localAuthorityIdToToken = (localAuthorityId: number) => `LOCAL_AUTHORITY_ID_TOKEN_${localAuthorityId}_`;
+// const localAuthorityNameToId = (name: string) => {
+//   const match = name.match(/^localAuthorityId_([0-9]+)/)!;  
+//   const id = parseInt(match[1]);
+//   if (localAuthorityIdToName(id) !== name) {
+//     throw new Error(name);
+//   }
+// };
+
 // Mock the API.
-const toClickOn = 0; // TODO Why does test fail if change to 1?
 const localAuthorities: LocalAuthority[] = [
-  { name: "one", localAuthorityId: 243433 },
-  { name: "two", localAuthorityId: 3823423 }
-];
-const establishmentsJson : Establishments = {
+  243433,
+  3823423
+].map(localAuthorityId => {
+  return {
+    name: localAuthorityIdToName(localAuthorityId),
+    localAuthorityId
+  };
+});
+const establishmentsJson : (localAuthorityId: number) => Establishments = (localAuthorityId) => ({
   ratingCounts: [
     { rating: "good", count: 12334234 },
     { rating: "bad",  count: 232 },
-    { rating: "ugly", count: 0 }
+    { rating: "ugly", count: 0 },
+    { rating: localAuthorityIdToToken(localAuthorityId), count: 0 }
   ]
-};
+});
 // TODO can any of these types be inferred from RTK Query API?
 type LocalAuthorityParams = Record<string,never>;
 type LocalAuthorityRequestBody = Record<string,never>;
 type LocalAuthorityResponseBody = LocalAuthorities;
 type LocalAuthoritiesParams = { localAuthorityId: string };
 type LocalAuthoritiesRequestBody = Record<string,never>;
-type LocalAuthoritiesResponseBody = Establishments | never;
+type LocalAuthoritiesResponseBody = Establishments;
 const server = setupServer(
   http.get<LocalAuthorityParams, LocalAuthorityRequestBody, LocalAuthorityResponseBody>(serverURL("localAuthority"), () => {
     return HttpResponse.json({ localAuthorities });
@@ -89,20 +112,8 @@ const server = setupServer(
   http.get<LocalAuthoritiesParams, LocalAuthoritiesRequestBody, LocalAuthoritiesResponseBody>(
     serverURL("localAuthority/:localAuthorityId"),
     ({ params }) => {
-      const { localAuthorityId } = params;
-      if (localAuthorityId !== localAuthorities[toClickOn].localAuthorityId.toString()) {
-        // Throwing exception here fails test since prevents http response, but there's
-        // no logging, which is confusing. Instead, return unexpected response and rely on test
-        // not getting the values it expects. It's not logged either by default, but would be
-        // visible if uncomment MSW event logging below...
-        return new HttpResponse(`wrong localAuthorityId: ${localAuthorityId}`, {
-          status: 404,
-          headers: {
-            'Content-Type': 'text/plain',
-          }
-        }) as StrictResponse<never>; // https://github.com/mswjs/msw/issues/1792#issuecomment-1785273131
-      }
-      return HttpResponse.json(establishmentsJson);
+      const localAuthorityId = parseInt(params.localAuthorityId);
+      return HttpResponse.json(establishmentsJson(localAuthorityId));
     }
   )
 );
@@ -162,8 +173,7 @@ describe("App", () => {
     checkBoilerplate();
     
     // Clicking on an authority
-    const option = options[toClickOn];
-    await clickOn(option, user);
+    await clickOn(localAuthorities[0].localAuthorityId, user);
 
   });
 
