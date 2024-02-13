@@ -21,6 +21,7 @@
 
 * Export OpenAPI spec. from spring boot server and use it in front end
   - generate RTK Query API
+  - can MSW mocks be typed automatically too?
 
 * More cypress tests.
 

@@ -40,6 +40,7 @@ const establishmentsJson : Establishments = {
     { rating: "ugly", count: 0 }
   ]
 };
+// TODO can any of these types be inferred from RTK Query API?
 type LocalAuthorityParams = Record<string,never>;
 type LocalAuthorityRequestBody = Record<string,never>;
 type LocalAuthorityResponseBody = LocalAuthorities;
