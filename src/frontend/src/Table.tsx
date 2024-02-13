@@ -12,7 +12,6 @@ interface TableProps {
 
 // Table showing percentage of establishments with each rating.
 export const Table = ({ localAuthorityId }: TableProps) => {
-    console.log(`Table render: ${localAuthorityId}`);
     const { currentData } = useGetEstablishmentsQuery(localAuthorityId, {
         pollingInterval: RATINGS_REFRESH_INTERVAL_SECONDS * 1000,
         refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS
