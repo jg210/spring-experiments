@@ -1,5 +1,4 @@
 * Try out redux-toolkit query.
-  - https://redux-toolkit.js.org/usage/usage-with-typescript
   - unit test caching of data
     - subscribe (and unsubscribe) to api response events
   - unit test cache expiry
@@ -14,6 +13,7 @@
     - enabled by Redux Tool Kit
 
 * Use redux for App's localAuthorityId
+  - https://redux-toolkit.js.org/usage/usage-with-typescript
 
 * Get rid of narrow white gap around bar graph bars.
 
