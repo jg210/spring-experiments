@@ -91,6 +91,8 @@ const establishmentsJson : (localAuthorityId: number) => Establishments = (local
     { rating: localAuthorityIdToToken(localAuthorityId), count: 0 }
   ]
 });
+type ResponseRecord = { request: Request, response: Response };
+const responseRecords : ResponseRecord[] = [];
 // TODO can any of these types be inferred from RTK Query API?
 type LocalAuthorityParams = Record<string,never>;
 type LocalAuthorityRequestBody = Record<string,never>;
@@ -118,22 +120,26 @@ const server = setupServer(
 // server.events.on('request:match', ({ request, requestId }) => {
 //   console.log("request:match:", requestId, request.method, request.url);
 // });
-// server.events.on('response:mocked', ({ request, response }) => {
-//   console.log(
-//     'response:mocked: %s %s %s %s',
-//     request.method,
-//     request.url,
-//     response.status,
-//     response.statusText
-//   );
-// });
+server.events.on('response:mocked', ({ request, response }) => {
+  // console.log(
+  //   'response:mocked: %s %s %s %s',
+  //   request.method,
+  //   request.url,
+  //   response.status,
+  //   response.statusText
+  // );
+  responseRecords.push({ request, response });
+});
 
 describe("App", () => {
 
   beforeAll(() => server.listen({
     onUnhandledRequest: 'error'
   }));
-  afterEach(() => server.resetHandlers());
+  afterEach(() => {
+    server.resetHandlers();
+    responseRecords.length = 0;
+  });
   afterAll(() => server.close());
 
   it('is run with correct node version', () => {
@@ -164,11 +170,33 @@ describe("App", () => {
       expect(option).toHaveValue(localAuthorities[i].localAuthorityId.toString());
     });
     checkBoilerplate();
-    
+
+    const localAuthorityResponseRecords = () => responseRecords.filter(responseRecord => {
+      return new URL(responseRecord.request.url).pathname.startsWith("/localAuthority/");
+    });
+    const localAuthoritiesRequestPromise: () => Promise<void> = () => {
+      const eventName = 'request:start';
+      return new Promise((resolve) => {
+        const callback: (arg0: {request: Request}) => void = ({ request }) => {
+          if (new URL(request.url).pathname.startsWith("/localAuthority/")) {
+            resolve();
+            emitter.removeListener(eventName, callback);
+          }
+        };
+        const emitter = server.events.on(eventName, callback);
+      });
+    };
+
     // Clicking on an authority
+    expect(localAuthorityResponseRecords()).toHaveLength(0);
     await selectLocalAuthority(localAuthorities[0].localAuthorityId, user);
+    await localAuthoritiesRequestPromise();
+    expect(localAuthorityResponseRecords()).toHaveLength(1);
     await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
+    await localAuthoritiesRequestPromise();
+    expect(localAuthorityResponseRecords()).toHaveLength(2);
     await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
+    expect(localAuthorityResponseRecords()).toHaveLength(2);
 
   });
 
