@@ -1,9 +1,9 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { App } from '../App';
-import { Establishments, LocalAuthority } from '../FSA';
+import { Establishments, LocalAuthorities, LocalAuthority } from '../FSA';
 import { setupServer } from 'msw/node';
-import { http, HttpResponse } from 'msw';
+import { http, HttpResponse, StrictResponse } from 'msw';
 import { RenderWithStore, serverURL } from './util';
 
 function checkBoilerplate() {
@@ -41,10 +41,14 @@ const establishmentsJson : Establishments = {
   ]
 };
 const server = setupServer(
-  http.get(serverURL("localAuthority"), () => {
+  http.get<Record<string,never>, Record<string,never>, LocalAuthorities>(serverURL("localAuthority"), () => {
     return HttpResponse.json({ localAuthorities });
   }),
-  http.get(serverURL("localAuthority/:localAuthorityId"), ( { params }) => {
+  http.get<
+    {localAuthorityId: string},
+    Record<string,never>,
+    Establishments | never
+    >(serverURL("localAuthority/:localAuthorityId"), ({ params }) => {
     const { localAuthorityId } = params;
     if (localAuthorityId !== localAuthorities[toClickOn].localAuthorityId.toString()) {
       // Throwing exception here fails test since prevents http response, but there's
@@ -56,7 +60,7 @@ const server = setupServer(
         headers: {
           'Content-Type': 'text/plain',
         }
-      });
+      }) as StrictResponse<never>; // https://github.com/mswjs/msw/issues/1792#issuecomment-1785273131
     }
     return HttpResponse.json(establishmentsJson);
   })

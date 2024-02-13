@@ -1,5 +1,4 @@
 * Try out redux-toolkit query.
-  - https://mswjs.io/docs/best-practices/typescript#request-handlers
   - https://redux-toolkit.js.org/usage/usage-with-typescript
   - unit test caching of data
     - subscribe (and unsubscribe) to api response events
