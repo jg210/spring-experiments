@@ -1,11 +1,7 @@
 * Try out redux-toolkit query.
   - unit test caching of data
-    X refactor code to allow clicking on different items
-    - mock will need to provide different data in each case
-    - work out why toClickOn not working
-    - can't wait for loading -> data table transition anymore, need to wait for specific id to appear
-    - click on same id twice
-    - click on one id then another?
+    - select same id twice
+    - select one id then another
     - subscribe (and unsubscribe) to api response events
   - unit test cache expiry
     - might need to reduce below polling interval to make this possible?
