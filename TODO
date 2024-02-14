@@ -109,6 +109,8 @@
   - check meta.returncode is OK.
   - check meta.totalCount is correct.
 
+* A github action that shows native unit test report in nicer way.
+
 * Always download data using paged APIs.
 
 * Find way to automate npm audit
