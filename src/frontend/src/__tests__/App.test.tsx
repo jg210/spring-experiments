@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent, { UserEvent } from '@testing-library/user-event';
 import { App } from '../App';
-import { BASE_PATHNAME, Establishments, LocalAuthorities, LocalAuthority, RATINGS_REFRESH_INTERVAL_SECONDS } from '../FSA';
+import { BASE_PATHNAME, Establishments, LocalAuthorities, LocalAuthority } from '../FSA';
 import { setupServer } from 'msw/node';
 import { http, HttpResponse } from 'msw';
 import { RenderWithStore, serverURL } from './util';
