@@ -1,9 +1,9 @@
 import { Provider } from "react-redux";
-import { RATINGS_URL } from "../FSA";
+import { BASE_URL } from "../FSA";
 import { createStore } from "../store";
 
 export const serverURL = (path: string) => {
-    let base = RATINGS_URL;
+    let base = BASE_URL;
     // new URL() mangles the base URL if it doesn't end in a slash.
     if (!base.endsWith("/")) {
       base = base + "/";

@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-// For unit testing - since RATINGS_URL is a const.
-export const ratingsUrl = () => process.env.NODE_ENV === "test" ? "http://example.com/api/fsa" : "/api/fsa";
+// For unit testing - since BASE_URL is a const.
+export const baseUrl = () => process.env.NODE_ENV === "test" ? "http://example.com/api/fsa" : "/api/fsa";
 
 // node.js unit tests can't use relative URLs. Development and production both use
 // relative URL since it's same host that runs server and front end.
-export const RATINGS_URL = ratingsUrl();
+export const BASE_URL = baseUrl();
 
 // Configures polling and cache expiry.
 export const RATINGS_REFRESH_INTERVAL_SECONDS = 15 * 60;
@@ -48,7 +48,7 @@ export function ratingsPercentages(establishments: Establishments): RatingPercen
 // http://api.ratings.food.gov.uk/help
 export const fsaApi = createApi({
   reducerPath: 'fsaApi',
-  baseQuery: fetchBaseQuery({ baseUrl: RATINGS_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
     getLocalAuthorities: builder.query<LocalAuthority[], void>({
       query: () => `localAuthority`,
