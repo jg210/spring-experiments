@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent, { UserEvent } from '@testing-library/user-event';
 import { App } from '../App';
-import { BASE_PATHNAME, Establishments, LocalAuthorities, LocalAuthority } from '../FSA';
+import { BASE_PATHNAME, Establishments, LocalAuthorities, LocalAuthority, RATINGS_REFRESH_INTERVAL_SECONDS } from '../FSA';
 import { setupServer } from 'msw/node';
 import { http, HttpResponse } from 'msw';
 import { RenderWithStore, serverURL } from './util';
@@ -138,6 +138,7 @@ describe("App", () => {
   }));
   afterEach(() => {
     server.resetHandlers();
+    vi.restoreAllMocks();
     responseRecords.length = 0;
   });
   afterAll(() => server.close());
@@ -198,6 +199,17 @@ describe("App", () => {
     // Clicking on second item again.
     await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2); // cached by RTK query.
+
+    // Polling
+    vi.useFakeTimers();
+    vi.advanceTimersByTime(RATINGS_REFRESH_INTERVAL_SECONDS * 1.1);
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(3); 
+    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId1.toString());
+
+    // Caching - waiting for polling to happen means cache will have expired for first id too.
+    await selectLocalAuthority(localAuthorityId0, user);
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(1);
+    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId0.toString());
 
   });
 
