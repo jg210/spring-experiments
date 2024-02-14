@@ -8,7 +8,9 @@ export const createStore = () => {
             [fsaApi.reducerPath]: fsaApi.reducer
         },
         middleware: getDefaultMiddleware =>
-            getDefaultMiddleware().concat(fsaApi.middleware)
+            getDefaultMiddleware().concat(fsaApi.middleware),
+        // https://vitejs.dev/guide/env-and-mode#env-variables
+        devTools: import.meta.env.DEV
     });
     setupListeners(store.dispatch);
     return store;

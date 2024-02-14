@@ -1,8 +1,6 @@
 * Try out redux-toolkit query.
   - add current epoch to API and show in UI.
     - since now have caching
-  - disable redux dev tools in production
-    - enabled by Redux Tool Kit
 
 * Assert correct id selected in list in App.test.tsx.
   - https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
