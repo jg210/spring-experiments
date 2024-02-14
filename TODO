@@ -1,8 +1,4 @@
 * Try out redux-toolkit query.
-  - unit test caching of data
-    - select same id twice
-    - select one id then another
-    - subscribe (and unsubscribe) to api response events
   - unit test cache expiry
     - might need to reduce below polling interval to make this possible?
   - unit test polling
