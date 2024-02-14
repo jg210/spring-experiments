@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent, { UserEvent } from '@testing-library/user-event';
 import { App } from '../App';
-import { Establishments, LocalAuthorities, LocalAuthority } from '../FSA';
+import { BASE_PATHNAME, Establishments, LocalAuthorities, LocalAuthority } from '../FSA';
 import { setupServer } from 'msw/node';
 import { http, HttpResponse } from 'msw';
 import { RenderWithStore, serverURL } from './util';
@@ -174,7 +174,7 @@ describe("App", () => {
 
     const establishmentResponseRecords = () => responseRecords.filter(responseRecord => {
       const url = new URL(responseRecord.request.url);
-      const isEstablishmentUrl = url.pathname.startsWith("/api/fsa/localAuthority/");
+      const isEstablishmentUrl = url.pathname.startsWith(`${BASE_PATHNAME}/localAuthority/`);
       return isEstablishmentUrl;
     });
 

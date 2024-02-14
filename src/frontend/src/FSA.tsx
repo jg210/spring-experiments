@@ -1,10 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-// For unit testing - since BASE_URL is a const.
-export const baseUrl = () => process.env.NODE_ENV === "test" ? "http://example.com/api/fsa" : "/api/fsa";
+export const BASE_PATHNAME = "/api/fsa";
 
-// node.js unit tests can't use relative URLs. Development and production both use
-// relative URL since it's same host that runs server and front end.
+// For unit testing - since BASE_URL is a const.
+export const baseUrl = () => {
+  // node.js unit tests can't use relative URLs. Development and production both use
+  // relative URL since it's same host that runs server and front end.
+  const protocolAndHost = process.env.NODE_ENV === "test" ? "http://example.com" : "";
+  return protocolAndHost + BASE_PATHNAME;
+};
+
 export const BASE_URL = baseUrl();
 
 // Configures polling and cache expiry.
