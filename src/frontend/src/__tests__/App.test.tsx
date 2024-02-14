@@ -200,17 +200,6 @@ describe("App", () => {
     await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2); // cached by RTK query.
 
-    // Polling
-    vi.useFakeTimers();
-    vi.advanceTimersByTime(RATINGS_REFRESH_INTERVAL_SECONDS * 1.1);
-    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(3); 
-    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId1.toString());
-
-    // Caching - waiting for polling to happen means cache will have expired for first id too.
-    await selectLocalAuthority(localAuthorityId0, user);
-    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(1);
-    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId0.toString());
-
   });
 
 });

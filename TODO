@@ -1,11 +1,4 @@
 * Try out redux-toolkit query.
-  - unit test cache expiry
-    - might need to reduce below polling interval to make this possible?
-  - unit test polling
-    - https://mswjs.io/docs/recipes/polling/
-  - unit test changing Table localAuthorityId
-    - would have found data/currentData bug
-    - should go back to loading... state
   - add current epoch to API and show in UI.
     - since now have caching
   - disable redux dev tools in production
@@ -107,6 +100,13 @@
     - https://letsencrypt.org/docs/allow-port-80/
 
 * Use https://fb.me/react-error-boundaries to mask back traces.
+
+* unit test cache expiry and polling
+  - might need to reduce below polling interval to make this possible?
+  - https://mswjs.io/docs/recipes/polling/
+  - not clear if MSW etc. work with useFakeTimers() - 8e7785d889323f7cdd464bfac074466d3d487ff3
+
+* unit test changing Table localAuthorityId shows loading... state again 
 
 * Improved failed-connection handling.
 
