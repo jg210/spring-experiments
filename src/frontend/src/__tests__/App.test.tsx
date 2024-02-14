@@ -31,7 +31,6 @@ async function selectLocalAuthority(
   localAuthorityId: number,
   user: UserEvent
 ) {
-
   const authoritiesSelect = screen.getByTestId("authorities_select");
   await user.selectOptions(authoritiesSelect, [localAuthorityId.toString()]);
 
@@ -128,7 +127,7 @@ server.events.on('response:mocked', ({ request, response }) => {
   //   response.status,
   //   response.statusText
   // );
-  responseRecords.push({ request, response });
+  responseRecords.push({ request: request.clone(), response: response.clone() });
 });
 
 describe("App", () => {
@@ -171,32 +170,25 @@ describe("App", () => {
     });
     checkBoilerplate();
 
-    const localAuthorityResponseRecords = () => responseRecords.filter(responseRecord => {
-      return new URL(responseRecord.request.url).pathname.startsWith("/localAuthority/");
-    });
-    const localAuthoritiesRequestPromise: () => Promise<void> = () => {
-      const eventName = 'request:start';
-      return new Promise((resolve) => {
-        const callback: (arg0: {request: Request}) => void = ({ request }) => {
-          if (new URL(request.url).pathname.startsWith("/localAuthority/")) {
-            resolve();
-            emitter.removeListener(eventName, callback);
-          }
-        };
-        const emitter = server.events.on(eventName, callback);
-      });
-    };
-
     // Clicking on an authority
-    expect(localAuthorityResponseRecords()).toHaveLength(0);
+
+    const establishmentResponseRecords = () => responseRecords.filter(responseRecord => {
+      const url = new URL(responseRecord.request.url);
+      const isEstablishmentUrl = url.pathname.startsWith("/api/fsa/localAuthority/");
+      return isEstablishmentUrl;
+    });
+
+    expect(establishmentResponseRecords()).toHaveLength(0);
+
     await selectLocalAuthority(localAuthorities[0].localAuthorityId, user);
-    await localAuthoritiesRequestPromise();
-    expect(localAuthorityResponseRecords()).toHaveLength(1);
+    await new Promise(r => setTimeout(r, 2000));
+    expect(establishmentResponseRecords()).toHaveLength(1);
+
     await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
-    await localAuthoritiesRequestPromise();
-    expect(localAuthorityResponseRecords()).toHaveLength(2);
+    expect(establishmentResponseRecords()).toHaveLength(2);
+
     await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
-    expect(localAuthorityResponseRecords()).toHaveLength(2);
+    expect(establishmentResponseRecords()).toHaveLength(2);
 
   });
 
