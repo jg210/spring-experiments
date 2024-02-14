@@ -16,6 +16,7 @@ export const BASE_URL = baseUrl();
 export const RATINGS_REFRESH_INTERVAL_SECONDS = 15 * 60;
 
 export interface Establishments {
+  epochMillis: number,
   ratingCounts: RatingCount[]
 }
 

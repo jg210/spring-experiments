@@ -36,3 +36,9 @@
 .barGraph {
   background-color: bisque;
 }
+
+.retrieved {
+  margin: 1em;
+  font-size: xx-small;
+  color: lightgray
+}

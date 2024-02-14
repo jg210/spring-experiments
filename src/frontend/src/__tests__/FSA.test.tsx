@@ -24,14 +24,17 @@ describe("FSA", () => {
     });
 
     describe("ratingsPercentages", () => {
+        const epochMillis: number = new Date("February 14, 2024 20:15:00").getTime();
         it("no ratings", () => {
             const establishements: Establishments = {
+                epochMillis,
                 ratingCounts : []
             };
             expect(ratingsPercentages(establishements)).toStrictEqual([]);
         });
         it("one rating", () => {
             const establishements: Establishments = {
+                epochMillis,
                 ratingCounts : [
                     { rating: "good", count: 14234 }
                 ]
@@ -42,6 +45,7 @@ describe("FSA", () => {
         });
         it("one rating but zero count", () => {
             const establishements: Establishments = {
+                epochMillis,
                 ratingCounts : [
                     { rating: "good", count: 0 }
                 ]
@@ -52,6 +56,7 @@ describe("FSA", () => {
         });
         it("two ratings", () => {
             const establishements: Establishments = {
+                epochMillis,
                 ratingCounts : [
                     { rating: "good", count: 750 },
                     { rating: "bad", count: 250 }
@@ -64,6 +69,7 @@ describe("FSA", () => {
         });
         it("two ratings both zero count", () => {
             const establishements: Establishments = {
+                epochMillis,
                 ratingCounts : [
                     { rating: "good", count: 0 },
                     { rating: "bad", count: 0 }
@@ -76,6 +82,7 @@ describe("FSA", () => {
         });
         it("two ratings one zero count", () => {
             const establishements: Establishments = {
+                epochMillis,
                 ratingCounts : [
                     { rating: "good", count: 234234 },
                     { rating: "bad", count: 0 }
@@ -88,6 +95,7 @@ describe("FSA", () => {
         });
         it("multiple ratings", () => {
             const establishements: Establishments = {
+                epochMillis,
                 ratingCounts : [
                     { rating: "good", count: 230 },
                     { rating: "bad",  count: 500 },

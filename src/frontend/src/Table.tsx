@@ -22,19 +22,23 @@ export const Table = ({ localAuthorityId }: TableProps) => {
         );
     }
     const scores = ratingsPercentages(currentData);
+    const dateString = new Date(currentData.epochMillis).toLocaleString();
     return (
-        <table className="Table">
-            <thead>
-                <tr>
-                    <th className="tableCell">Rating</th>
-                    <th className="tableCell">Percentage</th>
-                </tr>
-            </thead>
-            <tbody>
-                {scores.map((ratingPercentage: RatingPercentage, i) => (
-                    <TableRow ratingPercentage={ratingPercentage} key={i}/>
-                ))}
-            </tbody>
-        </table>
+        <div>
+            <table className="Table">
+                <thead>
+                    <tr>
+                        <th className="tableCell">Rating</th>
+                        <th className="tableCell">Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {scores.map((ratingPercentage: RatingPercentage, i) => (
+                        <TableRow ratingPercentage={ratingPercentage} key={i}/>
+                    ))}
+                </tbody>
+            </table>
+            <div data-testid="retrieved" className="retrieved">retrieved {dateString}</div>
+        </div>
     );
 };

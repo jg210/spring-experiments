@@ -7,6 +7,8 @@ import { http, HttpResponse } from 'msw';
 import { RenderWithStore, serverURL } from './util';
 import { escapeRegExp, flatMap, last } from 'lodash';
 
+const epoch = new Date("February 14, 2024 20:14:00");
+
 function checkBoilerplate() {
   // banner
   const banner = screen.getByRole("banner");
@@ -63,6 +65,7 @@ async function selectLocalAuthority(
     totalPercentage += parseFloat(percentageCell.textContent!.replace(/%$/, ""));
   });
   expect(totalPercentage).toBeCloseTo(100);
+  expect(screen.getByTestId("retrieved")).toHaveTextContent(`retrieved ${epoch.toLocaleString()}`);
 
   // There's still boilerplate after clicking on authority.
   checkBoilerplate();
@@ -84,6 +87,7 @@ const localAuthorities: LocalAuthority[] = [
   };
 });
 const establishmentsJson : (localAuthorityId: number) => Establishments = (localAuthorityId) => ({
+  epochMillis: epoch.getTime(),
   ratingCounts: [
     { rating: "good", count: 12334234 },
     { rating: "bad",  count: 232 },
