@@ -5,6 +5,7 @@ import { BASE_PATHNAME, Establishments, LocalAuthorities, LocalAuthority } from 
 import { setupServer } from 'msw/node';
 import { http, HttpResponse } from 'msw';
 import { RenderWithStore, serverURL } from './util';
+import { escapeRegExp, flatMap, last } from 'lodash';
 
 function checkBoilerplate() {
   // banner
@@ -172,23 +173,31 @@ describe("App", () => {
 
     // Clicking on an authority
 
-    const establishmentResponseRecords = () => responseRecords.filter(responseRecord => {
+    // Filters out just establishment json requests, then parses the local authority id.
+    const establishmentRequestLocalAuthorityIds = () => flatMap(responseRecords, (responseRecord => {
       const url = new URL(responseRecord.request.url);
-      const isEstablishmentUrl = url.pathname.startsWith(`${BASE_PATHNAME}/localAuthority/`);
-      return isEstablishmentUrl;
-    });
+      const pattern = escapeRegExp(`${BASE_PATHNAME}/localAuthority/`) + '([0-9]+)';
+      const match = url.pathname.match(pattern);
+      return match ? [ match[1] ] : [];
+    }));
 
-    expect(establishmentResponseRecords()).toHaveLength(0);
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(0);
 
-    await selectLocalAuthority(localAuthorities[0].localAuthorityId, user);
-    await new Promise(r => setTimeout(r, 2000));
-    expect(establishmentResponseRecords()).toHaveLength(1);
+    // Click on one item.
+    const localAuthorityId0 = localAuthorities[0].localAuthorityId;
+    await selectLocalAuthority(localAuthorityId0, user);
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(1);
+    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId0.toString());
 
+    // Click on another item.
+    const localAuthorityId1 = localAuthorities[1].localAuthorityId;
+    await selectLocalAuthority(localAuthorityId1, user);
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2);
+    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId1.toString());
+
+    // Clicking on second item again.
     await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
-    expect(establishmentResponseRecords()).toHaveLength(2);
-
-    await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
-    expect(establishmentResponseRecords()).toHaveLength(2);
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2); // cached by RTK query.
 
   });
 
