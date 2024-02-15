@@ -30,6 +30,16 @@ function checkBoilerplate() {
   });
 }
 
+async function checkAuthoritiesList() {
+  const dropdown = await screen.findByTestId("authorities_select", undefined, { timeout: 2000 });
+  expect(dropdown).toHaveValue(localAuthorities[0].localAuthorityId.toString());
+  const options = within(dropdown).getAllByTestId("authorities_option") as HTMLOptionElement[];
+  expect(options.length).toBe(localAuthorities.length);
+  options.forEach((option, i) => {
+    expect(option).toHaveValue(localAuthorities[i].localAuthorityId.toString());
+  });
+}
+
 async function selectLocalAuthority(
   localAuthorityId: number,
   user: UserEvent
@@ -167,13 +177,7 @@ describe("App", () => {
     checkBoilerplate();
 
     // Authorities list loaded.
-    const dropdown = await screen.findByTestId("authorities_select");
-    expect(dropdown).toHaveValue(localAuthorities[0].localAuthorityId.toString());
-    const options = within(dropdown).getAllByTestId("authorities_option") as HTMLOptionElement[];
-    expect(options.length).toBe(localAuthorities.length);
-    options.forEach((option, i) => {
-      expect(option).toHaveValue(localAuthorities[i].localAuthorityId.toString());
-    });
+    await checkAuthoritiesList();
     checkBoilerplate();
 
     // Clicking on an authority
@@ -204,6 +208,36 @@ describe("App", () => {
     await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2); // cached by RTK query.
 
+  });
+
+  it("retries authorities list request on network error", async () => {
+    server.use(
+      http.get(serverURL("localAuthority"), () => {
+        return HttpResponse.error();
+      }, { once: true })
+    );
+    render(<RenderWithStore><App/></RenderWithStore>);
+    await checkAuthoritiesList();
+  });
+
+  it("retries authorities list request on 429 response", async () => {
+    server.use(
+      http.get(serverURL("localAuthority"), () => {
+        return new HttpResponse('busy', { status: 429 });
+      }, { once: true })
+    );
+    render(<RenderWithStore><App/></RenderWithStore>);
+    await checkAuthoritiesList();
+  });
+
+  it("retries authorities list request on 502 response", async () => {
+    server.use(
+      http.get(serverURL("localAuthority"), () => {
+        return new HttpResponse('timeout', { status: 502 });
+      }, { once: true })
+    );
+    render(<RenderWithStore><App/></RenderWithStore>);
+    await checkAuthoritiesList();
   });
 
 });

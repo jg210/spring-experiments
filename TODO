@@ -1,7 +1,5 @@
 * Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
-  - unit test
-    - https://mswjs.io/docs/api/http#once?
-    - https://mswjs.io/docs/recipes/polling/?
+  - unit test for Establisments json too
 
 * Saving gradle report on CI is no working either
   - https://github.com/jg210/spring-experiments/actions/runs/7916661772/job/21610981836
