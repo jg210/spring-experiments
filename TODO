@@ -1,7 +1,8 @@
 * Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
-  - https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#automatic-retries
+  X retries
+  X https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#automatic-retries
+  X debounce too, to reduce server load.
   - https://mswjs.io/docs/api/http#once should allow this to be tested?
-  - debounce too, to reduce server load.
 
 * Assert correct id selected in list in App.test.tsx.
   - https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
