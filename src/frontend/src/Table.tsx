@@ -16,7 +16,9 @@ export const Table = ({ localAuthorityId }: TableProps) => {
     // Scrolling through list of local authorities by holding down up or down
     // arrow keys generates a lot of renders, so need to limit the number of
     // API requests.
-    const [ localAuthorityIdDebounced,  debouncedState ] = useDebounce(
+    //
+    // The isPending() returned by useDebounce doesn't work
+    const [ localAuthorityIdDebounced ] = useDebounce(
         localAuthorityId,
         1000,
         { leading: true }
@@ -25,7 +27,10 @@ export const Table = ({ localAuthorityId }: TableProps) => {
         pollingInterval: RATINGS_REFRESH_INTERVAL_SECONDS * 1000,
         refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS
     });
-    if (currentData == undefined || debouncedState.isPending()) {
+    // The isPending() returned by useDebounce doesn't work if leading set to true,
+    // so compare prop and debounced value instead.
+    const debounced = localAuthorityId !== localAuthorityIdDebounced;
+    if (currentData == undefined || debounced) {
         return (
             <div data-testid="table_loading">loading...</div>
         );
