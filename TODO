@@ -23,6 +23,8 @@
 
 * Sentry.
 
+* Check for carets in package.json in unit tests.
+
 * Add pip constraints file.
 
 * 0% rows generally have non-zero bar graph size
