@@ -1,15 +1,28 @@
-* Try out redux-toolkit.
+* Assert correct id selected in list in App.test.tsx.
+  - https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
+
+* Use redux for App's localAuthorityId
+  - https://redux-toolkit.js.org/usage/usage-with-typescript
+
+* Get rid of narrow white gap around bar graph bars.
+
+* vitest failures don't appear in VSC.
+
+* Export OpenAPI spec. from spring boot server and use it in front end
+  - generate RTK Query API
+  - can MSW mocks be typed automatically too?
 
 * More cypress tests.
 
-* Run cypress test for shadow jar too.
-  - separate job or making sure stop process reliably
-  - java -cp build/libs/spring-experiments-1.0-aws.jar uk.me.jeremygreen.springexperiments.SpringExperimentsApplication
-  - better, faking lambda-style requests somehow
+* Analytics.
+
+* Sentry.
 
 * Add pip constraints file.
 
 * Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
+  - https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#automatic-retries
+  - https://mswjs.io/docs/api/http#once should allow this to be tested?
 
 * 0% rows generally have non-zero bar graph size
   - from rounding
@@ -50,6 +63,10 @@
 * Role better than access key for publishing?
   - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html?icmpid=docs_iam_console#Using_CreateAccessKey
 
+* Polling of APIs could mean that a localAuthorityId disappears.
+  - with much much greater probability than is currently possible.
+  - but still not very likely
+
 * Add favicon.ico.
 
 * gradle bootRun task depends on react/npm tasks even though doesn't use their output.
@@ -78,12 +95,21 @@
 
 * Use https://fb.me/react-error-boundaries to mask back traces.
 
+* unit test cache expiry and polling
+  - might need to reduce below polling interval to make this possible?
+  - https://mswjs.io/docs/recipes/polling/
+  - not clear if MSW etc. work with useFakeTimers() - 8e7785d889323f7cdd464bfac074466d3d487ff3
+
+* unit test changing Table localAuthorityId shows loading... state again 
+
 * Improved failed-connection handling.
 
 * Verify json metadata in case get paged data.
   - check meta.totalPages is 1.
   - check meta.returncode is OK.
   - check meta.totalCount is correct.
+
+* A github action that shows native unit test report in nicer way.
 
 * Always download data using paged APIs.
 

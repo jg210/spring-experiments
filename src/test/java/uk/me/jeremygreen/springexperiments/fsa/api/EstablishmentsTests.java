@@ -17,6 +17,7 @@ public final class EstablishmentsTests {
                 "foo", "foo", "foo", "foo", "foo", "foo", "foo", "foo",
                 "AwaitingInspection",
                 "AwaitingPublication", "AwaitingPublication", "AwaitingPublication");
+        final long epochMillis = System.currentTimeMillis();
         final Establishments establishments = Establishments.createInstance(fsaEstablishments);
         final List<RatingCount> actual = establishments.getRatingCounts();
         final SortedMap<String,Long> expected = fsaEstablishments.getRatingCounts();
@@ -34,6 +35,7 @@ public final class EstablishmentsTests {
                     expectedRatingCount.getValue().longValue(), actualRatingCount.count());
         }
         assertFalse(actualIterator.hasNext());
+        assertEquals(epochMillis, establishments.getEpochMillis());
     }
 
 }

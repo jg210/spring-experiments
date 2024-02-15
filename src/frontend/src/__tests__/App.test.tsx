@@ -1,7 +1,13 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, within } from '@testing-library/react';
+import userEvent, { UserEvent } from '@testing-library/user-event';
 import { App } from '../App';
-import { Establishments, LocalAuthority, fetchEstablishmentsJson, fetchLocalAuthoritiesJson } from '../FSA';
+import { BASE_PATHNAME, Establishments, LocalAuthorities, LocalAuthority } from '../FSA';
+import { setupServer } from 'msw/node';
+import { http, HttpResponse } from 'msw';
+import { RenderWithStore, serverURL } from './util';
+import { escapeRegExp, flatMap, last } from 'lodash';
+
+const epoch = new Date("February 14, 2024 20:14:00");
 
 function checkBoilerplate() {
   // banner
@@ -24,14 +30,129 @@ function checkBoilerplate() {
   });
 }
 
+async function selectLocalAuthority(
+  localAuthorityId: number,
+  user: UserEvent
+) {
+  const authoritiesSelect = screen.getByTestId("authorities_select");
+  await user.selectOptions(authoritiesSelect, [localAuthorityId.toString()]);
+
+  // Wait for data to appear, using localAuthorityId passed as a fake rating.
+  const localAuthorityIdToken = localAuthorityIdToToken(localAuthorityId);
+  await screen.findByText(localAuthorityIdToken);
+
+  // A table of ratings is visible
+  const table = screen.getByRole("table");
+  const rowGroups = within(table).getAllByRole("rowgroup");
+  expect(rowGroups.length).toBe(2);
+  const [tableHeader, tableBody] = rowGroups;
+  const headerRows = within(tableHeader).getAllByRole("row");
+  expect(headerRows.length).toBe(1);
+  const [headerRow] = headerRows;
+  const headerCells = within(headerRow).getAllByRole("columnheader");
+  expect(headerCells.length).toBe(2);
+  expect(headerCells[0]).toHaveTextContent("Rating");
+  expect(headerCells[1]).toHaveTextContent("Percentage");
+  const bodyRows = within(tableBody).getAllByRole("row");
+  expect(bodyRows.length).toEqual(establishmentsJson(localAuthorityId).ratingCounts.length);
+  let totalPercentage = 0;
+  bodyRows.forEach((bodyRow, i) => {
+    const bodyRowCells = within(bodyRow).getAllByRole("cell");
+    expect(bodyRowCells.length).toBe(2);
+    const [ratingCell, percentageCell] = bodyRowCells;
+    expect(ratingCell).toHaveTextContent(establishmentsJson(localAuthorityId).ratingCounts[i].rating);
+    expect(percentageCell).toHaveTextContent(/^[0-9]+%$/);
+    totalPercentage += parseFloat(percentageCell.textContent!.replace(/%$/, ""));
+  });
+  expect(totalPercentage).toBeCloseTo(100);
+  expect(screen.getByTestId("retrieved")).toHaveTextContent(`retrieved ${epoch.toLocaleString()}`);
+
+  // There's still boilerplate after clicking on authority.
+  checkBoilerplate();
+}
+
+const localAuthorityIdToName = (localAuthorityId: number) => `localAuthorityId_${localAuthorityId}`;
+// A hack, so test can wait for this data to appear. String needs to be different to the localAuthorityIdToName() return values.
+// It ends in _ to make sure don't match e.g. id 12345 with token for 123.
+const localAuthorityIdToToken = (localAuthorityId: number) => `LOCAL_AUTHORITY_ID_TOKEN_${localAuthorityId}_`;
+
+// Mock the API.
+const localAuthorities: LocalAuthority[] = [
+  243433,
+  3823423
+].map(localAuthorityId => {
+  return {
+    name: localAuthorityIdToName(localAuthorityId),
+    localAuthorityId
+  };
+});
+const establishmentsJson : (localAuthorityId: number) => Establishments = (localAuthorityId) => ({
+  epochMillis: epoch.getTime(),
+  ratingCounts: [
+    { rating: "good", count: 12334234 },
+    { rating: "bad",  count: 232 },
+    { rating: "ugly", count: 0 },
+    { rating: localAuthorityIdToToken(localAuthorityId), count: 0 }
+  ]
+});
+type ResponseRecord = { request: Request, response: Response };
+const responseRecords : ResponseRecord[] = [];
+// TODO can any of these types be inferred from RTK Query API?
+type LocalAuthorityParams = Record<string,never>;
+type LocalAuthorityRequestBody = Record<string,never>;
+type LocalAuthorityResponseBody = LocalAuthorities;
+type LocalAuthoritiesParams = { localAuthorityId: string };
+type LocalAuthoritiesRequestBody = Record<string,never>;
+type LocalAuthoritiesResponseBody = Establishments;
+const server = setupServer(
+  http.get<LocalAuthorityParams, LocalAuthorityRequestBody, LocalAuthorityResponseBody>(serverURL("localAuthority"), () => {
+    return HttpResponse.json({ localAuthorities });
+  }),
+  http.get<LocalAuthoritiesParams, LocalAuthoritiesRequestBody, LocalAuthoritiesResponseBody>(
+    serverURL("localAuthority/:localAuthorityId"),
+    ({ params }) => {
+      const localAuthorityId = parseInt(params.localAuthorityId);
+      return HttpResponse.json(establishmentsJson(localAuthorityId));
+    }
+  )
+);
+//console.log(JSON.stringify(server.listHandlers(), null, "  "));
+// Log https://mswjs.io/docs/api/life-cycle-events
+// server.events.on('request:start', ({ request, requestId }) => {
+//   console.log('request:start:', requestId, request.method, request.url);
+// });
+// server.events.on('request:match', ({ request, requestId }) => {
+//   console.log("request:match:", requestId, request.method, request.url);
+// });
+server.events.on('response:mocked', ({ request, response }) => {
+  // console.log(
+  //   'response:mocked: %s %s %s %s',
+  //   request.method,
+  //   request.url,
+  //   response.status,
+  //   response.statusText
+  // );
+  responseRecords.push({ request: request.clone(), response: response.clone() });
+});
+
 describe("App", () => {
+
+  beforeAll(() => server.listen({
+    onUnhandledRequest: 'error'
+  }));
+  afterEach(() => {
+    server.resetHandlers();
+    vi.restoreAllMocks();
+    responseRecords.length = 0;
+  });
+  afterAll(() => server.close());
 
   it('is run with correct node version', () => {
     expect(process.versions.node).toEqual("20.10.0");
   });
 
   it('renders correctly while loading', () => {
-    render(<App/>);
+    render(<RenderWithStore><App/></RenderWithStore>);
     checkBoilerplate();
     expect(screen.getByTestId("authorities_loading")).toHaveTextContent(/^loading...$/);
   });
@@ -39,83 +160,50 @@ describe("App", () => {
   it('shows rating if click on establishment', async () => {
     
     const user = userEvent.setup();
-    
-    // Mock the local authorities API
-    const localAuthorities: LocalAuthority[] = [
-      { name: "one", localAuthorityId: 243433 },
-      { name: "two", localAuthorityId: 3823423 }
-    ];
-    const fetchLocalAuthoritiesJsonMock = vi.mocked(fetchLocalAuthoritiesJson);
-    fetchLocalAuthoritiesJsonMock.mockResolvedValue(localAuthorities);
-    
-    // Mock the establishements API.
-    const establishmentsJson : Establishments = {
-      ratingCounts: [
-        { rating: "good", count: 12334234 },
-        { rating: "bad",  count: 232 },
-        { rating: "ugly", count: 0 }
-      ]
-    };
-    const fetchEstablishementsJsonMock = vi.mocked(fetchEstablishmentsJson);
-    fetchEstablishementsJsonMock.mockResolvedValue(establishmentsJson);
 
-    render(<App/>);
+    render(<RenderWithStore><App/></RenderWithStore>);
 
     // Loading
     checkBoilerplate();
-    await waitFor(() => {
-      expect(fetchLocalAuthoritiesJsonMock).toHaveBeenCalled();
-    });
 
     // Authorities list loaded.
-    const dropdown = screen.getByTestId("authorities_select");
+    const dropdown = await screen.findByTestId("authorities_select");
     expect(dropdown).toHaveValue(localAuthorities[0].localAuthorityId.toString());
-    const options = within(dropdown).getAllByTestId("authorities_option");
+    const options = within(dropdown).getAllByTestId("authorities_option") as HTMLOptionElement[];
     expect(options.length).toBe(localAuthorities.length);
     options.forEach((option, i) => {
       expect(option).toHaveValue(localAuthorities[i].localAuthorityId.toString());
     });
     checkBoilerplate();
-    expect(fetchEstablishementsJsonMock).toHaveBeenCalledTimes(0);
-    
+
     // Clicking on an authority
-    const toClickOn = 0; // TODO Why does test fail if change this to 1?
-    await user.click(options[toClickOn]);
-    expect(fetchEstablishementsJsonMock).toHaveBeenCalledTimes(1);
-    expect(fetchEstablishementsJsonMock).toHaveBeenCalledWith(
-      localAuthorities[toClickOn].localAuthorityId,
-      expect.any(AbortController)
-    );
 
-    // A table of ratings is visible
-    const table = screen.getByRole("table");
-    const rowGroups = within(table).getAllByRole("rowgroup");
-    expect(rowGroups.length).toBe(2);
-    const [ tableHeader, tableBody ] = rowGroups;
-    const headerRows = within(tableHeader).getAllByRole("row");
-    expect(headerRows.length).toBe(1);
-    const [ headerRow ] = headerRows;
-    const headerCells = within(headerRow).getAllByRole("columnheader");
-    expect(headerCells.length).toBe(2);
-    expect(headerCells[0]).toHaveTextContent("Rating");
-    expect(headerCells[1]).toHaveTextContent("Percentage");
-    const bodyRows = within(tableBody).getAllByRole("row");
-    expect(bodyRows.length).toEqual(establishmentsJson.ratingCounts.length);
-    let totalPercentage = 0;
-    bodyRows.forEach((bodyRow, i) => {
-      const bodyRowCells = within(bodyRow).getAllByRole("cell");
-      expect(bodyRowCells.length).toBe(2);
-      const [ ratingCell, percentageCell ] = bodyRowCells;
-      expect(ratingCell).toHaveTextContent(establishmentsJson.ratingCounts[i].rating);
-      expect(percentageCell).toHaveTextContent(/^[0-9]+%$/);
-      totalPercentage += parseFloat(percentageCell.textContent!.replace(/%$/, ""));
-    });
-    expect(totalPercentage).toBeCloseTo(100);
+    // Filters out just establishment json requests, then parses the local authority id.
+    const establishmentRequestLocalAuthorityIds = () => flatMap(responseRecords, (responseRecord => {
+      const url = new URL(responseRecord.request.url);
+      const pattern = escapeRegExp(`${BASE_PATHNAME}/localAuthority/`) + '([0-9]+)';
+      const match = url.pathname.match(pattern);
+      return match ? [ match[1] ] : [];
+    }));
 
-    // There's still boilerplate after clicking on authority.
-    checkBoilerplate();
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(0);
+
+    // Click on one item.
+    const localAuthorityId0 = localAuthorities[0].localAuthorityId;
+    await selectLocalAuthority(localAuthorityId0, user);
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(1);
+    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId0.toString());
+
+    // Click on another item.
+    const localAuthorityId1 = localAuthorities[1].localAuthorityId;
+    await selectLocalAuthority(localAuthorityId1, user);
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2);
+    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId1.toString());
+
+    // Clicking on second item again.
+    await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2); // cached by RTK query.
 
   });
-
 
 });

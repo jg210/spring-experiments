@@ -21,7 +21,7 @@ public final class LocalAuthorityController {
 
     static final int MAX_AGE_SECONDS = 600;
 
-    private static final HttpHeaders createHeaders() {
+    private static HttpHeaders createHeaders() {
         final HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("Cache-Control", "max-age=" + MAX_AGE_SECONDS);
         return HttpHeaders.readOnlyHttpHeaders(httpHeaders);
@@ -37,7 +37,8 @@ public final class LocalAuthorityController {
     }
 
     @GetMapping(value="localAuthority")
-    public final ResponseEntity<LocalAuthorities> localAuthorities() throws InterruptedException {
+    @SuppressWarnings("unused")
+    public ResponseEntity<LocalAuthorities> localAuthorities() throws InterruptedException {
         final FsaAuthorities fsaAuthorities = this.fsaService.fetchAuthorities();
         final List<FsaAuthority> authorities = fsaAuthorities.authorities();
         final LocalAuthorities localAuthorities = LocalAuthorities.createInstance(authorities);
@@ -47,7 +48,8 @@ public final class LocalAuthorityController {
     }
 
     @GetMapping(value="localAuthority/{id}")
-    public final ResponseEntity<Establishments> localAuthority(@PathVariable final int id) throws InterruptedException {
+    @SuppressWarnings("unused")
+    public ResponseEntity<Establishments> localAuthority(@PathVariable final int id) throws InterruptedException {
         final FsaEstablishments fsaEstablishments = this.fsaService.fetchEstablishments(id);
         final ResponseEntity<Establishments> responseEntity;
         if (id < 0) {

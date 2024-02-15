@@ -47,6 +47,12 @@ jobs:
     - name: check
       run: ./gradlew --scan check
 
+    - name: archive build reports
+      uses: actions/upload-artifact@v4.3.0
+      with:
+        name: build reports
+        path: build/reports/
+
     - name: cypress end-to-end tests - spring boot jar
       run: |
         . environment

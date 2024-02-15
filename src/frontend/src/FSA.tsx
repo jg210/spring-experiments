@@ -1,8 +1,22 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const RATINGS_URL = "/api/fsa";
+export const BASE_PATHNAME = "/api/fsa";
+
+// For unit testing - since BASE_URL is a const.
+export const baseUrl = () => {
+  // node.js unit tests can't use relative URLs. Development and production both use
+  // relative URL since it's same host that runs server and front end.
+  const protocolAndHost = process.env.NODE_ENV === "test" ? "http://example.com" : "";
+  return protocolAndHost + BASE_PATHNAME;
+};
+
+export const BASE_URL = baseUrl();
+
+// Configures polling and cache expiry.
+export const RATINGS_REFRESH_INTERVAL_SECONDS = 15 * 60;
 
 export interface Establishments {
+  epochMillis: number,
   ratingCounts: RatingCount[]
 }
 
@@ -25,29 +39,7 @@ export interface LocalAuthorities {
     localAuthorities: LocalAuthority[]
 }
 
-// http://api.ratings.food.gov.uk/help
-function fetchFromAPI<T>(url: string, abortController: AbortController): Promise<T> {
-    const config: AxiosRequestConfig = {
-        headers: {
-            'Accept': 'application/json'
-        },
-        signal: abortController.signal
-    };
-    return axios.get<T>(url, config).then(response => response.data);
-}
-
-export function fetchLocalAuthoritiesJson(abortController: AbortController): Promise<LocalAuthority[]> {
-    const localAuthorities: Promise<LocalAuthorities> = fetchFromAPI(`${RATINGS_URL}/localAuthority`, abortController);
-    return localAuthorities.then((x: LocalAuthorities) => { return x.localAuthorities });
-}
-
-export function fetchEstablishmentsJson(
-    localAuthorityId: number,
-    abortController: AbortController): Promise<Establishments> {
-    const url = `${RATINGS_URL}/localAuthority/${encodeURIComponent(localAuthorityId.toString())}`;
-    return fetchFromAPI(url, abortController);
-}
-
+// Convert counts to percentages.
 export function ratingsPercentages(establishments: Establishments): RatingPercentage[] {
     const ratingCounts: RatingCount[] = establishments.ratingCounts;
     let totalCount = 0;
@@ -58,3 +50,20 @@ export function ratingsPercentages(establishments: Establishments): RatingPercen
         return { rating, percentage };
     });
 }
+
+// http://api.ratings.food.gov.uk/help
+export const fsaApi = createApi({
+  reducerPath: 'fsaApi',
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+  endpoints: (builder) => ({
+    getLocalAuthorities: builder.query<LocalAuthority[], void>({
+      query: () => `localAuthority`,
+      transformResponse: (response: LocalAuthorities) => response.localAuthorities
+    }),
+    getEstablishments: builder.query<Establishments,number>({
+      query: (localAuthorityId) => `localAuthority/${encodeURIComponent(localAuthorityId.toString())}`
+    })
+  })
+});
+
+export const { useGetLocalAuthoritiesQuery, useGetEstablishmentsQuery } = fsaApi;

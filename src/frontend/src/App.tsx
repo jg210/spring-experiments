@@ -18,9 +18,9 @@ export const App  = () => {
             <Authorities
                 onClick={setLocalAuthorityId}
             />
-            <Table
+            { localAuthorityId != null && <Table
                 localAuthorityId={localAuthorityId}
-            />
+            /> }
         </div>
     );
 };

@@ -5,7 +5,6 @@ vi.mock("./src/FSA", async () => {
     const neverResolves = () => new Promise( () => {} );
     return {
         ...originalModule,
-        fetchLocalAuthoritiesJson: vi.fn().mockImplementation(neverResolves),
         fetchEstablishmentsJson: vi.fn().mockImplementation(neverResolves)
     };
 });
