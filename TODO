@@ -2,7 +2,9 @@
   X retries
   X https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#automatic-retries
   X debounce too, to reduce server load.
-  - https://mswjs.io/docs/api/http#once should allow this to be tested?
+  - unit test
+    - https://mswjs.io/docs/api/http#once?
+    - https://mswjs.io/docs/recipes/polling/?
 
 * Assert correct id selected in list in App.test.tsx.
   - https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
