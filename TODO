@@ -1,7 +1,4 @@
 * Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
-  X retries
-  X https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#automatic-retries
-  X debounce too, to reduce server load.
   - unit test
     - https://mswjs.io/docs/api/http#once?
     - https://mswjs.io/docs/recipes/polling/?
