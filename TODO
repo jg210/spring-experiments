@@ -1,8 +1,6 @@
-* Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
-  - unit test for Establisments json too
-
 * Saving gradle report on CI is no working either
   - https://github.com/jg210/spring-experiments/actions/runs/7916661772/job/21610981836
+  - step skipped if earlier steps fail.
 
 * Assert correct id selected in list in App.test.tsx.
   - https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
@@ -23,6 +21,10 @@
 * Analytics.
 
 * Sentry.
+
+* Bug report for use-debounce isPending().
+  - https://github.com/xnimorz/use-debounce
+  - https://github.com/jg210/spring-experiments/pull/41/commits/ab055f1dbdfa7a9b00c04c1d01cb7b153121bf7f was my workaround.
 
 * Check for carets in package.json in unit tests.
 
