@@ -118,8 +118,6 @@
   - check meta.returncode is OK.
   - check meta.totalCount is correct.
 
-* A github action that shows native unit test report in nicer way.
-
 * Always download data using paged APIs.
 
 * Find way to automate npm audit
@@ -147,3 +145,5 @@
 * Make FsaService into interface, so can mock it without having to make methods/class non-final.
 
 * Lint for github actions config.
+
+* Is there a GitHub Actions vitest clover action?
