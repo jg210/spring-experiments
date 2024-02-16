@@ -96,6 +96,8 @@ const localAuthorities: LocalAuthority[] = [
     localAuthorityId
   };
 });
+const localAuthorityId0 = localAuthorities[0].localAuthorityId;
+const localAuthorityId1 = localAuthorities[1].localAuthorityId;
 const establishmentsJson : (localAuthorityId: number) => Establishments = (localAuthorityId) => ({
   epochMillis: epoch.getTime(),
   ratingCounts: [
@@ -114,7 +116,11 @@ const establishmentRequestLocalAuthorityIds = () => flatMap(responseRecords, (re
   const url = new URL(responseRecord.request.url);
   const pattern = escapeRegExp(`${BASE_PATHNAME}/localAuthority/`) + '([0-9]+)';
   const match = url.pathname.match(pattern);
-  return match ? [ match[1] ] : [];
+  if (match) {
+    return parseInt(match[1]);
+  } else {
+    return [];
+  }
 }));
 
 // Configure mocking of API.
@@ -195,16 +201,14 @@ describe("App", () => {
     const user = await prepareToClickOnAuthority();
 
     // item 0.
-    const localAuthorityId0 = localAuthorities[0].localAuthorityId;
     await selectLocalAuthority(localAuthorityId0, user);
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(1);
-    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId0.toString());
+    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId0);
 
     // item 1.
-    const localAuthorityId1 = localAuthorities[1].localAuthorityId;
     await selectLocalAuthority(localAuthorityId1, user);
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2);
-    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId1.toString());
+    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId1);
 
     // item 0 again.
     await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
@@ -220,8 +224,8 @@ describe("App", () => {
       )
     );
     const user = await prepareToClickOnAuthority();
-    await selectLocalAuthority(localAuthorities[0].localAuthorityId, user);
-    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(1); // errors don't appear in this list.
+    await selectLocalAuthority(localAuthorityId0, user);
+    expect(establishmentRequestLocalAuthorityIds()).toEqual([localAuthorityId0]); // errors don't appear in this list.
   });
 
   it('retries Establishments request if there is a 429 response', async () => {
@@ -233,8 +237,8 @@ describe("App", () => {
       )
     );
     const user = await prepareToClickOnAuthority();
-    await selectLocalAuthority(localAuthorities[0].localAuthorityId, user);
-    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2);
+    await selectLocalAuthority(localAuthorityId0, user);
+    expect(establishmentRequestLocalAuthorityIds()).toEqual([localAuthorityId0, localAuthorityId0]);
   });
 
   it('retries Establishments request if there is a 502 response', async () => {
@@ -246,8 +250,8 @@ describe("App", () => {
       )
     );
     const user = await prepareToClickOnAuthority();
-    await selectLocalAuthority(localAuthorities[0].localAuthorityId, user);
-    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2);
+    await selectLocalAuthority(localAuthorityId0, user);
+    expect(establishmentRequestLocalAuthorityIds()).toEqual([localAuthorityId0, localAuthorityId0]);
   });
 
   it("retries authorities list request on network error", async () => {
