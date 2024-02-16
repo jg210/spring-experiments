@@ -215,73 +215,77 @@ describe("App", () => {
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2); // cached by RTK query.
   });
 
-  it('retries Establishments request if there is a network error', async () => {
-    server.use(
-      http.get(
-        serverURL("localAuthority/:localAuthorityId"),
-        () => HttpResponse.error(),
-        { once: true }
-      )
-    );
-    const user = await prepareToClickOnAuthority();
-    await selectLocalAuthority(localAuthorityId0, user);
-    expect(establishmentRequestLocalAuthorityIds()).toEqual([localAuthorityId0]); // network errors aren't sent as MSW events.
+  describe("retries Establishments request...", () => {
+    it('...on network error', async () => {
+      server.use(
+        http.get(
+          serverURL("localAuthority/:localAuthorityId"),
+          () => HttpResponse.error(),
+          { once: true }
+        )
+      );
+      const user = await prepareToClickOnAuthority();
+      await selectLocalAuthority(localAuthorityId0, user);
+      expect(establishmentRequestLocalAuthorityIds()).toEqual([localAuthorityId0]); // network errors aren't sent as MSW events.
+    });
+
+    it('...on 429 response', async () => {
+      server.use(
+        http.get(
+          serverURL("localAuthority/:localAuthorityId"),
+          () => new HttpResponse('busy', { status: 429 }),
+          { once: true }
+        )
+      );
+      const user = await prepareToClickOnAuthority();
+      await selectLocalAuthority(localAuthorityId0, user);
+      expect(establishmentRequestLocalAuthorityIds()).toEqual([localAuthorityId0, localAuthorityId0]);
+    });
+
+    it('...on 502 response', async () => {
+      server.use(
+        http.get(
+          serverURL("localAuthority/:localAuthorityId"),
+          () => new HttpResponse('timeout', { status: 502 }),
+          { once: true }
+        )
+      );
+      const user = await prepareToClickOnAuthority();
+      await selectLocalAuthority(localAuthorityId0, user);
+      expect(establishmentRequestLocalAuthorityIds()).toEqual([localAuthorityId0, localAuthorityId0]);
+    });
   });
 
-  it('retries Establishments request if there is a 429 response', async () => {
-    server.use(
-      http.get(
-        serverURL("localAuthority/:localAuthorityId"),
-        () => new HttpResponse('busy', { status: 429 }),
-        { once: true }
-      )
-    );
-    const user = await prepareToClickOnAuthority();
-    await selectLocalAuthority(localAuthorityId0, user);
-    expect(establishmentRequestLocalAuthorityIds()).toEqual([localAuthorityId0, localAuthorityId0]);
-  });
+  describe("retries LocalAuthorities request...", () => {
+    it("...on network error", async () => {
+      server.use(
+        http.get(serverURL("localAuthority"), () => {
+          return HttpResponse.error();
+        }, { once: true })
+      );
+      render(<RenderWithStore><App/></RenderWithStore>);
+      await checkAuthoritiesList();
+    });
 
-  it('retries Establishments request if there is a 502 response', async () => {
-    server.use(
-      http.get(
-        serverURL("localAuthority/:localAuthorityId"),
-        () => new HttpResponse('timeout', { status: 502 }),
-        { once: true }
-      )
-    );
-    const user = await prepareToClickOnAuthority();
-    await selectLocalAuthority(localAuthorityId0, user);
-    expect(establishmentRequestLocalAuthorityIds()).toEqual([localAuthorityId0, localAuthorityId0]);
-  });
+    it("...on 429 response", async () => {
+      server.use(
+        http.get(serverURL("localAuthority"), () => {
+          return new HttpResponse('busy', { status: 429 });
+        }, { once: true })
+      );
+      render(<RenderWithStore><App/></RenderWithStore>);
+      await checkAuthoritiesList();
+    });
 
-  it("retries authorities list request on network error", async () => {
-    server.use(
-      http.get(serverURL("localAuthority"), () => {
-        return HttpResponse.error();
-      }, { once: true })
-    );
-    render(<RenderWithStore><App/></RenderWithStore>);
-    await checkAuthoritiesList();
-  });
-
-  it("retries authorities list request on 429 response", async () => {
-    server.use(
-      http.get(serverURL("localAuthority"), () => {
-        return new HttpResponse('busy', { status: 429 });
-      }, { once: true })
-    );
-    render(<RenderWithStore><App/></RenderWithStore>);
-    await checkAuthoritiesList();
-  });
-
-  it("retries authorities list request on 502 response", async () => {
-    server.use(
-      http.get(serverURL("localAuthority"), () => {
-        return new HttpResponse('timeout', { status: 502 });
-      }, { once: true })
-    );
-    render(<RenderWithStore><App/></RenderWithStore>);
-    await checkAuthoritiesList();
+    it("...on 502 response", async () => {
+      server.use(
+        http.get(serverURL("localAuthority"), () => {
+          return new HttpResponse('timeout', { status: 502 });
+        }, { once: true })
+      );
+      render(<RenderWithStore><App/></RenderWithStore>);
+      await checkAuthoritiesList();
+    });
   });
 
 });
