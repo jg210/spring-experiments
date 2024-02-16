@@ -1,4 +1,12 @@
-* Assert correct id selected in list in App.test.tsx.
+* A github action that shows unit test reports in nicer way.
+  - options
+    - https://github.com/dorny/test-reporter
+    - https://github.com/marketplace/actions/junit-report-action
+  - looks like need to make gradle output the json/xml 
+  - native
+  - vitest
+  
+  * Assert correct id selected in list in App.test.tsx.
   - https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
 
 * Use redux for App's localAuthorityId
@@ -117,8 +125,6 @@
   - check meta.totalPages is 1.
   - check meta.returncode is OK.
   - check meta.totalCount is correct.
-
-* A github action that shows native unit test report in nicer way.
 
 * Always download data using paged APIs.
 
