@@ -49,7 +49,7 @@ async function selectLocalAuthority(
 
   // Wait for data to appear, using localAuthorityId passed as a fake rating.
   const localAuthorityIdToken = localAuthorityIdToToken(localAuthorityId);
-  await screen.findByText(localAuthorityIdToken);
+  await screen.findByText(localAuthorityIdToken, undefined, { timeout: 5000 });
 
   // A table of ratings is visible
   const table = screen.getByRole("table");
@@ -89,7 +89,8 @@ const localAuthorityIdToToken = (localAuthorityId: number) => `LOCAL_AUTHORITY_I
 // Mock the API.
 const localAuthorities: LocalAuthority[] = [
   243433,
-  3823423
+  3823423,
+  123523344
 ].map(localAuthorityId => {
   return {
     name: localAuthorityIdToName(localAuthorityId),
@@ -126,7 +127,7 @@ const server = setupServer(
     }
   )
 );
-//console.log(JSON.stringify(server.listHandlers(), null, "  "));
+// console.log(JSON.stringify(server.listHandlers(), null, "  "));
 // Log https://mswjs.io/docs/api/life-cycle-events
 // server.events.on('request:start', ({ request, requestId }) => {
 //   console.log('request:start:', requestId, request.method, request.url);
@@ -192,23 +193,34 @@ describe("App", () => {
 
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(0);
 
-    // Click on one item.
+    // item 0.
     const localAuthorityId0 = localAuthorities[0].localAuthorityId;
     await selectLocalAuthority(localAuthorityId0, user);
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(1);
     expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId0.toString());
 
-    // Click on another item.
+    // item 1.
     const localAuthorityId1 = localAuthorities[1].localAuthorityId;
     await selectLocalAuthority(localAuthorityId1, user);
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2);
     expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId1.toString());
 
-    // Clicking on second item again.
+    // item 0 again.
     await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2); // cached by RTK query.
 
-  });
+    // item 2 with a network error on first attempt
+    server.use(
+      http.get(
+        serverURL("localAuthority/:localAuthorityId"),
+        () => HttpResponse.error(),
+        { once: true }
+      )
+    );
+    await selectLocalAuthority(localAuthorities[2].localAuthorityId, user);
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(3); // errors don't appear in this list.
+
+  }, { timeout: 10000 });
 
   it("retries authorities list request on network error", async () => {
     server.use(
