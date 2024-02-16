@@ -108,8 +108,20 @@ const establishmentsJson : (localAuthorityId: number) => Establishments = (local
     { rating: localAuthorityIdToToken(localAuthorityId), count: 0 }
   ]
 });
+
+// Use MSW events (subscribed to later on) to check what requests have been made.
 type ResponseRecord = { request: Request, response: Response };
 const responseRecords : ResponseRecord[] = [];
+// Filters out just establishment json requests, then parses the local authority id.
+const establishmentRequestLocalAuthorityIds = () => flatMap(responseRecords, (responseRecord => {
+  const url = new URL(responseRecord.request.url);
+  const pattern = escapeRegExp(`${BASE_PATHNAME}/localAuthority/`) + '([0-9]+)';
+  const match = url.pathname.match(pattern);
+  return match ? [ match[1] ] : [];
+}));
+
+// Configure mocking of API.
+//
 // TODO can any of these types be inferred from RTK Query API?
 type LocalAuthorityParams = Record<string,never>;
 type LocalAuthorityRequestBody = Record<string,never>;
@@ -130,7 +142,9 @@ const server = setupServer(
   )
 );
 // console.log(JSON.stringify(server.listHandlers(), null, "  "));
-// Log https://mswjs.io/docs/api/life-cycle-events
+
+// Subscribe to MSW https://mswjs.io/docs/api/life-cycle-events
+//
 // server.events.on('request:start', ({ request, requestId }) => {
 //   console.log('request:start:', requestId, request.method, request.url);
 // });
@@ -171,28 +185,13 @@ describe("App", () => {
   });
 
   it('shows rating if click on establishment', async () => {
-    
     const user = userEvent.setup();
-
     render(<RenderWithStore><App/></RenderWithStore>);
-
-    // Loading
     checkBoilerplate();
-
-    // Authorities list loaded.
     await checkAuthoritiesList();
     checkBoilerplate();
 
     // Clicking on an authority
-
-    // Filters out just establishment json requests, then parses the local authority id.
-    const establishmentRequestLocalAuthorityIds = () => flatMap(responseRecords, (responseRecord => {
-      const url = new URL(responseRecord.request.url);
-      const pattern = escapeRegExp(`${BASE_PATHNAME}/localAuthority/`) + '([0-9]+)';
-      const match = url.pathname.match(pattern);
-      return match ? [ match[1] ] : [];
-    }));
-
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(0);
 
     // item 0.
