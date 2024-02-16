@@ -49,6 +49,7 @@ jobs:
 
     - name: archive build reports
       uses: actions/upload-artifact@v4.3.0
+      if: success() || failure()
       with:
         name: build reports
         path: build/reports/
