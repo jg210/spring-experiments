@@ -51,6 +51,11 @@ bin/setup
 . ./environment
 ```
 
+Install nodenv and node-build (or use any other way to put correct version of node on PATH):
+
+* https://github.com/nodenv/nodenv#installation
+* https://github.com/nodenv/node-build#installation
+
 To build and run the Spring Boot server from the command line:
 
 ```
@@ -64,11 +69,6 @@ Its API can be accessed directly using e.g.:
 
 
 The React front end is not bundled into the jar when doing development builds, and needs to be run separately. To do this...
-
-Install nodenv and node-build (or use any other way to put correct version of node on PATH):
-
-* https://github.com/nodenv/nodenv#installation
-* https://github.com/nodenv/node-build#installation
 
 Then run this:
 
