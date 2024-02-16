@@ -1,4 +1,4 @@
-* Saving gradle report on CI is no working either
+* Saving gradle report on CI is not working
   - https://github.com/jg210/spring-experiments/actions/runs/7916661772/job/21610981836
   - step skipped if earlier steps fail.
 
