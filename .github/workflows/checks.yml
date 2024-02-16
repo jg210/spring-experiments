@@ -47,6 +47,22 @@ jobs:
     - name: check
       run: ./gradlew --scan check
 
+    - name: test teport - native junit
+      uses: dorny/test-reporter@v1.8.0
+      if: success() || failure()    # run this step even if previous step failed
+      with:
+        name: native junit
+        path: build/test-results/test/*.xml
+        reporter: java-junit
+
+    - name: test teport - vitest
+      uses: dorny/test-reporter@v1.8.0
+      if: success() || failure()    # run this step even if previous step failed
+      with:
+        name: vitest
+        path: src/frontend/junit-report.xml
+        reporter: jest-junit
+
     - name: archive build reports
       uses: actions/upload-artifact@v4.3.0
       if: success() || failure()
