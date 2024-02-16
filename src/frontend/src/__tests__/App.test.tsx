@@ -30,6 +30,26 @@ function checkBoilerplate() {
   });
 }
 
+async function checkAuthoritiesList() {
+  const dropdown = await screen.findByTestId("authorities_select", undefined, { timeout: 2000 });
+  expect(dropdown).toHaveValue(localAuthorities[0].localAuthorityId.toString());
+  const options = within(dropdown).getAllByTestId("authorities_option") as HTMLOptionElement[];
+  expect(options.length).toBe(localAuthorities.length);
+  options.forEach((option, i) => {
+    expect(option).toHaveValue(localAuthorities[i].localAuthorityId.toString());
+  });
+}
+
+async function prepareToClickOnAuthority() {
+  const user = userEvent.setup();
+  render(<RenderWithStore><App/></RenderWithStore>);
+  checkBoilerplate();
+  await checkAuthoritiesList();
+  checkBoilerplate();
+  expect(establishmentRequestLocalAuthorityIds()).toHaveLength(0);
+  return user;
+}
+
 async function selectLocalAuthority(
   localAuthorityId: number,
   user: UserEvent
@@ -39,7 +59,7 @@ async function selectLocalAuthority(
 
   // Wait for data to appear, using localAuthorityId passed as a fake rating.
   const localAuthorityIdToken = localAuthorityIdToToken(localAuthorityId);
-  await screen.findByText(localAuthorityIdToken);
+  await screen.findByText(localAuthorityIdToken, undefined, { timeout: 5000 });
 
   // A table of ratings is visible
   const table = screen.getByRole("table");
@@ -78,14 +98,16 @@ const localAuthorityIdToToken = (localAuthorityId: number) => `LOCAL_AUTHORITY_I
 
 // Mock the API.
 const localAuthorities: LocalAuthority[] = [
-  243433,
-  3823423
+  4874,
+  53567
 ].map(localAuthorityId => {
   return {
     name: localAuthorityIdToName(localAuthorityId),
     localAuthorityId
   };
 });
+const localAuthorityId0 = localAuthorities[0].localAuthorityId;
+const localAuthorityId1 = localAuthorities[1].localAuthorityId;
 const establishmentsJson : (localAuthorityId: number) => Establishments = (localAuthorityId) => ({
   epochMillis: epoch.getTime(),
   ratingCounts: [
@@ -95,8 +117,24 @@ const establishmentsJson : (localAuthorityId: number) => Establishments = (local
     { rating: localAuthorityIdToToken(localAuthorityId), count: 0 }
   ]
 });
+
+// Use MSW events (subscribed to later on) to check what requests have been made.
 type ResponseRecord = { request: Request, response: Response };
 const responseRecords : ResponseRecord[] = [];
+// Filters out just establishment json requests, then parses the local authority id.
+const establishmentRequestLocalAuthorityIds = () => flatMap(responseRecords, (responseRecord => {
+  const url = new URL(responseRecord.request.url);
+  const pattern = escapeRegExp(`${BASE_PATHNAME}/localAuthority/`) + '([0-9]+)';
+  const match = url.pathname.match(pattern);
+  if (match) {
+    return parseInt(match[1]);
+  } else {
+    return [];
+  }
+}));
+
+// Configure mocking of API.
+//
 // TODO can any of these types be inferred from RTK Query API?
 type LocalAuthorityParams = Record<string,never>;
 type LocalAuthorityRequestBody = Record<string,never>;
@@ -116,8 +154,10 @@ const server = setupServer(
     }
   )
 );
-//console.log(JSON.stringify(server.listHandlers(), null, "  "));
-// Log https://mswjs.io/docs/api/life-cycle-events
+// console.log(JSON.stringify(server.listHandlers(), null, "  "));
+
+// Subscribe to MSW https://mswjs.io/docs/api/life-cycle-events
+//
 // server.events.on('request:start', ({ request, requestId }) => {
 //   console.log('request:start:', requestId, request.method, request.url);
 // });
@@ -157,53 +197,95 @@ describe("App", () => {
     expect(screen.getByTestId("authorities_loading")).toHaveTextContent(/^loading...$/);
   });
 
-  it('shows rating if click on establishment', async () => {
-    
-    const user = userEvent.setup();
+  it('shows rating if click on establishments, caching data correctly', async () => {
+    const user = await prepareToClickOnAuthority();
 
-    render(<RenderWithStore><App/></RenderWithStore>);
-
-    // Loading
-    checkBoilerplate();
-
-    // Authorities list loaded.
-    const dropdown = await screen.findByTestId("authorities_select");
-    expect(dropdown).toHaveValue(localAuthorities[0].localAuthorityId.toString());
-    const options = within(dropdown).getAllByTestId("authorities_option") as HTMLOptionElement[];
-    expect(options.length).toBe(localAuthorities.length);
-    options.forEach((option, i) => {
-      expect(option).toHaveValue(localAuthorities[i].localAuthorityId.toString());
-    });
-    checkBoilerplate();
-
-    // Clicking on an authority
-
-    // Filters out just establishment json requests, then parses the local authority id.
-    const establishmentRequestLocalAuthorityIds = () => flatMap(responseRecords, (responseRecord => {
-      const url = new URL(responseRecord.request.url);
-      const pattern = escapeRegExp(`${BASE_PATHNAME}/localAuthority/`) + '([0-9]+)';
-      const match = url.pathname.match(pattern);
-      return match ? [ match[1] ] : [];
-    }));
-
-    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(0);
-
-    // Click on one item.
-    const localAuthorityId0 = localAuthorities[0].localAuthorityId;
+    // item 0.
     await selectLocalAuthority(localAuthorityId0, user);
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(1);
-    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId0.toString());
+    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId0);
 
-    // Click on another item.
-    const localAuthorityId1 = localAuthorities[1].localAuthorityId;
+    // item 1.
     await selectLocalAuthority(localAuthorityId1, user);
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2);
-    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId1.toString());
+    expect(last(establishmentRequestLocalAuthorityIds())).toEqual(localAuthorityId1);
 
-    // Clicking on second item again.
+    // item 0 again.
     await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2); // cached by RTK query.
+  });
 
+  describe("retries Establishments request...", () => {
+    it('...on network error', async () => {
+      server.use(
+        http.get(
+          serverURL("localAuthority/:localAuthorityId"),
+          () => HttpResponse.error(),
+          { once: true }
+        )
+      );
+      const user = await prepareToClickOnAuthority();
+      await selectLocalAuthority(localAuthorityId0, user);
+      expect(establishmentRequestLocalAuthorityIds()).toEqual([localAuthorityId0]); // network errors aren't sent as MSW events.
+    });
+
+    it('...on 429 response', async () => {
+      server.use(
+        http.get(
+          serverURL("localAuthority/:localAuthorityId"),
+          () => new HttpResponse('busy', { status: 429 }),
+          { once: true }
+        )
+      );
+      const user = await prepareToClickOnAuthority();
+      await selectLocalAuthority(localAuthorityId0, user);
+      expect(establishmentRequestLocalAuthorityIds()).toEqual([localAuthorityId0, localAuthorityId0]);
+    });
+
+    it('...on 502 response', async () => {
+      server.use(
+        http.get(
+          serverURL("localAuthority/:localAuthorityId"),
+          () => new HttpResponse('timeout', { status: 502 }),
+          { once: true }
+        )
+      );
+      const user = await prepareToClickOnAuthority();
+      await selectLocalAuthority(localAuthorityId0, user);
+      expect(establishmentRequestLocalAuthorityIds()).toEqual([localAuthorityId0, localAuthorityId0]);
+    });
+  });
+
+  describe("retries LocalAuthorities request...", () => {
+    it("...on network error", async () => {
+      server.use(
+        http.get(serverURL("localAuthority"), () => {
+          return HttpResponse.error();
+        }, { once: true })
+      );
+      render(<RenderWithStore><App/></RenderWithStore>);
+      await checkAuthoritiesList();
+    });
+
+    it("...on 429 response", async () => {
+      server.use(
+        http.get(serverURL("localAuthority"), () => {
+          return new HttpResponse('busy', { status: 429 });
+        }, { once: true })
+      );
+      render(<RenderWithStore><App/></RenderWithStore>);
+      await checkAuthoritiesList();
+    });
+
+    it("...on 502 response", async () => {
+      server.use(
+        http.get(serverURL("localAuthority"), () => {
+          return new HttpResponse('timeout', { status: 502 });
+        }, { once: true })
+      );
+      render(<RenderWithStore><App/></RenderWithStore>);
+      await checkAuthoritiesList();
+    });
   });
 
 });

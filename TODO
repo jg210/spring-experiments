@@ -1,3 +1,7 @@
+* Saving gradle report on CI is not working
+  - https://github.com/jg210/spring-experiments/actions/runs/7916661772/job/21610981836
+  - step skipped if earlier steps fail.
+
 * Assert correct id selected in list in App.test.tsx.
   - https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
 
@@ -18,11 +22,15 @@
 
 * Sentry.
 
-* Add pip constraints file.
+* Bug report for use-debounce isPending().
+  - https://github.com/xnimorz/use-debounce
+  - https://github.com/jg210/spring-experiments/pull/41/commits/ab055f1dbdfa7a9b00c04c1d01cb7b153121bf7f was my workaround.
 
-* Retries with exponential backoff for failed requests (e.g. from 429 from lambda rate limiting).
-  - https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#automatic-retries
-  - https://mswjs.io/docs/api/http#once should allow this to be tested?
+* Reduce RTK Query retry interval in unit tests?
+
+* Check for carets in package.json in unit tests.
+
+* Add pip constraints file.
 
 * 0% rows generally have non-zero bar graph size
   - from rounding
@@ -47,6 +55,10 @@
 * Add package javadoc explaining purpose of Fsa* and api classes.
 
 * More method/class javadoc.
+
+* RenderWithStore component would be better as a function.
+  - less verbose
+  - could return extra objects, e.g. the store.
 
 * Test FsaService json parsing using file:/// URLs.
 
@@ -102,7 +114,8 @@
 
 * unit test changing Table localAuthorityId shows loading... state again 
 
-* Improved failed-connection handling.
+* Error page if run out of retries.
+  - or infinite retries and a network connectivity warning?
 
 * Verify json metadata in case get paged data.
   - check meta.totalPages is 1.

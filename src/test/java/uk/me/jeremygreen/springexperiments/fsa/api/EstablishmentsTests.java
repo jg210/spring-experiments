@@ -18,7 +18,7 @@ public final class EstablishmentsTests {
                 "AwaitingInspection",
                 "AwaitingPublication", "AwaitingPublication", "AwaitingPublication");
         final long epochMillis = System.currentTimeMillis();
-        final Establishments establishments = Establishments.createInstance(fsaEstablishments);
+        final Establishments establishments = Establishments.createInstance(epochMillis, fsaEstablishments);
         final List<RatingCount> actual = establishments.getRatingCounts();
         final SortedMap<String,Long> expected = fsaEstablishments.getRatingCounts();
         assertEquals(expected.size(), actual.size());

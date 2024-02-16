@@ -1,3 +1,4 @@
+import { useDebounce } from 'use-debounce';
 import {
     ratingsPercentages,
     RatingPercentage,
@@ -10,13 +11,26 @@ interface TableProps {
     localAuthorityId: number;
 }
 
+const DEBOUNCE_INTERVAL_MILLIS = 1000;
+
 // Table showing percentage of establishments with each rating.
 export const Table = ({ localAuthorityId }: TableProps) => {
-    const { currentData } = useGetEstablishmentsQuery(localAuthorityId, {
+    // Scrolling through list of local authorities by holding down up or down
+    // arrow keys generates a lot of renders, so need to limit the number of
+    // API requests.
+    const [ localAuthorityIdDebounced ] = useDebounce(
+        localAuthorityId,
+        DEBOUNCE_INTERVAL_MILLIS,
+        { leading: true }
+    );
+    const { currentData } = useGetEstablishmentsQuery(localAuthorityIdDebounced, {
         pollingInterval: RATINGS_REFRESH_INTERVAL_SECONDS * 1000,
         refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS
     });
-    if (currentData == undefined) {
+    // The isPending() returned by useDebounce doesn't work if leading set to true,
+    // so compare prop and debounced value instead.
+    const debounced = localAuthorityId !== localAuthorityIdDebounced;
+    if (currentData == undefined || debounced) {
         return (
             <div data-testid="table_loading">loading...</div>
         );

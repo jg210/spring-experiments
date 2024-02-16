@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 
 export const BASE_PATHNAME = "/api/fsa";
 
@@ -51,10 +51,17 @@ export function ratingsPercentages(establishments: Establishments): RatingPercen
     });
 }
 
+// The AWS API gateway is configured to heavily rate limit requests (to limit costs), so
+// 429 responses are possible. The startup time of an Spring Boot lambda function is also
+// long, and timeouts commonly give a 502 response.
+// https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#automatic-retries
+const baseQuery = retry(fetchBaseQuery({ baseUrl: BASE_URL }), {
+  maxRetries: 5
+});
 // http://api.ratings.food.gov.uk/help
 export const fsaApi = createApi({
   reducerPath: 'fsaApi',
-  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+  baseQuery,
   endpoints: (builder) => ({
     getLocalAuthorities: builder.query<LocalAuthority[], void>({
       query: () => `localAuthority`,
