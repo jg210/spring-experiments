@@ -56,6 +56,10 @@
 
 * More method/class javadoc.
 
+* RenderWithStore component would be better as a function.
+  - less verbose
+  - could return extra objects, e.g. the store.
+
 * Test FsaService json parsing using file:/// URLs.
 
 * Unit tests for lambda (in addition to cypress end-to-end tests).
