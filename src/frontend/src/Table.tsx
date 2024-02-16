@@ -11,6 +11,8 @@ interface TableProps {
     localAuthorityId: number;
 }
 
+const DEBOUNCE_INTERVAL_MILLIS = 1000;
+
 // Table showing percentage of establishments with each rating.
 export const Table = ({ localAuthorityId }: TableProps) => {
     // Scrolling through list of local authorities by holding down up or down
@@ -18,7 +20,7 @@ export const Table = ({ localAuthorityId }: TableProps) => {
     // API requests.
     const [ localAuthorityIdDebounced ] = useDebounce(
         localAuthorityId,
-        1000,
+        DEBOUNCE_INTERVAL_MILLIS,
         { leading: true }
     );
     const { currentData } = useGetEstablishmentsQuery(localAuthorityIdDebounced, {
