@@ -88,9 +88,11 @@ const localAuthorityIdToToken = (localAuthorityId: number) => `LOCAL_AUTHORITY_I
 
 // Mock the API.
 const localAuthorities: LocalAuthority[] = [
-  243433,
-  3823423,
-  123523344
+  1,
+  28,
+  323,
+  4874,
+  53567
 ].map(localAuthorityId => {
   return {
     name: localAuthorityIdToName(localAuthorityId),
@@ -219,6 +221,28 @@ describe("App", () => {
     );
     await selectLocalAuthority(localAuthorities[2].localAuthorityId, user);
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(3); // errors don't appear in this list.
+
+    // item 3 with 429 response on first attempt
+    server.use(
+      http.get(
+        serverURL("localAuthority/:localAuthorityId"),
+        () => new HttpResponse('busy', { status: 429 }),
+        { once: true }
+      )
+    );
+    await selectLocalAuthority(localAuthorities[3].localAuthorityId, user);
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(5);
+
+    // item 4 with 502 response on first attempt
+    server.use(
+      http.get(
+        serverURL("localAuthority/:localAuthorityId"),
+        () => new HttpResponse('timeout', { status: 502 }),
+        { once: true }
+      )
+    );
+    await selectLocalAuthority(localAuthorities[4].localAuthorityId, user);
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(7);
 
   }, { timeout: 10000 });
 

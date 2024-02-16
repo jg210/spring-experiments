@@ -106,7 +106,8 @@
 
 * unit test changing Table localAuthorityId shows loading... state again 
 
-* Improved failed-connection handling.
+* Error page if run out of retries.
+  - or infinite retries and a network connectivity warning?
 
 * Verify json metadata in case get paged data.
   - check meta.totalPages is 1.
