@@ -88,9 +88,6 @@ const localAuthorityIdToToken = (localAuthorityId: number) => `LOCAL_AUTHORITY_I
 
 // Mock the API.
 const localAuthorities: LocalAuthority[] = [
-  1,
-  28,
-  323,
   4874,
   53567
 ].map(localAuthorityId => {
@@ -184,15 +181,18 @@ describe("App", () => {
     expect(screen.getByTestId("authorities_loading")).toHaveTextContent(/^loading...$/);
   });
 
-  it('shows rating if click on establishment', async () => {
+  const prepareToClickOnAuthority = async () => {
     const user = userEvent.setup();
     render(<RenderWithStore><App/></RenderWithStore>);
     checkBoilerplate();
     await checkAuthoritiesList();
     checkBoilerplate();
-
-    // Clicking on an authority
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(0);
+    return user;
+  };
+
+  it('shows rating if click on establishments, caching data correctly', async () => {
+    const user = await prepareToClickOnAuthority();
 
     // item 0.
     const localAuthorityId0 = localAuthorities[0].localAuthorityId;
@@ -209,8 +209,9 @@ describe("App", () => {
     // item 0 again.
     await selectLocalAuthority(localAuthorities[1].localAuthorityId, user);
     expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2); // cached by RTK query.
+  });
 
-    // item 2 with a network error on first attempt
+  it('retries Establishments request if there is a network error', async () => {
     server.use(
       http.get(
         serverURL("localAuthority/:localAuthorityId"),
@@ -218,10 +219,12 @@ describe("App", () => {
         { once: true }
       )
     );
-    await selectLocalAuthority(localAuthorities[2].localAuthorityId, user);
-    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(3); // errors don't appear in this list.
+    const user = await prepareToClickOnAuthority();
+    await selectLocalAuthority(localAuthorities[0].localAuthorityId, user);
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(1); // errors don't appear in this list.
+  });
 
-    // item 3 with 429 response on first attempt
+  it('retries Establishments request if there is a 429 response', async () => {
     server.use(
       http.get(
         serverURL("localAuthority/:localAuthorityId"),
@@ -229,10 +232,12 @@ describe("App", () => {
         { once: true }
       )
     );
-    await selectLocalAuthority(localAuthorities[3].localAuthorityId, user);
-    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(5);
+    const user = await prepareToClickOnAuthority();
+    await selectLocalAuthority(localAuthorities[0].localAuthorityId, user);
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2);
+  });
 
-    // item 4 with 502 response on first attempt
+  it('retries Establishments request if there is a 502 response', async () => {
     server.use(
       http.get(
         serverURL("localAuthority/:localAuthorityId"),
@@ -240,10 +245,10 @@ describe("App", () => {
         { once: true }
       )
     );
-    await selectLocalAuthority(localAuthorities[4].localAuthorityId, user);
-    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(7);
-
-  }, { timeout: 10000 });
+    const user = await prepareToClickOnAuthority();
+    await selectLocalAuthority(localAuthorities[0].localAuthorityId, user);
+    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(2);
+  });
 
   it("retries authorities list request on network error", async () => {
     server.use(
