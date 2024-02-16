@@ -26,6 +26,8 @@
   - https://github.com/xnimorz/use-debounce
   - https://github.com/jg210/spring-experiments/pull/41/commits/ab055f1dbdfa7a9b00c04c1d01cb7b153121bf7f was my workaround.
 
+* Reduce RTK Query retry interval in unit tests?
+
 * Check for carets in package.json in unit tests.
 
 * Add pip constraints file.
