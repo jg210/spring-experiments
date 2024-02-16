@@ -40,6 +40,16 @@ async function checkAuthoritiesList() {
   });
 }
 
+async function prepareToClickOnAuthority() {
+  const user = userEvent.setup();
+  render(<RenderWithStore><App/></RenderWithStore>);
+  checkBoilerplate();
+  await checkAuthoritiesList();
+  checkBoilerplate();
+  expect(establishmentRequestLocalAuthorityIds()).toHaveLength(0);
+  return user;
+}
+
 async function selectLocalAuthority(
   localAuthorityId: number,
   user: UserEvent
@@ -186,16 +196,6 @@ describe("App", () => {
     checkBoilerplate();
     expect(screen.getByTestId("authorities_loading")).toHaveTextContent(/^loading...$/);
   });
-
-  const prepareToClickOnAuthority = async () => {
-    const user = userEvent.setup();
-    render(<RenderWithStore><App/></RenderWithStore>);
-    checkBoilerplate();
-    await checkAuthoritiesList();
-    checkBoilerplate();
-    expect(establishmentRequestLocalAuthorityIds()).toHaveLength(0);
-    return user;
-  };
 
   it('shows rating if click on establishments, caching data correctly', async () => {
     const user = await prepareToClickOnAuthority();
