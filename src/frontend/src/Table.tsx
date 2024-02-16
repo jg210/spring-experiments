@@ -16,8 +16,6 @@ export const Table = ({ localAuthorityId }: TableProps) => {
     // Scrolling through list of local authorities by holding down up or down
     // arrow keys generates a lot of renders, so need to limit the number of
     // API requests.
-    //
-    // The isPending() returned by useDebounce doesn't work
     const [ localAuthorityIdDebounced ] = useDebounce(
         localAuthorityId,
         1000,
