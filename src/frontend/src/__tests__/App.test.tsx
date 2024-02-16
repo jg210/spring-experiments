@@ -225,7 +225,7 @@ describe("App", () => {
     );
     const user = await prepareToClickOnAuthority();
     await selectLocalAuthority(localAuthorityId0, user);
-    expect(establishmentRequestLocalAuthorityIds()).toEqual([localAuthorityId0]); // errors don't appear in this list.
+    expect(establishmentRequestLocalAuthorityIds()).toEqual([localAuthorityId0]); // network errors aren't sent as MSW events.
   });
 
   it('retries Establishments request if there is a 429 response', async () => {
