@@ -5,12 +5,17 @@
 .App-header {
   background-color: #222;
   height: 50px;
-  padding: 20px;
+  padding: 1em;
   color: white;
 }
 
 .App-title {
   font-size: 1.5em;
+}
+
+.App-blurb {
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 .Authority {
