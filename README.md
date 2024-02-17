@@ -85,6 +85,12 @@ http://localhost:3000/
 
 API requests are forwarded to the spring boot server using proxy in vite.config.ts.
 
+To test locally on mobile device:
+
+```
+adb reverse tcp:3000 tcp:3000
+```
+
 ## Release Build Instructions
 
 Build using one of:
