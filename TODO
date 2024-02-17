@@ -10,6 +10,7 @@
   - move DSN to CI secret
   - https://docs.sentry.io/platforms/javascript/guides/react/features/component-tracking/
   - better looking ErrorFallback component.
+  - what automated testing is possible?
 
 * Sentry for spring boot server
 
