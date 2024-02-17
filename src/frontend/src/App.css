@@ -32,6 +32,10 @@
   border: 1px solid black;
 }
 
+td {
+  padding: 0px;
+}
+
 .tableCell {
   text-align: left;
   padding-left: 1em;
