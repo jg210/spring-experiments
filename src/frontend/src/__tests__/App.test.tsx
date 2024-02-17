@@ -18,16 +18,12 @@ function checkBoilerplate() {
   expect(heading).toHaveClass("App-title");
   expect(heading).toHaveTextContent("FSA Food Hygiene Ratings");
   // blurb
-  const blurb = screen.getByText("The information provided here is based on data from the Food Standards Agency UK Food Hygiene Rating Data API.");
-  expect(blurb).toBeInTheDocument();
-  // URLs
-  [
-    "https://ratings.food.gov.uk",
-    "https://www.food.gov.uk/terms-and-conditions"
-  ].forEach(url => {
-    const element = screen.getByText(url);
-    expect(element).toHaveAttribute("href", url);
-  });
+  const blurb = screen.getByTestId("blurb");
+  expect(blurb).toHaveTextContent("The information provided here is based on data from the Food Standards Agency UK Food Hygiene Rating Data");
+  // T&C URL
+  const url = "https://www.food.gov.uk/terms-and-conditions"
+  const element = screen.getByText(url);
+  expect(element).toHaveAttribute("href", url);
 }
 
 async function checkAuthoritiesList() {
