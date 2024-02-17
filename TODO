@@ -1,10 +1,15 @@
 * Sentry for frontend
+  - version info in app
+  - handle lambda/ec2 deployments
+    - include in sentry environment?
   - move config to vitest env files?
   - replaysSessionSampleRate: 1 in dev?
   - upload source maps
   - user opt-in UI
   - redux integration
   - move DSN to CI secret
+  - https://docs.sentry.io/platforms/javascript/guides/react/features/component-tracking/
+  - better looking ErrorFallback component.
 
 * Sentry for spring boot server
 
