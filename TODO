@@ -1,9 +1,12 @@
-* Sentry
-  - move config to vitest env files
+* Sentry for frontend
+  - move config to vitest env files?
   - replaysSessionSampleRate: 1 in dev?
   - upload source maps
   - user opt-in UI
+  - redux integration
   - move DSN to CI secret
+
+* Sentry for spring boot server
 
 * Assert correct id selected in list in App.test.tsx.
   - https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
