@@ -4,8 +4,6 @@
 * Use redux for App's localAuthorityId
   - https://redux-toolkit.js.org/usage/usage-with-typescript
 
-* Get rid of narrow white gap around bar graph bars.
-
 * vitest failures don't appear in VSC.
 
 * Export OpenAPI spec. from spring boot server and use it in front end
@@ -16,7 +14,10 @@
 
 * Analytics.
 
-* Sentry.
+* Server-side crash reporting.
+  - Sentry.
+
+* Client-side crash reporting.
 
 * Bug report for use-debounce isPending().
   - https://github.com/xnimorz/use-debounce
@@ -38,15 +39,10 @@
 
 * Split gradle checks into multiple github actions steps?
 
-* Should be able to use shadowJar in place of bootJar
-  - shadowJar is lacking most manifest attributes so isn't executable.
+* Should be able to use shadowJar in place of bootJar.
 
 * A release branch, so can fix problems without breaking aws-experiments deployment?
   - or single branch and versioned publishing
-
-* Client-side crash reporting.
-
-* Server-side crash reporting.
 
 * Add package javadoc explaining purpose of Fsa* and api classes.
 
@@ -85,7 +81,7 @@
   - redirect using nginx if use empty path.
 
 * Rename project.
-  - its not just spring any more.
+  - it's not just spring any more.
 
 * Configure https.
   - nginx
@@ -110,7 +106,7 @@
 
 * unit test changing Table localAuthorityId shows loading... state again 
 
-* Error page if run out of retries.
+* Error message if run out of retries.
   - or infinite retries and a network connectivity warning?
 
 * Verify json metadata in case get paged data.
@@ -120,12 +116,7 @@
 
 * Always download data using paged APIs.
 
-* Find way to automate npm audit
-  - currently have unfixed errors in dependencies of latest react-scripts
-  - only fail if errors are above low priority?
-    - there's no option for that
-  - there are wrapper projects for npm audit.
-  - can travis CI do warnings?
+* Dependabot?  
 
 * Local Authority could be removed while app running.
   - but a query for an unknown authority returns empty list.
