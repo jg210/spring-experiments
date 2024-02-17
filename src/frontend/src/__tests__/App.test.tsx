@@ -21,7 +21,7 @@ function checkBoilerplate() {
   const blurb = screen.getByTestId("blurb");
   expect(blurb).toHaveTextContent("The information provided here is based on data from the Food Standards Agency UK Food Hygiene Rating Data");
   // T&C URL
-  const url = "https://www.food.gov.uk/terms-and-conditions"
+  const url = "https://www.food.gov.uk/terms-and-conditions";
   const element = screen.getByText(url);
   expect(element).toHaveAttribute("href", url);
 }
