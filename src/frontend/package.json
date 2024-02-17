@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@sentry/react": "7.101.1",
     "@types/lodash": "4.14.202",
     "@types/react": "18.2.51",
     "@types/react-dom": "18.2.18",

@@ -1,3 +1,10 @@
+* Sentry
+  - move config to vitest env files
+  - dev/production environments
+  - replaysSessionSampleRate: 1 in dev?
+  - upload source maps
+  - user opt-in UI
+
 * Assert correct id selected in list in App.test.tsx.
   - https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
 
@@ -13,9 +20,6 @@
 * More cypress tests.
 
 * Analytics.
-
-* Server-side crash reporting.
-  - Sentry.
 
 * Client-side crash reporting.
 
