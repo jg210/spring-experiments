@@ -1,5 +1,4 @@
 * Sentry for frontend
-  - version info in app
   - handle lambda/ec2 deployments
     - include in sentry environment?
   - move config to vitest env files?
@@ -137,6 +136,8 @@
   - but a query for an unknown authority returns empty list.
 
 * Improve visual design.
+
+* Detect circular imports in CI.
 
 * Localization.
 
