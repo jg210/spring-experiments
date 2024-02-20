@@ -9,6 +9,7 @@ plugins {
     id 'org.springframework.boot' version "${SPRING_BOOT_VERSION}"
     // https://plugins.gradle.org/plugin/io.spring.dependency-management
     id 'io.spring.dependency-management' version '1.1.4'
+    id "io.sentry.jvm.gradle" version "4.3.0"
     // Need to using a shaded jar (shadowJar) since a spring executable jar doesn't work
     // with AWS lambda:
     //
@@ -40,6 +41,9 @@ springBoot {
     mainClass = 'uk.me.jeremygreen.springexperiments.SpringExperimentsApplication'
 }
 
+sentry {
+    includeSourceContext = true
+}
 assemble.dependsOn = [bootJar, shadowJar]
 import com.github.jengelman.gradle.plugins.shadow.transformers.*
 shadowJar {
