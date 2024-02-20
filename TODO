@@ -1,7 +1,4 @@
 * Sentry for frontend
-  - handle lambda/ec2 deployments
-    - include in sentry environment?
-  - move config to vitest env files?
   - upload source maps
   - redux integration
   - move DSN to CI secret
