@@ -1,5 +1,4 @@
 * Sentry for frontend
-  - upload source maps
   - redux integration
   - move DSN to CI secret
   - https://docs.sentry.io/platforms/javascript/guides/react/features/component-tracking/
