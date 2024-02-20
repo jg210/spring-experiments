@@ -1,5 +1,5 @@
-import { sentryVitePlugin } from "@sentry/vite-plugin";
 /// <reference types="vitest" />
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
@@ -22,7 +22,8 @@ export default defineConfig({
 
     define: {
         __COMMIT_HASH__: JSON.stringify(commitHash),
-        __APP_NAME__: JSON.stringify(process.env.npm_package_name)
+        __APP_NAME__: JSON.stringify(process.env.npm_package_name),
+        __SENTRY_DSN__: JSON.stringify(process.env.SENTRY_DSN_SPRING_EXPERIMENTS)
     },
 
     server: {    

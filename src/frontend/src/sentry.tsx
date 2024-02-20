@@ -5,7 +5,7 @@ export const sentryRelease = __APP_NAME__ + '@' + __COMMIT_HASH__;
 
 export const sentryInit = () => {
     Sentry.init({
-        dsn: "https://014ba2c22321fa2808bc3d8f2b9f5fba@o282512.ingest.sentry.io/4506763201019904",
+        dsn: __SENTRY_DSN__,
         environment: import.meta.env.MODE,
         release: sentryRelease,
         integrations: [

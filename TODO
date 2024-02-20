@@ -1,5 +1,4 @@
 * Sentry for frontend
-  - move DSN to CI secret
   - what automated testing is possible?
 
 * Sentry for spring boot server

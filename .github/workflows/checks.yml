@@ -38,6 +38,7 @@ jobs:
       run: ./gradlew --scan assemble
       env:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_DSN_SPRING_EXPERIMENTS: ${{ secrets.SENTRY_DSN_SPRING_EXPERIMENTS }}
 
     # Store as artifacts for debugging.
     - name: archive jars
@@ -49,6 +50,8 @@ jobs:
     
     - name: check
       run: ./gradlew --scan check
+      env:
+        SENTRY_DSN_SPRING_EXPERIMENTS: ${{ secrets.SENTRY_DSN_SPRING_EXPERIMENTS }}
 
     - name: test teport - native junit
       uses: dorny/test-reporter@v1.8.0
