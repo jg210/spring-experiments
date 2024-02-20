@@ -1,3 +1,5 @@
+* Why are there no sentry.io requests from production in browser network connection debugger?
+
 * Sentry for spring boot server
   - set DSN
     - https://docs.sentry.io/platforms/java/guides/spring-boot/configuration/
