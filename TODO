@@ -1,6 +1,3 @@
-* Sentry for frontend
-  - what automated testing is possible?
-
 * Sentry for spring boot server
 
 * Sentry-github integration
@@ -77,6 +74,10 @@
 
 * Role better than access key for publishing?
   - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html?icmpid=docs_iam_console#Using_CreateAccessKey
+
+* Automated testing of sentry configuration
+  - front end
+  - server
 
 * Polling of APIs could mean that a localAuthorityId disappears.
   - with much much greater probability than is currently possible.
