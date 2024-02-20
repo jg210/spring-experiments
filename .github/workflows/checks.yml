@@ -36,6 +36,8 @@ jobs:
 
     - name: assemble
       run: ./gradlew --scan assemble
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
     # Store as artifacts for debugging.
     - name: archive jars
