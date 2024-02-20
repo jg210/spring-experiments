@@ -7,6 +7,9 @@
 
 * Sentry for spring boot server
 
+* Sentry-github integration
+  - https://docs.sentry.io/product/integrations/source-code-mgmt/github/
+
 * Assert correct id selected in list in App.test.tsx.
   - https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
 

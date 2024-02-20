@@ -11,10 +11,14 @@ export default defineConfig({
     // depending on your application, base can also be "/"
     base: '',
 
-    plugins: [react(), viteTsconfigPaths(), sentryVitePlugin({
-        org: "jeremy-green",
-        project: "spring-experiments"
-    })],
+    plugins: [
+        react(),
+        viteTsconfigPaths(),
+        sentryVitePlugin({
+            org: "jeremy-green",
+            project: "spring-experiments"
+        })
+    ],
 
     define: {
         __COMMIT_HASH__: JSON.stringify(commitHash),
