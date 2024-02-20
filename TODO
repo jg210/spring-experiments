@@ -1,14 +1,15 @@
 * Sentry for frontend
-  - redux integration
   - move DSN to CI secret
-  - https://docs.sentry.io/platforms/javascript/guides/react/features/component-tracking/
-  - better looking ErrorFallback component.
   - what automated testing is possible?
 
 * Sentry for spring boot server
 
 * Sentry-github integration
   - https://docs.sentry.io/product/integrations/source-code-mgmt/github/
+
+* https://docs.sentry.io/platforms/javascript/guides/react/features/redux/
+
+* https://docs.sentry.io/platforms/javascript/guides/react/features/component-tracking/ breaks app...
 
 * Assert correct id selected in list in App.test.tsx.
   - https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
@@ -151,3 +152,5 @@
 * Lint for github actions config.
 
 * Is there a GitHub Actions vitest clover action?
+
+* Better looking sentry ErrorFallback component.
