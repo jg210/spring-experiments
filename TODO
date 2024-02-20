@@ -1,3 +1,12 @@
+* Sentry for spring boot server
+
+* Sentry-github integration
+  - https://docs.sentry.io/product/integrations/source-code-mgmt/github/
+
+* https://docs.sentry.io/platforms/javascript/guides/react/features/redux/
+
+* https://docs.sentry.io/platforms/javascript/guides/react/features/component-tracking/ breaks app...
+
 * Assert correct id selected in list in App.test.tsx.
   - https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
 
@@ -6,6 +15,10 @@
 
 * vitest failures don't appear in VSC.
 
+* Crash test button for testing sentry.
+  - triple click on retrieved text?
+  - add hamburger menu?
+
 * Export OpenAPI spec. from spring boot server and use it in front end
   - generate RTK Query API
   - can MSW mocks be typed automatically too?
@@ -13,9 +26,6 @@
 * More cypress tests.
 
 * Analytics.
-
-* Server-side crash reporting.
-  - Sentry.
 
 * Client-side crash reporting.
 
@@ -36,6 +46,8 @@
 * Cache npm files on github actions.
 
 * Enable branch protection rule for master.
+
+* Automated licence management.
 
 * Split gradle checks into multiple github actions steps?
 
@@ -68,6 +80,10 @@
 
 * Role better than access key for publishing?
   - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html?icmpid=docs_iam_console#Using_CreateAccessKey
+
+* Automated testing of sentry configuration
+  - front end
+  - server
 
 * Polling of APIs could mean that a localAuthorityId disappears.
   - with much much greater probability than is currently possible.
@@ -125,6 +141,8 @@
 
 * Improve visual design.
 
+* Detect circular imports in CI.
+
 * Localization.
 
 * snapshot tests.
@@ -140,3 +158,5 @@
 * Lint for github actions config.
 
 * Is there a GitHub Actions vitest clover action?
+
+* Better looking sentry ErrorFallback component.

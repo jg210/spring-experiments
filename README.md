@@ -9,6 +9,8 @@ Testing is done using:
 * [MockMvc](https://docs.spring.io/spring-framework/reference/testing/spring-mvc-test-framework.html) for testing server.
 * [Cypress](https://www.cypress.io/) for end-to-end tests.
 
+[Sentry](https://sentry.io) is used for crash reporting and analytics.
+
 [![build status](https://github.com/jg210/spring-experiments/actions/workflows/checks.yml/badge.svg)](https://github.com/jg210/spring-experiments/actions/workflows/checks.yml)
 
 ## Front End
@@ -55,6 +57,8 @@ Install nodenv and node-build (or use any other way to put correct version of no
 
 * https://github.com/nodenv/nodenv#installation
 * https://github.com/nodenv/node-build#installation
+
+Configure github action repository secret and local env. var. called SENTRY_DSN_SPRING_EXPERIMENTS with the [Sentry DSN](https://docs.sentry.io/product/sentry-basics/concepts/dsn-explainer/).
 
 To build and run the Spring Boot server from the command line:
 

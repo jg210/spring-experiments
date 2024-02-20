@@ -284,4 +284,23 @@ describe("App", () => {
     });
   });
 
+  describe("cookie consent", () => {
+    const cookieConsentTextPattern = /This site uses cookies/;
+    it("is rendered when load app", () => {
+      render(<RenderWithStore><App/></RenderWithStore>);
+      const cookieConsent = screen.getByText(cookieConsentTextPattern);
+      expect(cookieConsent).toBeVisible();
+    });
+    it("goes away when click on it", async () => {
+      const { rerender } = render(<RenderWithStore><App/></RenderWithStore>);
+      const cookieConsentButton = screen.getByRole("button", { name : "Accept cookies"});
+      expect(cookieConsentButton).toHaveTextContent("I understand");
+      const user = userEvent.setup();
+      await user.click(cookieConsentButton);
+      expect(screen.queryByText(cookieConsentTextPattern)).not.toBeInTheDocument();
+      rerender(<RenderWithStore><App/></RenderWithStore>);
+      expect(screen.queryByText(cookieConsentTextPattern)).not.toBeInTheDocument();
+    });
+  });
+
 });
