@@ -15,6 +15,10 @@
 
 * vitest failures don't appear in VSC.
 
+* Crash test button for testing sentry.
+  - triple click on retrieved text?
+  - add hamburger menu?
+
 * Export OpenAPI spec. from spring boot server and use it in front end
   - generate RTK Query API
   - can MSW mocks be typed automatically too?
@@ -42,6 +46,8 @@
 * Cache npm files on github actions.
 
 * Enable branch protection rule for master.
+
+* Automated licence management.
 
 * Split gradle checks into multiple github actions steps?
 
