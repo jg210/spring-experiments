@@ -3,6 +3,9 @@
     - https://docs.sentry.io/platforms/java/guides/spring-boot/configuration/
   - does something need to call Sentry.init()?
   - set environment
+  - make sure release id is same as for front end
+  - source code?
+  - are events reliably sent from lambdas?
   - make sure ec2 and lambda can be distinguised.
 
 * Sentry-github integration
