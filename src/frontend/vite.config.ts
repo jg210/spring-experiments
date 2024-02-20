@@ -16,8 +16,7 @@ export default defineConfig({
         viteTsconfigPaths(),
         sentryVitePlugin({
             org: "jeremy-green",
-            project: "spring-experiments",
-            reactComponentAnnotation: { enabled: true }
+            project: "spring-experiments"
         })
     ],
 
