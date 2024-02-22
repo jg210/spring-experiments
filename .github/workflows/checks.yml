@@ -34,13 +34,34 @@ jobs:
     - name: local bin/setup script
       run: ./bin/setup
 
-    - name: assemble
-      run: ./gradlew --scan src:frontend:npm_run_build assemble
+    - name: npm install
+      working-directory: src/frontend
+      run: |
+        . environment
+        npm ci
+
+    - name: npm run ci
+      working-directory: src/frontend
+      env:
+        # Avoid "[sentry-vite-plugin] Warning: No auth token provided." warning when run vitest.
+        SENTRY_AUTH_TOKEN: "dummy sentry auth token"
+      run: |
+        . environment
+        npm run ci
+
+    - name: npm run build
+      working-directory: src/frontend
       env:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         SENTRY_DSN_SPRING_EXPERIMENTS: ${{ secrets.SENTRY_DSN_SPRING_EXPERIMENTS }}
+      run: |
+        . environment
+        npm run build
 
-    # Store as artifacts for debugging.
+    - name: gradle assemble
+      run: ./gradlew --scan assemble
+
+    # Store jars as artifacts for debugging.
     - name: archive jars
       uses: actions/upload-artifact@v4.3.0
       with:
@@ -48,10 +69,8 @@ jobs:
         path: |
           build/libs/*.jar
     
-    - name: check
+    - name: gradle check
       run: ./gradlew --scan check
-      env:
-        SENTRY_DSN_SPRING_EXPERIMENTS: ${{ secrets.SENTRY_DSN_SPRING_EXPERIMENTS }}
 
     - name: test teport - native junit
       uses: dorny/test-reporter@v1.8.0
@@ -69,7 +88,7 @@ jobs:
         path: src/frontend/junit-report.xml
         reporter: jest-junit
 
-    - name: archive build reports
+    - name: archive gradle build reports
       uses: actions/upload-artifact@v4.3.0
       if: success() || failure()
       with:
@@ -102,9 +121,9 @@ jobs:
         path: ${{ runner.temp }}/sam_logs.txt
 
     # Publish to S3 for deployment
-    - name: publish
+    - name: gradle publish
       if: ${{ github.ref == 'refs/heads/master' }}
-      run: ./gradlew --scan publish
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: ./gradlew --scan publish

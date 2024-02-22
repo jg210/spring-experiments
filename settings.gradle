@@ -4,4 +4,3 @@ pluginManagement {
     }
 }
 rootProject.name = 'spring-experiments'
-include 'src:frontend'

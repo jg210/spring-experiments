@@ -6,10 +6,6 @@ import viteTsconfigPaths from 'vite-tsconfig-paths';
 import { execSync } from 'child_process';
 
 const commitHash = execSync('git rev-parse --short HEAD').toString();
-const sentryDsn = process.env.SENTRY_DSN_SPRING_EXPERIMENTS;
-if (sentryDsn == undefined) {
-    throw new Error("SENTRY_DSN_SPRING_EXPERIMENTS env. var. / secret not set.");
-}
 
 export default defineConfig({
     // depending on your application, base can also be "/"
@@ -27,7 +23,7 @@ export default defineConfig({
     define: {
         __COMMIT_HASH__: JSON.stringify(commitHash),
         __APP_NAME__: JSON.stringify(process.env.npm_package_name),
-        __SENTRY_DSN__: JSON.stringify(sentryDsn)
+        __SENTRY_DSN__: JSON.stringify(process.env.SENTRY_DSN_SPRING_EXPERIMENTS)
     },
 
     server: {    
