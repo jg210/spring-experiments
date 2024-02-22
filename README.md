@@ -89,6 +89,12 @@ http://localhost:3000/
 
 API requests are forwarded to the spring boot server using proxy in vite.config.ts.
 
+To run production build locally:
+
+```
+vite preview
+```
+
 To test locally on mobile device:
 
 ```
