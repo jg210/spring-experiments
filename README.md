@@ -18,6 +18,20 @@ Testing is done using:
 ```mermaid
 classDiagram
     %% Data Model
+    class LocalAuthorities {
+    }
+    class LocalAuthority {
+        string name
+        number localAuthorityId
+    }
+    class Establishments {
+        number epochMills
+        ratingsPercentages() RatingPercentage[]
+    }
+    class RatingCount {
+        string rating
+        number count
+    }
     class RatingPercentage {
        string rating
        number percentage
@@ -32,6 +46,10 @@ classDiagram
     class TableRow {
         RatingPercentage ratingPercentage
     }
+    %% Relationships
+    LocalAuthorities --> "*" LocalAuthority
+    LocalAuthority ..> "1" Establishments
+    Establishments --> "*" RatingCount
     App --> "1" Authorities
     App --> "1" Table
     Table --> "*" TableRow
