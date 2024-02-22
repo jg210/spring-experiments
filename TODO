@@ -31,6 +31,10 @@
   - generate RTK Query API
   - can MSW mocks be typed automatically too?
 
+* useTranstion and Suspense for loading state?
+  - Suspense not supported by RTK Query yet
+    - https://github.com/reduxjs/redux-toolkit/issues/1574
+
 * More cypress tests.
 
 * Analytics.
