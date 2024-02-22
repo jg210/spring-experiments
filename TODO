@@ -57,8 +57,6 @@
 
 * Automated licence management.
 
-* Split gradle checks into multiple github actions steps?
-
 * Split github action job into multiple jobs.
 
 * Should be able to use shadowJar in place of bootJar.

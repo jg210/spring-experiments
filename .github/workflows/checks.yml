@@ -34,13 +34,31 @@ jobs:
     - name: local bin/setup script
       run: ./bin/setup
 
-    - name: assemble
-      run: ./gradlew --scan src:frontend:npm_run_build assemble
-      env:
-        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-        SENTRY_DSN_SPRING_EXPERIMENTS: ${{ secrets.SENTRY_DSN_SPRING_EXPERIMENTS }}
+    - name: npm install
+      working-directory: src/frontend
+      run: |
+        . environment
+        npm ci
 
-    # Store as artifacts for debugging.
+    - name: npm run ci
+      working-directory: src/frontend
+      run: |
+        . environment
+        npm run ci
+
+    - name: npm run build
+      working-directory: src/frontend
+      run: |
+        . environment
+        npm run build
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_DSN_SPRING_EXPERIMENTS: ${{ secrets.SENTRY_DSN_SPRING_EXPERIMENTS }}
+
+    - name: gradle assemble
+      run: ./gradlew --scan assemble
+
+    # Store jars as artifacts for debugging.
     - name: archive jars
       uses: actions/upload-artifact@v4.3.0
       with:
@@ -48,7 +66,7 @@ jobs:
         path: |
           build/libs/*.jar
     
-    - name: check
+    - name: gradle check
       run: ./gradlew --scan check
       env:
         SENTRY_DSN_SPRING_EXPERIMENTS: ${{ secrets.SENTRY_DSN_SPRING_EXPERIMENTS }}
@@ -69,7 +87,7 @@ jobs:
         path: src/frontend/junit-report.xml
         reporter: jest-junit
 
-    - name: archive build reports
+    - name: archive gradle build reports
       uses: actions/upload-artifact@v4.3.0
       if: success() || failure()
       with:
@@ -102,7 +120,7 @@ jobs:
         path: ${{ runner.temp }}/sam_logs.txt
 
     # Publish to S3 for deployment
-    - name: publish
+    - name: gradle publish
       if: ${{ github.ref == 'refs/heads/master' }}
       run: ./gradlew --scan publish
       env:
