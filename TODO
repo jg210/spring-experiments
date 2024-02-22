@@ -7,9 +7,16 @@
     - https://github.com/jg210/spring-experiments/actions/runs/7976066640/job/21775743397
       -  [sentry-vite-plugin] Info: Successfully uploaded source maps to Sentry
 
-* Sentry for spring boot server
+* Sentry for spring-boot server
+  - dev/sentry_for_server
+  - memory use likely a problem
+    - https://github.com/getsentry/sentry-java/issues/3182
   - set DSN
     - https://docs.sentry.io/platforms/java/guides/spring-boot/configuration/
+    - EC2
+      - dev/sentry_for_server
+        - untested
+    - lambda
   - does something need to call Sentry.init()?
   - set environment
   - make sure release id is same as for front end
