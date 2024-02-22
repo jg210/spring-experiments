@@ -31,8 +31,8 @@ jobs:
     - name: setup gradle
       uses: gradle/actions/setup-gradle@v3
 
-    - name: local bin/setup script
-      run: ./bin/setup
+    - name: local scripts/setup script
+      run: ./scripts/setup
 
     - name: npm install
       working-directory: src/frontend
