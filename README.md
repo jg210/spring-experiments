@@ -99,7 +99,7 @@ To run front-end production build locally:
 
 ```
 npm run build
-vite preview
+npm run preview
 ```
 
 ## Release Build Instructions
