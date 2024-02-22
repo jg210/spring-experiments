@@ -34,6 +34,7 @@
 * useTranstion and Suspense for loading state?
   - Suspense not supported by RTK Query yet
     - https://github.com/reduxjs/redux-toolkit/issues/1574
+  - "useDeferredValue does not by itself prevent extra network requests."
 
 * More cypress tests.
 
