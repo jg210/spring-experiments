@@ -1,4 +1,6 @@
 * Why are there no sentry.io requests from production in browser network connection debugger?
+  - vite preview doesn't have this problem
+  - DSN doesn't seem to be in js bundle.
 
 * https://jeremy-green.sentry.io/settings/projects/spring-experiments/source-maps/release-bundles/spring-experiments%40e317e71/
   - current lambda release
