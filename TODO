@@ -1,12 +1,3 @@
-* Why are there no sentry.io requests from production in browser network connection debugger?
-  - vite preview doesn't have this problem
-  - browser requesting https://aws.jeremygreen.me.uk/assets/index-cQ6a5IW-.js
-  - e317 is reported in the App tooltip as version
-  - that's built by https://github.com/jg210/spring-experiments/actions/runs/7976066640
-  - has AWS jar artifact with public/assets/index-UNBOAu1w.js that has sentry DSN in it
-  - why are filenames different?
-    - ...since publish is rebuilding the dist/ directory.   
-
 * https://jeremy-green.sentry.io/settings/projects/spring-experiments/source-maps/release-bundles/spring-experiments%40e317e71/
   - current lambda release
   - no source maps uploaded according to sentry.io

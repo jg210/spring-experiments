@@ -94,10 +94,6 @@ if (hasProperty('buildScan')) {
     }
 }
 
-// Add React frontend artifacts to the jars.
-[shadowJar, bootJar].each { jar ->
-    jar.dependsOn('src:frontend:npm_run_build')
-}
 bootJar {
     from("${project('src:frontend').projectDir}/dist") {
         into("public")
