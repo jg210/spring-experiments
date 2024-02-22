@@ -7,23 +7,6 @@
     - https://github.com/jg210/spring-experiments/actions/runs/7976066640/job/21775743397
       -  [sentry-vite-plugin] Info: Successfully uploaded source maps to Sentry
 
-* Sentry for spring-boot server
-  - dev/sentry_for_server
-  - memory use likely a problem
-    - https://github.com/getsentry/sentry-java/issues/3182
-  - set DSN
-    - https://docs.sentry.io/platforms/java/guides/spring-boot/configuration/
-    - EC2
-      - dev/sentry_for_server
-        - untested
-    - lambda
-  - does something need to call Sentry.init()?
-  - set environment
-  - make sure release id is same as for front end
-  - source code?
-  - are events reliably sent from lambdas?
-  - make sure ec2 and lambda can be distinguised.
-
 * Sentry-github integration
   - https://docs.sentry.io/product/integrations/source-code-mgmt/github/
 
@@ -84,6 +67,23 @@
 
 * A release branch, so can fix problems without breaking aws-experiments deployment?
   - or single branch and versioned publishing
+
+* Sentry for spring-boot server
+  - dev/sentry_for_server
+  - memory use likely a problem
+    - https://github.com/getsentry/sentry-java/issues/3182
+  - set DSN
+    - https://docs.sentry.io/platforms/java/guides/spring-boot/configuration/
+    - EC2
+      - dev/sentry_for_server
+        - untested
+    - lambda
+  - does something need to call Sentry.init()?
+  - set environment
+  - make sure release id is same as for front end
+  - source code?
+  - are events reliably sent from lambdas?
+  - make sure ec2 and lambda can be distinguised.
 
 * Add package javadoc explaining purpose of Fsa* and api classes.
 
