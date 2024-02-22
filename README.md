@@ -89,28 +89,37 @@ http://localhost:3000/
 
 API requests are forwarded to the spring boot server using proxy in vite.config.ts.
 
-To run production build locally:
-
-```
-vite preview
-```
-
 To test locally on mobile device:
 
 ```
 adb reverse tcp:3000 tcp:3000
 ```
 
+To run front-end production build locally:
+
+```
+npm run build
+vite preview
+```
+
 ## Release Build Instructions
 
-Build using one of:
+Build front end first:
+
+```
+cd src/frontend
+npm install
+npm run build
+```
+
+Build jar using one of:
 
 ```
 ./gradlew bootJar # to run locally
 ./gradlew shadowJar # for AWS lambda
 ```
 
-The React app will be built and bundled into the jar.
+The jar will include latest front-end from src/frontend/dist/, put there by above build command.
 
 ## IDEs
 

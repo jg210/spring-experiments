@@ -1,5 +1,3 @@
-* Why are there no sentry.io requests from production in browser network connection debugger?
-
 * https://jeremy-green.sentry.io/settings/projects/spring-experiments/source-maps/release-bundles/spring-experiments%40e317e71/
   - current lambda release
   - no source maps uploaded according to sentry.io
