@@ -24,13 +24,16 @@
 
 * https://docs.sentry.io/platforms/javascript/guides/react/features/component-tracking/ breaks app...
 
+* Sentry js self profiling
+  - https://docs.sentry.io/platforms/javascript/guides/react/profiling/
+  - set HTTP header
+  - enable in config.
+
 * Assert correct id selected in list in App.test.tsx.
   - https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
 
 * Use redux for App's localAuthorityId
   - https://redux-toolkit.js.org/usage/usage-with-typescript
-
-* vitest failures don't appear in VSC.
 
 * Crash test button for testing sentry.
   - triple click on retrieved text?
