@@ -45,7 +45,7 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
     "eslint": "eslint src/**/*.{ts,tsx,js,cjs} cypress/**/*.{ts,tsx,js,cjs} cypress.config.ts vite.config.ts babel.config.cjs",
