@@ -54,7 +54,7 @@ export const Table = ({ localAuthorityId }: TableProps) => {
                         <TableRow ratingPercentage={ratingPercentage} key={i}/>
                     ))}
                 </tbody>
-            </table>            
+            </table>
             <RetrievalDate epoch={epoch} onTripleClick={onRetrievalDateTripleClick} />
         </div>
     );
