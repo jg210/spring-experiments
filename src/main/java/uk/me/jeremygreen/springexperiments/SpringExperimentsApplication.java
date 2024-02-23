@@ -1,13 +1,10 @@
 package uk.me.jeremygreen.springexperiments;
 
 import jakarta.servlet.*;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.lang.NonNull;
 import org.springframework.web.WebApplicationInitializer;
-import uk.me.jeremygreen.springexperiments.fsa.JsProfilingFilter;
-
-import java.io.IOException;
 
 @SpringBootApplication
 public class SpringExperimentsApplication implements WebApplicationInitializer {
@@ -17,6 +14,6 @@ public class SpringExperimentsApplication implements WebApplicationInitializer {
     }
 
     @Override
-    public void onStartup(ServletContext servletContext) {}
+    public void onStartup(@NonNull ServletContext servletContext) {}
 
 }

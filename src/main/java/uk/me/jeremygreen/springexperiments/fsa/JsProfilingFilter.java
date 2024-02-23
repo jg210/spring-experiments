@@ -9,15 +9,13 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
- * Lets sentry do in-browser profiling (in chrome).
- *
- * https://docs.sentry.io/platforms/javascript/guides/react/profiling/#step-2-add-document-policy-js-profiling-header
- *
+ * Lets sentry do <a href=https://docs.sentry.io/platforms/javascript/guides/react/profiling/#step-2-add-document-policy-js-profiling-header>in-browser profiling</a> (in chrome).
+ * <p>
  * In development, vite.config.ts sets the header, not this Filter.
  */
-
 @Component
 @WebFilter(urlPatterns = "/*")
+@SuppressWarnings("unused")
 public class JsProfilingFilter implements Filter {
 
     @Override
