@@ -1,6 +1,5 @@
 * Sentry js self profiling (https://docs.sentry.io/platforms/javascript/guides/react/profiling/)
-  - is Document-Policy: js-profiling getting set in lambda?
-  - check header set in cypress tests.
+  - is Document-Policy: js-profiling getting set in production lambda?
 
 * Send unexpected HTTP response codes to sentry.
   - before or after retries?
