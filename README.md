@@ -46,6 +46,10 @@ classDiagram
     class TableRow {
         RatingPercentage ratingPercentage
     }
+    class RetrievalDate {
+        onTripleClick
+        Date epoch
+    }
     %% Relationships
     LocalAuthorities --> "*" LocalAuthority
     LocalAuthority ..> "1" Establishments
@@ -53,6 +57,7 @@ classDiagram
     App --> "1" Authorities
     App --> "1" Table
     Table --> "*" TableRow
+    Table --> "1" RetrievalDate
 ```
 The [front end](src/frontend) uses [React](https://react.dev/). It uses [React Tool Kit Query](https://redux-toolkit.js.org/rtk-query/overview) to connect to the API. Type checking is done using [TypeScript](https://www.typescriptlang.org/).
 
