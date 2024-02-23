@@ -15,6 +15,10 @@
 * Sentry js self profiling
   - https://docs.sentry.io/platforms/javascript/guides/react/profiling/
   - set HTTP header
+    - spring boot
+      - https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/resource/ResourceHttpRequestHandler.html#setHeaders(jakarta.servlet.http.HttpServletResponse,org.springframework.core.io.Resource,org.springframework.http.MediaType)
+    - vite
+      - https://vitejs.dev/config/server-options#server-headers
   - enable in config.
 
 * Assert correct id selected in list in App.test.tsx.
