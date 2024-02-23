@@ -1,5 +1,3 @@
-* Are source map uploads working properly now?
-
 * Send unexpected HTTP response codes to sentry.
   - before or after retries?
   - how?
