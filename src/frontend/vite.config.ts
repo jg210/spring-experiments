@@ -42,6 +42,9 @@ export default defineConfig({
             '/api': {
                 target: 'http://localhost:8080'
             }
+        },
+        headers: {
+            "Document-Policy": "js-profiling"
         }
     },
 

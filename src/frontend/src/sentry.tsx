@@ -12,6 +12,7 @@ export const sentryInit = () => {
                 maskAllText: false,
                 blockAllMedia: false,
             }),
+            Sentry.browserProfilingIntegration()
         ],
         // Performance Monitoring
         tracesSampleRate: 1.0, // 100%
@@ -20,6 +21,7 @@ export const sentryInit = () => {
         // Session Replay
         replaysSessionSampleRate: 1.0,
         replaysOnErrorSampleRate: 1.0,
+        profilesSampleRate: 1.0
     });
 };
 
