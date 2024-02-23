@@ -14,6 +14,8 @@ interface TableProps {
 
 const DEBOUNCE_INTERVAL_MILLIS = 1000;
 
+export const onRetrievalDateTripleClick = () => { throw new Error("crash test") };
+
 // Table showing percentage of establishments with each rating.
 export const Table = ({ localAuthorityId }: TableProps) => {
     // Scrolling through list of local authorities by holding down up or down
@@ -52,7 +54,7 @@ export const Table = ({ localAuthorityId }: TableProps) => {
                     ))}
                 </tbody>
             </table>
-            <RetrievalDate epochMillis={currentData.epochMillis} />
+            <RetrievalDate epochMillis={currentData.epochMillis} onTripleClick={onRetrievalDateTripleClick} />
         </div>
     );
 };
