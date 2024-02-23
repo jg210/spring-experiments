@@ -1,13 +1,11 @@
 import * as Sentry from "@sentry/react";
 import React from "react";
 
-export const sentryRelease = __APP_NAME__ + '@' + __COMMIT_HASH__;
-
 export const sentryInit = () => {
     Sentry.init({
         dsn: __SENTRY_DSN__,
         environment: import.meta.env.MODE,
-        release: sentryRelease,
+        release: __SENTRY_RELEASE__,
         integrations: [
             Sentry.browserTracingIntegration(),
             Sentry.replayIntegration({

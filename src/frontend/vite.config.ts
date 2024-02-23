@@ -4,8 +4,11 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 import { execSync } from 'child_process';
+import { name as appName } from './package.json';
 
-const commitHash = execSync('git rev-parse --short HEAD').toString();
+const commitHash = execSync('git rev-parse HEAD').toString().trim();
+const sentryRelease = appName + '@' + commitHash;
+const sentryDSN = process.env.SENTRY_DSN_SPRING_EXPERIMENTS;
 
 export default defineConfig({
     // depending on your application, base can also be "/"
@@ -16,14 +19,18 @@ export default defineConfig({
         viteTsconfigPaths(),
         sentryVitePlugin({
             org: "jeremy-green",
-            project: "spring-experiments"
+            project: appName,
+            release: {
+                name: sentryRelease
+            }
         })
     ],
 
     define: {
+        __APP_NAME__: JSON.stringify(appName),
         __COMMIT_HASH__: JSON.stringify(commitHash),
-        __APP_NAME__: JSON.stringify(process.env.npm_package_name),
-        __SENTRY_DSN__: JSON.stringify(process.env.SENTRY_DSN_SPRING_EXPERIMENTS)
+        __SENTRY_DSN__: JSON.stringify(sentryDSN),
+        __SENTRY_RELEASE__: JSON.stringify(sentryRelease)
     },
 
     server: {    

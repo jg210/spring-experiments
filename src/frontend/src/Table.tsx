@@ -6,12 +6,15 @@ import {
     RATINGS_REFRESH_INTERVAL_SECONDS
 } from './FSA';
 import { TableRow } from './TableRow';
+import { RetrievalDate } from './RetrievalDate';
 
 interface TableProps {
     localAuthorityId: number;
 }
 
 const DEBOUNCE_INTERVAL_MILLIS = 1000;
+
+export const onRetrievalDateTripleClick = () => { throw new Error("crash test") };
 
 // Table showing percentage of establishments with each rating.
 export const Table = ({ localAuthorityId }: TableProps) => {
@@ -36,7 +39,7 @@ export const Table = ({ localAuthorityId }: TableProps) => {
         );
     }
     const scores = ratingsPercentages(currentData);
-    const dateString = new Date(currentData.epochMillis).toLocaleString();
+    const epoch = new Date(currentData.epochMillis);
     return (
         <div>
             <table className="Table">
@@ -52,7 +55,7 @@ export const Table = ({ localAuthorityId }: TableProps) => {
                     ))}
                 </tbody>
             </table>
-            <div data-testid="retrieved" className="retrieved">retrieved {dateString}</div>
+            <RetrievalDate epoch={epoch} onTripleClick={onRetrievalDateTripleClick} />
         </div>
     );
 };
