@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 import { execSync } from 'child_process';
 
-const commitHash = execSync('git rev-parse HEAD').toString();
+const commitHash = execSync('git rev-parse HEAD').toString().trim();
 const appName = process.env.npm_package_name;
 const sentryRelease = appName + '@' + commitHash;
 const sentryDSN = process.env.SENTRY_DSN_SPRING_EXPERIMENTS;
