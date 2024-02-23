@@ -1,5 +1,11 @@
 * Are source map uploads working properly now?
 
+* Send unexpected HTTP response codes to sentry.
+  - before or after retries?
+  - how?
+    - via wrapper for hook?
+    - https://redux-toolkit.js.org/rtk-query/usage/error-handling#handling-errors-at-a-macro-level
+
 * Sentry-github integration
   - https://docs.sentry.io/product/integrations/source-code-mgmt/github/
 
