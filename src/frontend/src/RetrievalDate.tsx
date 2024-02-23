@@ -1,10 +1,10 @@
 interface RetrievalDataProps {
-    epochMillis: number
+    epoch: Date
     onTripleClick: () => void
 }
 
-export const RetrievalDate = ({ epochMillis, onTripleClick } : RetrievalDataProps) => {
-    const dateString = new Date(epochMillis).toLocaleString();
+export const RetrievalDate = ({ epoch, onTripleClick } : RetrievalDataProps) => {
+    const dateString = epoch.toLocaleString();
     const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
         if (e.detail === 3) {
             onTripleClick();

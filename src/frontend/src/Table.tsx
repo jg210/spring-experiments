@@ -39,6 +39,7 @@ export const Table = ({ localAuthorityId }: TableProps) => {
         );
     }
     const scores = ratingsPercentages(currentData);
+    const epoch = new Date(currentData.epochMillis);
     return (
         <div>
             <table className="Table">
@@ -53,8 +54,8 @@ export const Table = ({ localAuthorityId }: TableProps) => {
                         <TableRow ratingPercentage={ratingPercentage} key={i}/>
                     ))}
                 </tbody>
-            </table>
-            <RetrievalDate epochMillis={currentData.epochMillis} onTripleClick={onRetrievalDateTripleClick} />
+            </table>            
+            <RetrievalDate epoch={epoch} onTripleClick={onRetrievalDateTripleClick} />
         </div>
     );
 };

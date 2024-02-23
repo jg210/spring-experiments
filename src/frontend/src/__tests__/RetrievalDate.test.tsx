@@ -7,8 +7,10 @@ describe("RetrievalDate component", () => {
 
   it("shows retrieval date", () => {
     const epoch = new Date();
-    render(<RenderWithStore><RetrievalDate epochMillis={epoch.getTime()} /></RenderWithStore>);
+    const onTripleClick = vi.fn();
+    render(<RenderWithStore><RetrievalDate epoch={epoch} onTripleClick={onTripleClick} /></RenderWithStore>);
     expect(screen.getByTestId("retrieved")).toHaveTextContent(`retrieved ${epoch.toLocaleString()}`);
+    expect(onTripleClick).toHaveBeenCalledTimes(0);
   });
 
   it("triple click", async () => {
@@ -17,7 +19,7 @@ describe("RetrievalDate component", () => {
     render(
       <RenderWithStore>
         <RetrievalDate
-          epochMillis={epoch.getTime()}
+          epoch={epoch}
           onTripleClick={onTripleClick}
         />
       </RenderWithStore>
