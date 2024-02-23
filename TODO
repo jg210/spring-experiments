@@ -1,4 +1,6 @@
-* Are source map uploads working properly now?
+* Sentry js self profiling (https://docs.sentry.io/platforms/javascript/guides/react/profiling/)
+  - is Document-Policy: js-profiling getting set in lambda?
+  - check header set in cypress tests.
 
 * Send unexpected HTTP response codes to sentry.
   - before or after retries?
@@ -12,15 +14,6 @@
 * https://docs.sentry.io/platforms/javascript/guides/react/features/redux/
 
 * https://docs.sentry.io/platforms/javascript/guides/react/features/component-tracking/ breaks app...
-
-* Sentry js self profiling
-  - https://docs.sentry.io/platforms/javascript/guides/react/profiling/
-  - set HTTP header
-    - spring boot
-      - https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/resource/ResourceHttpRequestHandler.html#setHeaders(jakarta.servlet.http.HttpServletResponse,org.springframework.core.io.Resource,org.springframework.http.MediaType)
-    - vite
-      - https://vitejs.dev/config/server-options#server-headers
-  - enable in config.
 
 * Assert correct id selected in list in App.test.tsx.
   - https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
@@ -178,6 +171,10 @@
 * Detect circular imports in CI.
 
 * Localization.
+
+* Only set js-profiling header for paths that really need it.
+  - in JsProfilingFilter
+  - matching vite.config.ts is good too
 
 * snapshot tests.
 
