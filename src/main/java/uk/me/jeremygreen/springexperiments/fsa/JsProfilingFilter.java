@@ -16,10 +16,14 @@ import java.io.IOException;
 @Component
 @WebFilter(urlPatterns = "/*")
 @SuppressWarnings("unused")
-public class JsProfilingFilter implements Filter {
+public final class JsProfilingFilter implements Filter {
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(
+            final ServletRequest request,
+            final ServletResponse response,
+            final FilterChain chain
+    ) throws IOException, ServletException {
         final HttpServletRequest httpServletRequest = (HttpServletRequest)  request;
         final HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         // TODO Only set header for paths that really need it.
