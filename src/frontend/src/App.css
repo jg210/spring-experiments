@@ -44,6 +44,7 @@ td {
 
 .barGraph {
   background-color: bisque;
+  transition: width 500ms
 }
 
 .retrieved {

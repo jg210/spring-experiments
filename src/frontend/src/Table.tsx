@@ -50,8 +50,8 @@ export const Table = ({ localAuthorityId }: TableProps) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {scores.map((ratingPercentage: RatingPercentage, i) => (
-                        <TableRow ratingPercentage={ratingPercentage} key={i}/>
+                    {scores.map((ratingPercentage: RatingPercentage) => (
+                        <TableRow ratingPercentage={ratingPercentage} key={ratingPercentage.rating}/>
                     ))}
                 </tbody>
             </table>
