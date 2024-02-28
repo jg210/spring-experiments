@@ -4,6 +4,10 @@
     - via wrapper for hook?
     - https://redux-toolkit.js.org/rtk-query/usage/error-handling#handling-errors-at-a-macro-level
 
+* onRetrievalDateTripleClick export prevents vite fast refresh.
+  - hmr invalidate /src/Table.tsx Could not Fast Refresh.
+  - Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+
 * Sentry-github integration
   - https://docs.sentry.io/product/integrations/source-code-mgmt/github/
 
