@@ -26,23 +26,33 @@ export const Table = ({ localAuthorityId }: TableProps) => {
         DEBOUNCE_INTERVAL_MILLIS,
         { leading: true }
     );
-    const { currentData } = useGetEstablishmentsQuery(localAuthorityIdDebounced, {
+    // Using data (not currentData) means have something to show while
+    // isUpdating true. It doesn't get set to undefined, but keeps providing
+    // the last id's result. This is visually less jarring than the "loading..."
+    // text need before any data is loaded. Loading indication is instead done
+    // using TableUpdating CSS style.
+    const { data, isFetching } = useGetEstablishmentsQuery(localAuthorityIdDebounced, {
         pollingInterval: RATINGS_REFRESH_INTERVAL_SECONDS * 1000,
         refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS
     });
     // The isPending() returned by useDebounce doesn't work if leading set to true,
     // so compare prop and debounced value instead.
-    const debounced = localAuthorityId !== localAuthorityIdDebounced;
-    if (currentData == undefined || debounced) {
+    const isDebounced = localAuthorityId !== localAuthorityIdDebounced;
+    const isUpdating = isFetching || isDebounced;
+    if (data == undefined) {
         return (
             <div data-testid="table_loading">loading...</div>
         );
     }
-    const scores = ratingsPercentages(currentData);
-    const epoch = new Date(currentData.epochMillis);
+    const scores = ratingsPercentages(data);
+    const epoch = new Date(data.epochMillis);
+    const tableClasses = ['Table'];
+    if (isUpdating) {
+        tableClasses.push('TableUpdating');
+    }
     return (
         <div>
-            <table className="Table">
+            <table className={tableClasses.join(" ")}>
                 <thead>
                     <tr>
                         <th className="tableCell">Rating</th>
