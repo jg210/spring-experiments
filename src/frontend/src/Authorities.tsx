@@ -26,8 +26,8 @@ export const Authorities  = (props: AuthoritiesProps) => {
     const dropdown = (currentData == undefined) ?
         <div data-testid="authorities_loading">loading...</div> :
         <select onClick={handleClick} onChange={handleClick} data-testid="authorities_select">
-            {currentData.map((localAuthority: LocalAuthority, i: number) =>
-                <option key={i} value={localAuthority.localAuthorityId} data-testid="authorities_option">{localAuthority.name}</option>
+            {currentData.map((localAuthority: LocalAuthority) =>
+                <option key={localAuthority.localAuthorityId} value={localAuthority.localAuthorityId} data-testid="authorities_option">{localAuthority.name}</option>
             )}
         </select>;
 
