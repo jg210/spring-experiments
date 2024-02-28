@@ -28,6 +28,10 @@
   border-collapse: collapse;
 }
 
+.TableUpdating {
+  opacity: 0.2;
+}
+
 .Table table, th, td {
   border: 1px solid black;
 }

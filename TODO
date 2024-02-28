@@ -57,7 +57,13 @@
 
 * Automated licence management.
 
-* Throttle API requests after cache not before.
+* Debounce API requests after cache not before.
+  - 50c4acf244ade00c129075fa6dd38f43cdaf3a54 mitigates this
+  - would still be nice if could bypass debouncing if results are cached
+    - e.g. if press up and down arrow in list faster than debounce rate
+  - might then run into rendering bottleneck?
+    - Suspense?
+  - might be hard to implement since what would RTK query return if debounce away a request?
 
 * Split github action job into multiple jobs.
 
