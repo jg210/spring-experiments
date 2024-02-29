@@ -1,7 +1,7 @@
 import {
     LocalAuthority,
     RATINGS_REFRESH_INTERVAL_SECONDS,
-    useGetLocalAuthoritiesQuery
+    fsaApi,
 } from './FSA';
 
 interface AuthoritiesProps {
@@ -10,8 +10,8 @@ interface AuthoritiesProps {
 
 // Drop down list that populates itself with list of local authorities.
 export const Authorities  = (props: AuthoritiesProps) => {
-
-    const { currentData } = useGetLocalAuthoritiesQuery(undefined, {
+    const { getLocalAuthorities } = fsaApi.endpoints;
+    const { currentData } = getLocalAuthorities.useQuery(undefined, {
         pollingInterval: RATINGS_REFRESH_INTERVAL_SECONDS * 1000,
         refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS
     });

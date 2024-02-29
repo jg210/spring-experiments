@@ -72,5 +72,3 @@ export const fsaApi = createApi({
     })
   })
 });
-
-export const { useGetLocalAuthoritiesQuery, useGetEstablishmentsQuery } = fsaApi;

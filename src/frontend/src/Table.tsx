@@ -2,8 +2,8 @@ import { useDebounce } from 'use-debounce';
 import {
     ratingsPercentages,
     RatingPercentage,
-    useGetEstablishmentsQuery,
-    RATINGS_REFRESH_INTERVAL_SECONDS
+    RATINGS_REFRESH_INTERVAL_SECONDS,
+    fsaApi
 } from './FSA';
 import { TableRow } from './TableRow';
 import { RetrievalDate } from './RetrievalDate';
@@ -18,6 +18,7 @@ export const onRetrievalDateTripleClick = () => { throw new Error("crash test") 
 
 // Table showing percentage of establishments with each rating.
 export const Table = ({ localAuthorityId }: TableProps) => {
+    const { getEstablishments } = fsaApi.endpoints;
     // Scrolling through list of local authorities by holding down up or down
     // arrow keys generates a lot of renders, so need to limit the number of
     // API requests.
@@ -27,25 +28,30 @@ export const Table = ({ localAuthorityId }: TableProps) => {
         { leading: true }
     );
     // Using data (not currentData) means have something to show while
-    // isUpdating true. It doesn't get set to undefined, but keeps providing
-    // the last id's result. This is visually less jarring than the "loading..."
+    // fetching. It doesn't get set to undefined, but keeps providing
+    // the last result. This is visually less jarring than the "loading..."
     // text need before any data is loaded. Loading indication is instead done
-    // using TableUpdating CSS style.
-    const { data, isFetching } = useGetEstablishmentsQuery(localAuthorityIdDebounced, {
+    // using TableUpdating CSS style. Hooks can't be called conditionally, so
+    // still need to call this even if cachedData is not undefined.
+    const { data, isFetching } = getEstablishments.useQuery(localAuthorityIdDebounced, {
         pollingInterval: RATINGS_REFRESH_INTERVAL_SECONDS * 1000,
         refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS
     });
+    // Is the data in the RTK query cache?
+    const cachedData = getEstablishments.useQueryState(localAuthorityId).currentData;
+    const isCached = cachedData !== undefined;
     // The isPending() returned by useDebounce doesn't work if leading set to true,
     // so compare prop and debounced value instead.
     const isDebounced = localAuthorityId !== localAuthorityIdDebounced;
-    const isUpdating = isFetching || isDebounced;
-    if (data == undefined) {
+    const isUpdating = !isCached && (isFetching || isDebounced);
+    const establishments = isCached ? cachedData : data;
+    if (establishments == undefined) {
         return (
             <div data-testid="table_loading">loading...</div>
         );
     }
-    const scores = ratingsPercentages(data);
-    const epoch = new Date(data.epochMillis);
+    const scores = ratingsPercentages(establishments);
+    const epoch = new Date(establishments.epochMillis);
     const tableClasses = ['Table'];
     if (isUpdating) {
         tableClasses.push('TableUpdating');
