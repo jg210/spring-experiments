@@ -16,10 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import uk.me.jeremygreen.springexperiments.fsa.FsaAuthorities;
-import uk.me.jeremygreen.springexperiments.fsa.FsaAuthority;
-import uk.me.jeremygreen.springexperiments.fsa.FsaEstablishments;
-import uk.me.jeremygreen.springexperiments.fsa.FsaService;
+import uk.me.jeremygreen.springexperiments.fsa.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -144,6 +141,27 @@ public class LocalAuthorityControllerTests {
         }
         assertNotEquals(la1a, la2);
         assertNotEquals(la1b, la2);
+    }
+
+    @Test
+    public void ratings() throws Exception {
+        final List<FsaRating> fsaRatingsList = List.of(
+                new FsaRating("one"),
+                new FsaRating("two"),
+                new FsaRating("three")
+        );
+        final FsaRatings fsaRatings = new FsaRatings(fsaRatingsList);
+        when(this.fsaService.fetchRatings()).thenReturn(fsaRatings);
+        for (final String path: Arrays.asList(
+                "/api/fsa/ratings",
+                "/api/fsa/ratings/")) {
+            this.mockMvc.perform(get(path))
+                    .andDo(print())
+                    .andExpect(status().isOk())
+                    .andExpect(content().json("{\"ratings\":[\"one\",\"two\",\"three\"]}"))
+                    .andExpect(header().string("Content-Type", "application/json"))
+                    .andExpect(header().string("Cache-Control", "max-age=" + LocalAuthorityController.MAX_AGE_SECONDS));
+        }
     }
 
 }
