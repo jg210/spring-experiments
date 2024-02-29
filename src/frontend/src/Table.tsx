@@ -35,7 +35,8 @@ export const Table = ({ localAuthorityId }: TableProps) => {
     // still need to call this even if cachedData is not undefined.
     const { data, isFetching } = getEstablishments.useQuery(localAuthorityIdDebounced, {
         pollingInterval: RATINGS_REFRESH_INTERVAL_SECONDS * 1000,
-        refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS
+        refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS,
+        skipPollingIfUnfocused: true
     });
     // Is the data in the RTK query cache?
     const cachedData = getEstablishments.useQueryState(localAuthorityId).currentData;

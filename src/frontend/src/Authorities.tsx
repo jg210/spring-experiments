@@ -13,7 +13,8 @@ export const Authorities  = (props: AuthoritiesProps) => {
     const { getLocalAuthorities } = fsaApi.endpoints;
     const { currentData } = getLocalAuthorities.useQuery(undefined, {
         pollingInterval: RATINGS_REFRESH_INTERVAL_SECONDS * 1000,
-        refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS
+        refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS,
+        skipPollingIfUnfocused: true
     });
 
     const handleClick = (event: React.FormEvent<HTMLSelectElement>) => {

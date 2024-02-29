@@ -1,5 +1,3 @@
-* skipPollingIfUnfocused.
-
 * Send unexpected HTTP response codes to sentry.
   - before or after retries?
   - how?
@@ -153,8 +151,13 @@
   - might need to reduce below polling interval to make this possible?
   - https://mswjs.io/docs/recipes/polling/
   - not clear if MSW etc. work with useFakeTimers() - 8e7785d889323f7cdd464bfac074466d3d487ff3
+  - polling iff brwoser window focused.
 
 * unit test changing Table localAuthorityId shows loading... state again 
+
+* unit test for debouncing
+  - no debouncing if data cached
+  - debouncing if it's not cached.
 
 * Error message if run out of retries.
   - or infinite retries and a network connectivity warning?
