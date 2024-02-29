@@ -1,3 +1,7 @@
+* Right align text in Table.
+  - so percentage symboles lined up with each other 
+  - uncovers bug in way barGraph div set up though...
+
 * Send unexpected HTTP response codes to sentry.
   - before or after retries?
   - how?
@@ -118,6 +122,9 @@
 * Polling of APIs could mean that a localAuthorityId disappears.
   - with much much greater probability than is currently possible.
   - but still not very likely
+
+* barGraph CSS isn't quite right
+  - if change tableCell text-align to right, 
 
 * Add favicon.ico.
 
