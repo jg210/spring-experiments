@@ -80,6 +80,9 @@
   - https://redux-toolkit.js.org/rtk-query/api/created-api/hooks#uselazyquery?
   - useQuery with skip set to true and refetch()?
 
+* Prefetch data when scrolling through list.
+  - ideas from https://github.com/reduxjs/redux-toolkit/discussions/3174 might be relevant?
+
 * Split github action job into multiple jobs.
 
 * Should be able to use shadowJar in place of bootJar.
