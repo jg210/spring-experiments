@@ -33,7 +33,8 @@ export const Table = ({ localAuthorityId }: TableProps) => {
     // fetching. It doesn't get set to undefined, but keeps providing
     // the last result. This is visually less jarring than the "loading..."
     // text need before any data is loaded. Loading indication is instead done
-    // using TableUpdating CSS style.
+    // using TableUpdating CSS style. Hooks can't be called conditionally, so
+    // still need to call this even if cachedData is not undefined.
     const { data, isFetching } = getEstablishments.useQuery(localAuthorityIdDebounced, {
         pollingInterval: RATINGS_REFRESH_INTERVAL_SECONDS * 1000,
         refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS
