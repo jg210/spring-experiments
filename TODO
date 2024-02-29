@@ -1,3 +1,5 @@
+* skipPollingIfUnfocused.
+
 * Send unexpected HTTP response codes to sentry.
   - before or after retries?
   - how?
@@ -68,6 +70,15 @@
   - might then run into rendering bottleneck?
     - Suspense?
   - might be hard to implement since what would RTK query return if debounce away a request?
+  - in general, should debounce per hook-usage, not in createApi()
+    - there might be multiple components using same API.
+    - is there a way to base options to baseQuery with useQuery?
+  - combine useQueryState and useQuery?
+    - former doesn't make requests
+    - can't call hooks conditionally, so would have to call both
+      - not necessarily bad, since latter would be debounced
+  - https://redux-toolkit.js.org/rtk-query/api/created-api/hooks#uselazyquery?
+  - useQuery with skip set to true and refetch()?
 
 * Split github action job into multiple jobs.
 
