@@ -19,8 +19,6 @@ export const onRetrievalDateTripleClick = () => { throw new Error("crash test") 
 // Table showing percentage of establishments with each rating.
 export const Table = ({ localAuthorityId }: TableProps) => {
     const { getEstablishments } = fsaApi.endpoints;
-    // Is the data in the RTK query cache?
-    const cachedData = getEstablishments.useQueryState(localAuthorityId).currentData;
     // Scrolling through list of local authorities by holding down up or down
     // arrow keys generates a lot of renders, so need to limit the number of
     // API requests.
@@ -39,10 +37,12 @@ export const Table = ({ localAuthorityId }: TableProps) => {
         pollingInterval: RATINGS_REFRESH_INTERVAL_SECONDS * 1000,
         refetchOnMountOrArgChange: RATINGS_REFRESH_INTERVAL_SECONDS
     });
+    // Is the data in the RTK query cache?
+    const cachedData = getEstablishments.useQueryState(localAuthorityId).currentData;
+    const isCached = cachedData !== undefined;
     // The isPending() returned by useDebounce doesn't work if leading set to true,
     // so compare prop and debounced value instead.
     const isDebounced = localAuthorityId !== localAuthorityIdDebounced;
-    const isCached = cachedData !== undefined;
     const isUpdating = !isCached && (isFetching || isDebounced);
     const establishments = isCached ? cachedData : data;
     if (establishments == undefined) {
