@@ -21,8 +21,8 @@ export interface Establishments {
 }
 
 export interface RatingCount {
-    rating: string,
-    count: number
+  rating: string,
+  count: number
 }
 
 export interface RatingPercentage {
@@ -31,24 +31,37 @@ export interface RatingPercentage {
 }
 
 export interface LocalAuthority {
-    name: string,
-    localAuthorityId: number
+  name: string,
+  localAuthorityId: number
 }
 
 export interface LocalAuthorities {
-    localAuthorities: LocalAuthority[]
+  localAuthorities: LocalAuthority[]
+}
+
+interface Ratings {
+  ratings: string[]
 }
 
 // Convert counts to percentages.
-export function ratingsPercentages(establishments: Establishments): RatingPercentage[] {
-    const ratingCounts: RatingCount[] = establishments.ratingCounts;
-    let totalCount = 0;
-    ratingCounts.forEach((ratingCount: RatingCount) => { totalCount += ratingCount.count});
-    return ratingCounts.map((ratingCount: RatingCount) => { 
-        const rating = ratingCount.rating;
-        const percentage = 100 * ratingCount.count / totalCount;
-        return { rating, percentage };
-    });
+export function ratingsPercentages(establishments: Establishments, allRatings: string[]): RatingPercentage[] {
+  const { ratingCounts } = establishments;
+  const ratingCountMap: Map<string, number> = new Map();
+  const allRatingsSorted = [ ...allRatings ].sort();
+  allRatingsSorted.forEach((rating) => {
+    ratingCountMap.set(rating, 0);
+  });
+  let totalCount = 0;
+  ratingCounts.forEach((ratingCount) => {
+    ratingCountMap.set(ratingCount.rating, ratingCount.count);
+    totalCount += ratingCount.count;
+  });
+  const result: RatingPercentage[] = [];
+  ratingCountMap.forEach((count, rating) => {
+      const percentage = 100 * count / totalCount;
+      result.push({ rating, percentage });
+  });
+  return result;
 }
 
 // The AWS API gateway is configured to heavily rate limit requests (to limit costs), so
@@ -69,6 +82,10 @@ export const fsaApi = createApi({
     }),
     getEstablishments: builder.query<Establishments,number>({
       query: (localAuthorityId) => `localAuthority/${encodeURIComponent(localAuthorityId.toString())}`
+    }),
+    getRatings: builder.query<string[], void>({
+      query: () => `ratings`,
+      transformResponse: (response: Ratings) => response.ratings
     })
   })
 });

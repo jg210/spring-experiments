@@ -18,7 +18,7 @@ export const onRetrievalDateTripleClick = () => { throw new Error("crash test") 
 
 // Table showing percentage of establishments with each rating.
 export const Table = ({ localAuthorityId }: TableProps) => {
-    const { getEstablishments } = fsaApi.endpoints;
+    const { getEstablishments, getRatings } = fsaApi.endpoints;
     // Scrolling through list of local authorities by holding down up or down
     // arrow keys generates a lot of renders, so need to limit the number of
     // API requests.
@@ -46,12 +46,13 @@ export const Table = ({ localAuthorityId }: TableProps) => {
     const isDebounced = localAuthorityId !== localAuthorityIdDebounced;
     const isUpdating = !isCached && (isFetching || isDebounced);
     const establishments = isCached ? cachedData : data;
+    const { data: allRatings } = getRatings.useQuery();
     if (establishments == undefined) {
         return (
             <div data-testid="table_loading">loading...</div>
         );
     }
-    const scores = ratingsPercentages(establishments);
+    const scores = ratingsPercentages(establishments, allRatings);
     const epoch = new Date(establishments.epochMillis);
     const tableClasses = ['Table'];
     if (isUpdating) {

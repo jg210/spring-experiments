@@ -8,7 +8,14 @@ import java.util.List;
 public final class Ratings {
 
     static Ratings createInstance(final @NonNull FsaRatings fsaRatings) {
-        final List<String> ratings = fsaRatings.ratings().stream().map(fsaRating -> fsaRating.ratingName()).toList();
+        final List<String> ratings = fsaRatings.ratings().stream().map(fsaRating -> {
+            String ratingName = fsaRating.ratingName();
+            if (ratingName.matches("^[0-9]+$")) {
+                ratingName += "-star";
+            }
+            return ratingName;
+        }
+        ).toList();
         return new Ratings(ratings);
     }
 
@@ -18,6 +25,7 @@ public final class Ratings {
         this.ratings = ratings;
     }
 
+    @SuppressWarnings("unused")
     public List<String> getRatings() {
         return ratings;
     }

@@ -153,6 +153,9 @@
   - not clear if MSW etc. work with useFakeTimers() - 8e7785d889323f7cdd464bfac074466d3d487ff3
   - polling iff brwoser window focused.
 
+* "Pass and Eat Safe" appears in Establishments but not Ratings
+  - a "feature" of the data provided by FSA API
+
 * unit test changing Table localAuthorityId shows loading... state again 
 
 * unit test for debouncing
