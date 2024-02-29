@@ -43,7 +43,6 @@ export const Table = ({ localAuthorityId }: TableProps) => {
     const isDebounced = localAuthorityId !== localAuthorityIdDebounced;
     const isCached = cachedData !== undefined;
     const isUpdating = !isCached && (isFetching || isDebounced);
-    //console.log(JSON.stringify({isDebounced, isCached, isUpdating}));
     const establishments = isCached ? cachedData : data;
     if (establishments == undefined) {
         return (
