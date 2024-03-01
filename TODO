@@ -1,8 +1,6 @@
 * Unit test loading... state if allRatings undefined.
 
-* Right align text in Table.
-  - so percentage symboles lined up with each other 
-  - uncovers bug in way barGraph div set up though...
+* LocalAuthorityParams and LocalAuthoritiesParams etc. need names swapping.
 
 * CSS linter.
   - options
