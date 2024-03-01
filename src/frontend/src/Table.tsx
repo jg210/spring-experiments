@@ -54,17 +54,17 @@ export const Table = ({ localAuthorityId }: TableProps) => {
     }
     const scores = ratingsPercentages(establishments, allRatings);
     const epoch = new Date(establishments.epochMillis);
-    const tableClasses = ['Table'];
+    const tableClasses = ['table'];
     if (isUpdating) {
-        tableClasses.push('TableUpdating');
+        tableClasses.push('table-updating');
     }
     return (
         <div>
             <table className={tableClasses.join(" ")}>
                 <thead>
                     <tr>
-                        <th className="tableCell">Rating</th>
-                        <th className="tableCell">Percentage</th>
+                        <th className="table-cell">Rating</th>
+                        <th className="table-cell">Percentage</th>
                     </tr>
                 </thead>
                 <tbody>

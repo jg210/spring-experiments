@@ -1,7 +1,3 @@
-* CSS linter.
-  - options
-    - https://stylelint.io
-
 * Send unexpected HTTP response codes to sentry.
   - before or after retries?
   - how?
@@ -43,6 +39,8 @@
   - https://react.dev/reference/react/useDeferredValue#how-is-deferring-a-value-different-from-debouncing-and-throttling
 
 * More cypress tests.
+
+* Check in VS Code recommended plugins.
 
 * Analytics.
 

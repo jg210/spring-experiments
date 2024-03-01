@@ -12,10 +12,10 @@ const epoch = new Date("February 14, 2024 20:14:00");
 function checkBoilerplate() {
   // banner
   const banner = screen.getByRole("banner");
-  expect(banner).toHaveClass("App-header");
+  expect(banner).toHaveClass("app-header");
   // heading
   const heading = screen.getByRole("heading");
-  expect(heading).toHaveClass("App-title");
+  expect(heading).toHaveClass("app-title");
   expect(heading).toHaveTextContent("FSA Food Hygiene Ratings");
   // blurb
   const blurb = screen.getByTestId("blurb");
@@ -81,6 +81,7 @@ async function selectLocalAuthority(
     expect(ratingCell).toHaveTextContent(ratingsExpectedInTable[i]);
     expect(percentageCell).toHaveTextContent(/^[0-9]+%$/);
     totalPercentage += parseFloat(percentageCell.textContent!.replace(/%$/, ""));
+    // TODO test bar graph present.
   });
   expect(totalPercentage).toBeCloseTo(100);
   expect(screen.getByTestId("retrieved")).toHaveTextContent(`retrieved ${epoch.toLocaleString()}`);

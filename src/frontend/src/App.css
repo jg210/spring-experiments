@@ -1,63 +1,61 @@
-.App {
+.app {
   text-align: center;
 }
 
-.App-header {
+.app-header {
   background-color: #222;
   min-height: 50px;
   padding: 1em;
   color: white;
 }
 
-.App-title {
+.app-title {
   font-size: 1.5em;
 }
 
-.App-blurb {
+.app-blurb {
   margin-left: 1em;
   margin-right: 1em;
 }
 
-.Authority {
+.authority {
   margin: 2em;
 }
 
-.Table {
+.table {
   margin-left: auto;
   margin-right: auto;
   border-collapse: collapse;
 }
 
-.TableUpdating {
+.table-updating {
   opacity: 0.2;
 }
 
-.Table table, th, td {
+.table table, th, td {
   border: 1px solid black;
 }
 
 td {
   /* Want the bar graph to fill the cells. */
-  padding: 0px;
-  /* barGraphContainer uses position: absolute to fill paraent, so its parent needs position: relative. */
+  padding: 0;
+
+  /* bar-graph-container uses position: absolute to fill paraent, so its parent needs position: relative. */
   position: relative;
 }
 
-.tableCell {
+.table-cell {
   text-align: right;
   padding-left: 1em;
   padding-right: 1em;
 }
 
-.barGraphContainer {
+.bar-graph-container {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  inset: 0;
 }
 
-.barGraph {
+.bar-graph {
   background-color: bisque;
   transition: width 500ms;
   position: absolute;
@@ -73,6 +71,6 @@ td {
   color: lightgray
 }
 
-.cookieConsentLink {
+.cookie-consent-link {
   color: white
 }

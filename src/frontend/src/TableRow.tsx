@@ -7,13 +7,13 @@ interface TableRowProps {
 export const TableRow = ({ ratingPercentage }: TableRowProps) => {
     return (
         <tr>
-            <td className="tableCell">{ratingPercentage.rating}</td>
+            <td className="table-cell">{ratingPercentage.rating}</td>
             <td>
-                <div className="barGraphContainer">
-                    <div className="barGraph" data-testid="barGraph" style={{width: `${ratingPercentage.percentage}%`}}/>
+                <div className="bar-graph-container">
+                    <div className="bar-graph" data-testid="barGraph" style={{width: `${ratingPercentage.percentage}%`}}/>
                 </div>
                 {/* tableCell is added here not on td since don't want padding to affect barGraph. */}
-                <div className="tableCell">{Math.round(ratingPercentage.percentage)}%</div>
+                <div className="table-cell">{Math.round(ratingPercentage.percentage)}%</div>
             </td>
         </tr>
     );

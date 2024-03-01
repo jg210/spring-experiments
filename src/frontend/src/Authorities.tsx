@@ -33,7 +33,7 @@ export const Authorities  = (props: AuthoritiesProps) => {
         </select>;
 
     return (
-        <div className="Authority">
+        <div className="authority">
             {dropdown}
         </div>
     );
