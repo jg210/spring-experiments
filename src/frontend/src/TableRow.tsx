@@ -8,7 +8,7 @@ export const TableRow = ({ ratingPercentage }: TableRowProps) => {
     return (
         <tr>
             <td className="tableCell">{ratingPercentage.rating}</td>
-            <td>
+            <td style={{ position: "relative" }}>
                 <div className="barGraphContainer">
                     <div className="barGraph" data-testid="barGraph" style={{width: `${ratingPercentage.percentage}%`}}/>
                 </div>
