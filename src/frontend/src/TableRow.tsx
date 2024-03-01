@@ -9,7 +9,7 @@ export const TableRow = ({ ratingPercentage }: TableRowProps) => {
         <tr>
             <td className="table-cell">{ratingPercentage.rating}</td>
             <td>
-                <div className="bar-graph-container">
+                <div className="bar-graph-container" data-testid="barGraphContainer">
                     <div className="bar-graph" data-testid="barGraph" style={{width: `${ratingPercentage.percentage}%`}}/>
                 </div>
                 {/* tableCell is added here not on td since don't want padding to affect barGraph. */}

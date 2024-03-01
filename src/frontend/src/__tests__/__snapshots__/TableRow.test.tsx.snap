@@ -13,6 +13,7 @@ exports[`TableRow component > renders 1`] = `
         <td>
           <div
             class="bar-graph-container"
+            data-testid="barGraphContainer"
           >
             <div
               class="bar-graph"

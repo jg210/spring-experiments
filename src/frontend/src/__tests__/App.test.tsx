@@ -59,6 +59,7 @@ async function selectLocalAuthority(
 
   // A table of ratings is visible
   const table = screen.getByRole("table");
+  expect(table).toHaveClass("table");
   const rowGroups = within(table).getAllByRole("rowgroup");
   expect(rowGroups.length).toBe(2);
   const [tableHeader, tableBody] = rowGroups;
@@ -66,6 +67,9 @@ async function selectLocalAuthority(
   expect(headerRows.length).toBe(1);
   const [headerRow] = headerRows;
   const headerCells = within(headerRow).getAllByRole("columnheader");
+  headerCells.forEach((headerCell) => {
+    expect(headerCell).toHaveClass("table-cell");
+  });
   expect(headerCells.length).toBe(2);
   expect(headerCells[0]).toHaveTextContent("Rating");
   expect(headerCells[1]).toHaveTextContent("Percentage");
@@ -81,7 +85,7 @@ async function selectLocalAuthority(
     expect(ratingCell).toHaveTextContent(ratingsExpectedInTable[i]);
     expect(percentageCell).toHaveTextContent(/^[0-9]+%$/);
     totalPercentage += parseFloat(percentageCell.textContent!.replace(/%$/, ""));
-    // TODO test bar graph present.
+    // TableRow.test.tsx has more detailed tests.
   });
   expect(totalPercentage).toBeCloseTo(100);
   expect(screen.getByTestId("retrieved")).toHaveTextContent(`retrieved ${epoch.toLocaleString()}`);
