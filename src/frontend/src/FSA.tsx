@@ -39,7 +39,7 @@ export interface LocalAuthorities {
   localAuthorities: LocalAuthority[]
 }
 
-interface Ratings {
+export interface Ratings {
   ratings: string[]
 }
 
@@ -47,17 +47,17 @@ interface Ratings {
 export function ratingsPercentages(establishments: Establishments, allRatings: string[]): RatingPercentage[] {
   const { ratingCounts } = establishments;
   const ratingCountMap: Map<string, number> = new Map();
-  const allRatingsSorted = [ ...allRatings ].sort();
-  allRatingsSorted.forEach((rating) => {
+  allRatings.forEach((rating) => {
     ratingCountMap.set(rating, 0);
   });
   let totalCount = 0;
-  ratingCounts.forEach((ratingCount) => {
-    ratingCountMap.set(ratingCount.rating, ratingCount.count);
-    totalCount += ratingCount.count;
+  ratingCounts.forEach(({rating, count}) => {
+    ratingCountMap.set(rating, count);
+    totalCount += count;
   });
   const result: RatingPercentage[] = [];
-  ratingCountMap.forEach((count, rating) => {
+  [...ratingCountMap.keys()].sort().forEach((rating) => {
+      const count = ratingCountMap.get(rating) as number;
       const percentage = 100 * count / totalCount;
       result.push({ rating, percentage });
   });

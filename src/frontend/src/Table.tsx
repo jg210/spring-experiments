@@ -46,7 +46,7 @@ export const Table = ({ localAuthorityId }: TableProps) => {
     const isDebounced = localAuthorityId !== localAuthorityIdDebounced;
     const isUpdating = !isCached && (isFetching || isDebounced);
     const establishments = isCached ? cachedData : data;
-    const { data: allRatings } = getRatings.useQuery();
+    const allRatings = getRatings.useQuery().data;
     if (establishments == undefined || allRatings == undefined) {
         return (
             <div data-testid="table_loading">loading...</div>

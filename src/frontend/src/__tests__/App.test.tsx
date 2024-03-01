@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent, { UserEvent } from '@testing-library/user-event';
 import { App } from '../App';
-import { BASE_PATHNAME, Establishments, LocalAuthorities, LocalAuthority } from '../FSA';
+import { BASE_PATHNAME, Establishments, LocalAuthorities, LocalAuthority, Ratings } from '../FSA';
 import { setupServer } from 'msw/node';
 import { http, HttpResponse } from 'msw';
 import { RenderWithStore, serverURL } from './util';
@@ -70,13 +70,15 @@ async function selectLocalAuthority(
   expect(headerCells[0]).toHaveTextContent("Rating");
   expect(headerCells[1]).toHaveTextContent("Percentage");
   const bodyRows = within(tableBody).getAllByRole("row");
-  expect(bodyRows.length).toEqual(establishmentsJson(localAuthorityId).ratingCounts.length);
+  const establishmentsExpected = establishmentsJson(localAuthorityId);
+  const ratingsExpectedInTable = expectedRatings(establishmentsExpected, ratings);
+  expect(bodyRows.length).toEqual(ratingsExpectedInTable.length);
   let totalPercentage = 0;
   bodyRows.forEach((bodyRow, i) => {
     const bodyRowCells = within(bodyRow).getAllByRole("cell");
     expect(bodyRowCells.length).toBe(2);
     const [ratingCell, percentageCell] = bodyRowCells;
-    expect(ratingCell).toHaveTextContent(establishmentsJson(localAuthorityId).ratingCounts[i].rating);
+    expect(ratingCell).toHaveTextContent(ratingsExpectedInTable[i]);
     expect(percentageCell).toHaveTextContent(/^[0-9]+%$/);
     totalPercentage += parseFloat(percentageCell.textContent!.replace(/%$/, ""));
   });
@@ -115,6 +117,15 @@ const establishmentsJson : (localAuthorityId: number) => Establishments = (local
 });
 const ratings = [ "good", "bad", "ugly", "not in establishments json" ];
 
+// The ordered list of table body row ratings expect.
+const expectedRatings = (establishments: Establishments, ratings: string[]) => {
+  const unorderedRows = new Set([
+    ...establishments.ratingCounts.map((ratingcount) => ratingcount.rating),
+    ...ratings
+  ]);
+  return Array.from(unorderedRows).sort();
+};
+
 // Use MSW events (subscribed to later on) to check what requests have been made.
 type ResponseRecord = { request: Request, response: Response };
 const responseRecords : ResponseRecord[] = [];
@@ -141,12 +152,13 @@ type LocalAuthorityRequestBody = Record<string,never>;
 type LocalAuthorityResponseBody = Establishments;
 type RatingsParams = Record<string,never>;
 type RatingsRequestBody = Record<string,never>;
-type RatingsResponseBody = string[];
+type RatingsResponseBody = Ratings;
 
 const server = setupServer(
-  http.get<LocalAuthoritiesParams, LocalAuthoritiesRequestBody, LocalAuthoritiesResponseBody>(serverURL("localAuthority"), () => {
-    return HttpResponse.json({ localAuthorities });
-  }),
+  http.get<LocalAuthoritiesParams, LocalAuthoritiesRequestBody, LocalAuthoritiesResponseBody>(
+    serverURL("localAuthority"),
+    () => HttpResponse.json({ localAuthorities })
+  ),
   http.get<LocalAuthorityParams, LocalAuthorityRequestBody, LocalAuthorityResponseBody>(
     serverURL("localAuthority/:localAuthorityId"),
     ({ params }) => {
@@ -156,9 +168,7 @@ const server = setupServer(
   ),
   http.get<RatingsParams, RatingsRequestBody, RatingsResponseBody>(
     serverURL("ratings"),
-    () => {
-      return HttpResponse.json(ratings);
-    }
+    () => HttpResponse.json({ ratings })
   )
 );
 // console.log(JSON.stringify(server.listHandlers(), null, "  "));

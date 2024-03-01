@@ -139,6 +139,23 @@ describe("FSA", () => {
                 { rating: "ugly", percentage: 27 }
             ]);
         });
+        it("sorted even if allRatings lacks some values", () => {
+            const allRatings: string[] = [ "bad" ];
+            const establishements: Establishments = {
+                epochMillis,
+                ratingCounts : [
+                    { rating: "ugly", count: 270 },
+                    { rating: "good", count: 230 },
+                    { rating: "bad",  count: 500 }
+                ]
+            };
+            expect(ratingsPercentages(establishements, allRatings)).toStrictEqual([
+                { rating: "bad",  percentage: 50 },
+                { rating: "good", percentage: 23 },
+                { rating: "ugly", percentage: 27 }
+            ]);
+
+        });
     });
 
 });
