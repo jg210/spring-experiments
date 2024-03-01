@@ -1,8 +1,12 @@
+* Unit test loading... state if allRatings undefined.
+
 * Right align text in Table.
   - so percentage symboles lined up with each other 
   - uncovers bug in way barGraph div set up though...
 
 * CSS linter.
+  - options
+    - https://stylelint.io
 
 * Send unexpected HTTP response codes to sentry.
   - before or after retries?
