@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent, { UserEvent } from '@testing-library/user-event';
 import { App } from '../App';
-import { BASE_PATHNAME, Establishments, LocalAuthorities, LocalAuthority } from '../FSA';
+import { BASE_PATHNAME, Establishments, LocalAuthorities, LocalAuthority, Ratings } from '../FSA';
 import { setupServer } from 'msw/node';
 import { http, HttpResponse } from 'msw';
 import { RenderWithStore, serverURL } from './util';
@@ -70,13 +70,15 @@ async function selectLocalAuthority(
   expect(headerCells[0]).toHaveTextContent("Rating");
   expect(headerCells[1]).toHaveTextContent("Percentage");
   const bodyRows = within(tableBody).getAllByRole("row");
-  expect(bodyRows.length).toEqual(establishmentsJson(localAuthorityId).ratingCounts.length);
+  const establishmentsExpected = establishmentsJson(localAuthorityId);
+  const ratingsExpectedInTable = expectedRatings(establishmentsExpected, ratings);
+  expect(bodyRows.length).toEqual(ratingsExpectedInTable.length);
   let totalPercentage = 0;
   bodyRows.forEach((bodyRow, i) => {
     const bodyRowCells = within(bodyRow).getAllByRole("cell");
     expect(bodyRowCells.length).toBe(2);
     const [ratingCell, percentageCell] = bodyRowCells;
-    expect(ratingCell).toHaveTextContent(establishmentsJson(localAuthorityId).ratingCounts[i].rating);
+    expect(ratingCell).toHaveTextContent(ratingsExpectedInTable[i]);
     expect(percentageCell).toHaveTextContent(/^[0-9]+%$/);
     totalPercentage += parseFloat(percentageCell.textContent!.replace(/%$/, ""));
   });
@@ -113,6 +115,16 @@ const establishmentsJson : (localAuthorityId: number) => Establishments = (local
     { rating: localAuthorityIdToToken(localAuthorityId), count: 0 }
   ]
 });
+const ratings = [ "good", "bad", "ugly", "not in establishments json" ];
+
+// The ordered list of table body row ratings expect.
+const expectedRatings = (establishments: Establishments, ratings: string[]) => {
+  const unorderedRows = new Set([
+    ...establishments.ratingCounts.map((ratingcount) => ratingcount.rating),
+    ...ratings
+  ]);
+  return Array.from(unorderedRows).sort();
+};
 
 // Use MSW events (subscribed to later on) to check what requests have been made.
 type ResponseRecord = { request: Request, response: Response };
@@ -132,22 +144,31 @@ const establishmentRequestLocalAuthorityIds = () => flatMap(responseRecords, (re
 // Configure mocking of API.
 //
 // TODO can any of these types be inferred from RTK Query API?
-type LocalAuthorityParams = Record<string,never>;
-type LocalAuthorityRequestBody = Record<string,never>;
-type LocalAuthorityResponseBody = LocalAuthorities;
-type LocalAuthoritiesParams = { localAuthorityId: string };
+type LocalAuthoritiesParams = Record<string,never>;
 type LocalAuthoritiesRequestBody = Record<string,never>;
-type LocalAuthoritiesResponseBody = Establishments;
+type LocalAuthoritiesResponseBody = LocalAuthorities;
+type LocalAuthorityParams = { localAuthorityId: string };
+type LocalAuthorityRequestBody = Record<string,never>;
+type LocalAuthorityResponseBody = Establishments;
+type RatingsParams = Record<string,never>;
+type RatingsRequestBody = Record<string,never>;
+type RatingsResponseBody = Ratings;
+
 const server = setupServer(
-  http.get<LocalAuthorityParams, LocalAuthorityRequestBody, LocalAuthorityResponseBody>(serverURL("localAuthority"), () => {
-    return HttpResponse.json({ localAuthorities });
-  }),
   http.get<LocalAuthoritiesParams, LocalAuthoritiesRequestBody, LocalAuthoritiesResponseBody>(
+    serverURL("localAuthority"),
+    () => HttpResponse.json({ localAuthorities })
+  ),
+  http.get<LocalAuthorityParams, LocalAuthorityRequestBody, LocalAuthorityResponseBody>(
     serverURL("localAuthority/:localAuthorityId"),
     ({ params }) => {
       const localAuthorityId = parseInt(params.localAuthorityId);
       return HttpResponse.json(establishmentsJson(localAuthorityId));
     }
+  ),
+  http.get<RatingsParams, RatingsRequestBody, RatingsResponseBody>(
+    serverURL("ratings"),
+    () => HttpResponse.json({ ratings })
   )
 );
 // console.log(JSON.stringify(server.listHandlers(), null, "  "));

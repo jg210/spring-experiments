@@ -10,21 +10,23 @@ public final class LocalAuthority {
     this.name = name;
   }
 
-  public final int getLocalAuthorityId() {
+  @SuppressWarnings("unused")
+  public int getLocalAuthorityId() {
     return this.localAuthorityId;
   }
 
-  public final String getName() {
+  @SuppressWarnings("unused")
+  public String getName() {
     return this.name;
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     return this.localAuthorityId;
   }
 
   @Override
-  public final boolean equals(Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -35,7 +37,7 @@ public final class LocalAuthority {
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     return this.name + "(" + this.localAuthorityId + ")";
   }
 

@@ -21,6 +21,7 @@ public final class LocalAuthorities {
         this.localAuthorities = localAuthorities;
     }
 
+    @SuppressWarnings("unused")
     public List<LocalAuthority> getLocalAuthorities() {
         return this.localAuthorities;
     }

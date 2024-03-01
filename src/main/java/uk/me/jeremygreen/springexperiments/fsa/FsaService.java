@@ -95,4 +95,11 @@ public class FsaService {
         return responseEntity.getBody();
     }
 
+    public FsaRatings fetchRatings() throws InterruptedException {
+        final ResponseEntity<FsaRatings> responseEntity = fetchFromApi(
+                this.url + "/Ratings",
+                FsaRatings.class);
+        return responseEntity.getBody();
+    }
+
 }

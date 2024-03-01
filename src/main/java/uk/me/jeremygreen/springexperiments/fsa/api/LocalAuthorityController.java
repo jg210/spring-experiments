@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uk.me.jeremygreen.springexperiments.fsa.FsaEstablishments;
-import uk.me.jeremygreen.springexperiments.fsa.FsaService;
-import uk.me.jeremygreen.springexperiments.fsa.FsaAuthorities;
-import uk.me.jeremygreen.springexperiments.fsa.FsaAuthority;
+import uk.me.jeremygreen.springexperiments.fsa.*;
 
 import java.util.List;
 
@@ -63,6 +60,16 @@ public final class LocalAuthorityController {
                     .body(establishments);
         }
         return responseEntity;
+    }
+
+    @GetMapping(value="ratings")
+    @SuppressWarnings("unused")
+    public ResponseEntity<Ratings> ratings() throws InterruptedException {
+        final FsaRatings fsaRatings = this.fsaService.fetchRatings();
+        final Ratings ratings = Ratings.createInstance(fsaRatings);
+        return ResponseEntity.ok()
+                    .headers(RESPONSE_HEADERS)
+                    .body(ratings);
     }
 
 }

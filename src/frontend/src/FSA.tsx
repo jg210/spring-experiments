@@ -21,8 +21,8 @@ export interface Establishments {
 }
 
 export interface RatingCount {
-    rating: string,
-    count: number
+  rating: string,
+  count: number
 }
 
 export interface RatingPercentage {
@@ -31,24 +31,37 @@ export interface RatingPercentage {
 }
 
 export interface LocalAuthority {
-    name: string,
-    localAuthorityId: number
+  name: string,
+  localAuthorityId: number
 }
 
 export interface LocalAuthorities {
-    localAuthorities: LocalAuthority[]
+  localAuthorities: LocalAuthority[]
+}
+
+export interface Ratings {
+  ratings: string[]
 }
 
 // Convert counts to percentages.
-export function ratingsPercentages(establishments: Establishments): RatingPercentage[] {
-    const ratingCounts: RatingCount[] = establishments.ratingCounts;
-    let totalCount = 0;
-    ratingCounts.forEach((ratingCount: RatingCount) => { totalCount += ratingCount.count});
-    return ratingCounts.map((ratingCount: RatingCount) => { 
-        const rating = ratingCount.rating;
-        const percentage = 100 * ratingCount.count / totalCount;
-        return { rating, percentage };
-    });
+export function ratingsPercentages(establishments: Establishments, allRatings: string[]): RatingPercentage[] {
+  const { ratingCounts } = establishments;
+  const ratingCountMap: Map<string, number> = new Map();
+  allRatings.forEach((rating) => {
+    ratingCountMap.set(rating, 0);
+  });
+  let totalCount = 0;
+  ratingCounts.forEach(({rating, count}) => {
+    ratingCountMap.set(rating, count);
+    totalCount += count;
+  });
+  const result: RatingPercentage[] = [];
+  [...ratingCountMap.keys()].sort().forEach((rating) => {
+      const count = ratingCountMap.get(rating) as number;
+      const percentage = 100 * count / totalCount;
+      result.push({ rating, percentage });
+  });
+  return result;
 }
 
 // The AWS API gateway is configured to heavily rate limit requests (to limit costs), so
@@ -69,6 +82,10 @@ export const fsaApi = createApi({
     }),
     getEstablishments: builder.query<Establishments,number>({
       query: (localAuthorityId) => `localAuthority/${encodeURIComponent(localAuthorityId.toString())}`
+    }),
+    getRatings: builder.query<string[], void>({
+      query: () => `ratings`,
+      transformResponse: (response: Ratings) => response.ratings
     })
   })
 });

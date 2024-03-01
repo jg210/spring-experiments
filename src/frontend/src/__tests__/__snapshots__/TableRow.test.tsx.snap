@@ -12,16 +12,19 @@ exports[`TableRow component > renders 1`] = `
         </td>
         <td>
           <div
-            class="barGraph"
-            data-testid="barGraph"
-            style="width: 23.123%;"
+            class="barGraphContainer"
           >
             <div
-              class="tableCell"
-            >
-              23
-              %
-            </div>
+              class="barGraph"
+              data-testid="barGraph"
+              style="width: 23.123%;"
+            />
+          </div>
+          <div
+            class="tableCell"
+          >
+            23
+            %
           </div>
         </td>
       </tr>

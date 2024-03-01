@@ -1,3 +1,7 @@
+* CSS linter.
+  - options
+    - https://stylelint.io
+
 * Send unexpected HTTP response codes to sentry.
   - before or after retries?
   - how?
@@ -7,6 +11,9 @@
 * onRetrievalDateTripleClick export prevents vite fast refresh.
   - hmr invalidate /src/Table.tsx Could not Fast Refresh.
   - Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+
+* Unit test Table stays in loading... state if only one of Ratings or Establishments loads.
+  - a reliable test would have to wait for the one mock network request that is made
 
 * Sentry-github integration
   - https://docs.sentry.io/product/integrations/source-code-mgmt/github/
@@ -152,6 +159,9 @@
   - https://mswjs.io/docs/recipes/polling/
   - not clear if MSW etc. work with useFakeTimers() - 8e7785d889323f7cdd464bfac074466d3d487ff3
   - polling iff brwoser window focused.
+
+* "Pass and Eat Safe" appears in Establishments but not Ratings
+  - a "feature" of the data provided by FSA API
 
 * unit test changing Table localAuthorityId shows loading... state again 
 

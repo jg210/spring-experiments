@@ -37,18 +37,34 @@
 }
 
 td {
+  /* Want the bar graph to fill the cells. */
   padding: 0px;
+  /* barGraphContainer uses position: absolute to fill paraent, so its parent needs position: relative. */
+  position: relative;
 }
 
 .tableCell {
-  text-align: left;
+  text-align: right;
   padding-left: 1em;
   padding-right: 1em;
 }
 
+.barGraphContainer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
 .barGraph {
   background-color: bisque;
-  transition: width 500ms
+  transition: width 500ms;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
 }
 
 .retrieved {
