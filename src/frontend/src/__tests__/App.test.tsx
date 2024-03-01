@@ -113,6 +113,7 @@ const establishmentsJson : (localAuthorityId: number) => Establishments = (local
     { rating: localAuthorityIdToToken(localAuthorityId), count: 0 }
   ]
 });
+const ratings = [ "good", "bad", "ugly", "not in establishments json" ];
 
 // Use MSW events (subscribed to later on) to check what requests have been made.
 type ResponseRecord = { request: Request, response: Response };
@@ -138,6 +139,10 @@ type LocalAuthorityResponseBody = LocalAuthorities;
 type LocalAuthoritiesParams = { localAuthorityId: string };
 type LocalAuthoritiesRequestBody = Record<string,never>;
 type LocalAuthoritiesResponseBody = Establishments;
+type RatingsParams = Record<string,never>;
+type RatingsRequestBody = Record<string,never>;
+type RatingsResponseBody = string[];
+
 const server = setupServer(
   http.get<LocalAuthorityParams, LocalAuthorityRequestBody, LocalAuthorityResponseBody>(serverURL("localAuthority"), () => {
     return HttpResponse.json({ localAuthorities });
@@ -147,6 +152,12 @@ const server = setupServer(
     ({ params }) => {
       const localAuthorityId = parseInt(params.localAuthorityId);
       return HttpResponse.json(establishmentsJson(localAuthorityId));
+    }
+  ),
+  http.get<RatingsParams, RatingsRequestBody, RatingsResponseBody>(
+    serverURL("ratings"),
+    () => {
+      return HttpResponse.json(ratings);
     }
   )
 );
