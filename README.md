@@ -33,8 +33,11 @@ classDiagram
         number count
     }
     class RatingPercentage {
-       string rating
-       number percentage
+        string rating
+        number percentage
+    }
+    class Ratings {
+        string[] ratings
     }
     %% Components
     class Authorities {
