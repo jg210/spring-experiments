@@ -1,6 +1,3 @@
-* Unit test Table stays in loading... state if only one of Ratings or Establishments loads.
-  - a reliable test would have to wait for the one mock network request that is made
-
 * CSS linter.
   - options
     - https://stylelint.io
@@ -14,6 +11,9 @@
 * onRetrievalDateTripleClick export prevents vite fast refresh.
   - hmr invalidate /src/Table.tsx Could not Fast Refresh.
   - Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+
+* Unit test Table stays in loading... state if only one of Ratings or Establishments loads.
+  - a reliable test would have to wait for the one mock network request that is made
 
 * Sentry-github integration
   - https://docs.sentry.io/product/integrations/source-code-mgmt/github/
@@ -125,9 +125,6 @@
 * Polling of APIs could mean that a localAuthorityId disappears.
   - with much much greater probability than is currently possible.
   - but still not very likely
-
-* barGraph CSS isn't quite right
-  - if change tableCell text-align to right, 
 
 * Add favicon.ico.
 
