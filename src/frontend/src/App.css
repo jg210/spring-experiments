@@ -46,6 +46,11 @@ td {
   padding-right: 1em;
 }
 
+/* barGraphContainer uses position: absolute to fill paraent, so it's parent needs position: relative. */
+td:has(> .barGraphContainer) {
+  position: relative;
+}
+
 .barGraphContainer {
   position: absolute;
   top: 0;
