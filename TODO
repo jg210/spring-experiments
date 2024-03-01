@@ -2,6 +2,8 @@
   - so percentage symboles lined up with each other 
   - uncovers bug in way barGraph div set up though...
 
+* CSS linter.
+
 * Send unexpected HTTP response codes to sentry.
   - before or after retries?
   - how?
