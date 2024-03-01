@@ -39,7 +39,7 @@
 td {
   /* Want the bar graph to fill the cells. */
   padding: 0px;
-  /* barGraphContainer uses position: absolute to fill paraent, so it's parent needs position: relative. */
+  /* barGraphContainer uses position: absolute to fill paraent, so its parent needs position: relative. */
   position: relative;
 }
 
