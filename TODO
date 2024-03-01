@@ -1,4 +1,5 @@
-* Unit test loading... state if allRatings undefined.
+* Unit test Table stays in loading... state if only one of Ratings or Establishments loads.
+  - a reliable test would have to wait for the one mock network request that is made
 
 * CSS linter.
   - options
