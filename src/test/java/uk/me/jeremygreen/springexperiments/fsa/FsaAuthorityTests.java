@@ -4,18 +4,14 @@ import org.junit.Test;
 
 public final class FsaAuthorityTests {
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void constructor_negativeId() {
-        try {
-            new FsaAuthority(-1, "Ambridge");
-        } catch (IllegalArgumentException expected) {}
+        new FsaAuthority(-1, "Ambridge");
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void constructor_nullName() {
-        try {
-            new FsaAuthority(1, null);
-        } catch (NullPointerException expected) {}
+        new FsaAuthority(1, null);
     }
 
 }

@@ -8,35 +8,32 @@ import static org.junit.Assert.*;
 
 public final class FsaEstablishmentsTests {
 
-    @Test
-    public final void constructor_nullEstablishments() {
-        try {
-            new FsaEstablishments(null);
-            fail();
-        } catch (NullPointerException expected) {}
+    @Test(expected = NullPointerException.class)
+    public void constructor_nullEstablishments() {
+        new FsaEstablishments(null);
     }
 
     @Test
-    public final void getRatingCounts_empty() {
+    public void getRatingCounts_empty() {
         assertEquals(Collections.emptySortedMap(), FsaEstablishments.createInstance().getRatingCounts());
     }
 
     @Test
-    public final void getRatingCounts_one() {
+    public void getRatingCounts_one() {
         final SortedMap<String,Long> ratingCountsExpected = new TreeMap<>();
         ratingCountsExpected.put("1-star", 1L);
         assertEquals(ratingCountsExpected, FsaEstablishments.createInstance("1").getRatingCounts());
     }
 
     @Test
-    public final void getRatingCounts_oneTwice() {
+    public void getRatingCounts_oneTwice() {
         final SortedMap<String,Long> ratingCountsExpected = new TreeMap<>();
         ratingCountsExpected.put("1-star", 2L);
         assertEquals(ratingCountsExpected, FsaEstablishments.createInstance("1", "1").getRatingCounts());
     }
 
     @Test
-    public final void getRatingCounts_many() {
+    public void getRatingCounts_many() {
         final SortedMap<String,Long> ratingCountsExpected = new TreeMap<>();
         ratingCountsExpected.put("1-star", 2L);
         ratingCountsExpected.put("2-star", 1L);

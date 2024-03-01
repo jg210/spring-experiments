@@ -16,6 +16,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.0'
     id 'maven-publish'
     id 'java'
+    id 'com.github.spotbugs' version '6.0.8'
 }
 
 group = 'uk.me.jeremygreen'
@@ -30,6 +31,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:${SPRING_BOOT_VERSION}"
     implementation "com.amazonaws.serverless:aws-serverless-java-container-springboot3:2.0.0-M2"
     implementation("org.springframework.cloud:spring-cloud-function-adapter-aws:4.1.0")
+    implementation("com.google.code.findbugs:findbugs-annotations:3.0.1")
     runtimeOnly "org.springframework.boot:spring-boot-devtools:${SPRING_BOOT_VERSION}"
     annotationProcessor "org.springframework:spring-context-indexer:6.1.1"
     testImplementation "org.springframework.boot:spring-boot-starter-test:${SPRING_BOOT_VERSION}"

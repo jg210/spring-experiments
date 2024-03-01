@@ -32,7 +32,7 @@ public final class Establishments {
             final List<RatingCount> ratingCounts
     ) {
         this.epochMillis = epochMillis;
-        this.ratingCounts = ratingCounts;
+        this.ratingCounts = List.copyOf(ratingCounts);
     }
 
     public long getEpochMillis() { return this.epochMillis; }

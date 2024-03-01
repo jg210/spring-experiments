@@ -5,16 +5,12 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class FsaEstablishmentTests {
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void constructor_nullRating() {
-        try {
-            new FsaEstablishment(null);
-            fail();
-        } catch (NullPointerException expected) {}
+        new FsaEstablishment(null);
     }
 
     @Test

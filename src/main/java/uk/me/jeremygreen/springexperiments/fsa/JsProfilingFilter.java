@@ -2,7 +2,6 @@ package uk.me.jeremygreen.springexperiments.fsa;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +23,6 @@ public final class JsProfilingFilter implements Filter {
             final ServletResponse response,
             final FilterChain chain
     ) throws IOException, ServletException {
-        final HttpServletRequest httpServletRequest = (HttpServletRequest)  request;
         final HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         // TODO Only set header for paths that really need it.
         httpServletResponse.setHeader("Document-Policy", "js-profiling");

@@ -9,6 +9,7 @@ Static analysis:
 * [eslint](https://eslint.org/)
 * [stylelint](https://stylelint.io/) for CSS.
 * [CodeQL](https://codeql.github.com/)
+* [Spotbugs](https://spotbugs.github.io/)
 
 Testing:
 

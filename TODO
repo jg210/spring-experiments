@@ -24,11 +24,11 @@
 * Use redux for App's localAuthorityId
   - https://redux-toolkit.js.org/usage/usage-with-typescript
 
-* Java static analysis
+* More Java static analysis?
+  X Spotbugs.
   - PMD?
   - infer?
   - http://errorprone.info/?
-  - https://github.com/spotbugs/spotbugs?
 
 * Export OpenAPI spec. from spring boot server and use it in front end
   - generate RTK Query API
