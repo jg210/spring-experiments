@@ -9,7 +9,9 @@ describe("RetrievalDate component", () => {
     const epoch = new Date();
     const onTripleClick = vi.fn();
     render(<RenderWithStore><RetrievalDate epoch={epoch} onTripleClick={onTripleClick} /></RenderWithStore>);
-    expect(screen.getByTestId("retrieved")).toHaveTextContent(`retrieved ${epoch.toLocaleString()}`);
+    const retrievalDate = screen.getByTestId("retrieved");
+    expect(retrievalDate).toHaveTextContent(`retrieved ${epoch.toLocaleString()}`);
+    expect(retrievalDate).toHaveClass("retrieved");
     expect(onTripleClick).toHaveBeenCalledTimes(0);
   });
 

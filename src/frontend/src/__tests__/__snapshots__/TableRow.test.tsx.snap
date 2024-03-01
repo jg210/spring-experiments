@@ -6,22 +6,23 @@ exports[`TableRow component > renders 1`] = `
     <tbody>
       <tr>
         <td
-          class="tableCell"
+          class="table-cell"
         >
           Supercalifragilisticexpialidocious
         </td>
         <td>
           <div
-            class="barGraphContainer"
+            class="bar-graph-container"
+            data-testid="barGraphContainer"
           >
             <div
-              class="barGraph"
+              class="bar-graph"
               data-testid="barGraph"
               style="width: 23.123%;"
             />
           </div>
           <div
-            class="tableCell"
+            class="table-cell"
           >
             23
             %

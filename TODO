@@ -1,7 +1,3 @@
-* CSS linter.
-  - options
-    - https://stylelint.io
-
 * Send unexpected HTTP response codes to sentry.
   - before or after retries?
   - how?
@@ -28,9 +24,11 @@
 * Use redux for App's localAuthorityId
   - https://redux-toolkit.js.org/usage/usage-with-typescript
 
-* Crash test button for testing sentry.
-  - triple click on retrieved text?
-  - add hamburger menu?
+* Java static analysis
+  - PMD?
+  - infer?
+  - http://errorprone.info/?
+  - https://github.com/spotbugs/spotbugs?
 
 * Export OpenAPI spec. from spring boot server and use it in front end
   - generate RTK Query API
@@ -43,6 +41,8 @@
   - https://react.dev/reference/react/useDeferredValue#how-is-deferring-a-value-different-from-debouncing-and-throttling
 
 * More cypress tests.
+
+* Check in VS Code recommended plugins.
 
 * Analytics.
 

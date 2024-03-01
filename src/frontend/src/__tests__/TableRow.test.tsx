@@ -21,11 +21,18 @@ describe("TableRow component", () => {
         const cells = screen.getAllByRole("cell");
         expect(cells.length).toBe(2);
         const [ ratingCell, percentageCell ] = cells;
+
         expect(ratingCell).toHaveTextContent(matchWholeString(ratingPercentage.rating));
+        expect(ratingCell).toHaveClass("table-cell");
+
         // The value is rounded to nearest whole percentage.
         expect(percentageCell).toHaveTextContent(matchWholeString('23%'));
-        const barGraph = within(percentageCell).getByTestId("barGraph");
+        const barGraphContainer = within(percentageCell).getByTestId("barGraphContainer");
+        expect(barGraphContainer).toHaveClass("bar-graph-container");
+        const barGraph = within(barGraphContainer).getByTestId("barGraph");
+        expect(barGraph).toHaveClass("bar-graph");
         expect(barGraph).toHaveStyle({ width: `${ratingPercentage.percentage}%`});
+
         expect(container).toMatchSnapshot();
     });
 });

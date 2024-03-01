@@ -3,13 +3,24 @@ A [Spring Boot](https://spring.io/projects/spring-boot) server with a [React](ht
 * https://aws.jeremygreen.me.uk
 * http://spring-experiments.jeremygreen.me.uk
 
-Testing is done using:
+Static analysis:
 
-* [React Testing Library]( https://testing-library.com/docs/react-testing-library/intro/) etc. for front-end unit/integration tests.
-* [MockMvc](https://docs.spring.io/spring-framework/reference/testing/spring-mvc-test-framework.html) for testing server.
+* [TypeScript](https://www.typescriptlang.org/)
+* [eslint](https://eslint.org/)
+* [stylelint](https://stylelint.io/) for CSS.
+* [CodeQL](https://codeql.github.com/)
+
+Testing:
+
+* [Vitest](https://vitest.dev/)
+* [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) etc. for front-end unit/integration tests.
+* [Mock Service Worker](https://mswjs.io/) for front end.
+* [MockMvc](https://docs.spring.io/spring-framework/reference/testing/spring-mvc-test-framework.html) for server.
 * [Cypress](https://www.cypress.io/) for end-to-end tests.
 
-[Sentry](https://sentry.io) is used for crash reporting and analytics.
+Crash reporting and performance analytics:
+
+* [Sentry](https://sentry.io)
 
 [![build status](https://github.com/jg210/spring-experiments/actions/workflows/checks.yml/badge.svg)](https://github.com/jg210/spring-experiments/actions/workflows/checks.yml)
 
