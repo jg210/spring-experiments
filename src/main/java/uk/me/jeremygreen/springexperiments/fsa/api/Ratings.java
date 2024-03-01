@@ -22,7 +22,7 @@ public final class Ratings {
     private final List<String> ratings;
 
     Ratings(final @NonNull List<String> ratings) {
-        this.ratings = ratings;
+        this.ratings = List.copyOf(ratings);
     }
 
     @SuppressWarnings("unused")

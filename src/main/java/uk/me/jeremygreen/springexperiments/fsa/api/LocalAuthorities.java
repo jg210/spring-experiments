@@ -1,9 +1,9 @@
 package uk.me.jeremygreen.springexperiments.fsa.api;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import uk.me.jeremygreen.springexperiments.fsa.FsaAuthority;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class LocalAuthorities {
 
@@ -13,7 +13,7 @@ public final class LocalAuthorities {
         final List<LocalAuthority> localAuthorities = fsaAuthorities.stream().map(fsaAuthority -> new LocalAuthority(
                 fsaAuthority.id(),
                 fsaAuthority.name())
-        ).collect(Collectors.toList());
+        ).toList();
         return new LocalAuthorities(localAuthorities);
     }
 
@@ -22,6 +22,7 @@ public final class LocalAuthorities {
     }
 
     @SuppressWarnings("unused")
+    @SuppressFBWarnings("EI_EXPOSE_REP") // field has immutable copy
     public List<LocalAuthority> getLocalAuthorities() {
         return this.localAuthorities;
     }

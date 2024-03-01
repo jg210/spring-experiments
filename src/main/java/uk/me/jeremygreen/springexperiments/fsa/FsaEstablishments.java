@@ -23,10 +23,10 @@ public final class FsaEstablishments {
         if (establishments == null) {
             throw new NullPointerException();
         }
-        this.establishments = establishments;
+        this.establishments = List.copyOf(establishments);
     }
 
-    public final SortedMap<String,Long> getRatingCounts() {
+    public SortedMap<String,Long> getRatingCounts() {
         final SortedMap<String,Long> ratingCounts = new TreeMap<>();
         for (final FsaEstablishment fsaEstablishment: this.establishments) {
             final String rating = fsaEstablishment.getFormattedRating();
