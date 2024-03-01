@@ -133,21 +133,21 @@ const establishmentRequestLocalAuthorityIds = () => flatMap(responseRecords, (re
 // Configure mocking of API.
 //
 // TODO can any of these types be inferred from RTK Query API?
-type LocalAuthorityParams = Record<string,never>;
-type LocalAuthorityRequestBody = Record<string,never>;
-type LocalAuthorityResponseBody = LocalAuthorities;
-type LocalAuthoritiesParams = { localAuthorityId: string };
+type LocalAuthoritiesParams = Record<string,never>;
 type LocalAuthoritiesRequestBody = Record<string,never>;
-type LocalAuthoritiesResponseBody = Establishments;
+type LocalAuthoritiesResponseBody = LocalAuthorities;
+type LocalAuthorityParams = { localAuthorityId: string };
+type LocalAuthorityRequestBody = Record<string,never>;
+type LocalAuthorityResponseBody = Establishments;
 type RatingsParams = Record<string,never>;
 type RatingsRequestBody = Record<string,never>;
 type RatingsResponseBody = string[];
 
 const server = setupServer(
-  http.get<LocalAuthorityParams, LocalAuthorityRequestBody, LocalAuthorityResponseBody>(serverURL("localAuthority"), () => {
+  http.get<LocalAuthoritiesParams, LocalAuthoritiesRequestBody, LocalAuthoritiesResponseBody>(serverURL("localAuthority"), () => {
     return HttpResponse.json({ localAuthorities });
   }),
-  http.get<LocalAuthoritiesParams, LocalAuthoritiesRequestBody, LocalAuthoritiesResponseBody>(
+  http.get<LocalAuthorityParams, LocalAuthorityRequestBody, LocalAuthorityResponseBody>(
     serverURL("localAuthority/:localAuthorityId"),
     ({ params }) => {
       const localAuthorityId = parseInt(params.localAuthorityId);

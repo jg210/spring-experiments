@@ -1,7 +1,5 @@
 * Unit test loading... state if allRatings undefined.
 
-* LocalAuthorityParams and LocalAuthoritiesParams etc. need names swapping.
-
 * CSS linter.
   - options
     - https://stylelint.io
