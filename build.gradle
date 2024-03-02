@@ -36,7 +36,9 @@ dependencies {
     annotationProcessor "org.springframework:spring-context-indexer:6.1.1"
     testImplementation "org.springframework.boot:spring-boot-starter-test:${SPRING_BOOT_VERSION}"
     testImplementation "junit:junit:4.13.1"
+    // Need a clean build if change a spotbugsPlugins version.
     spotbugsPlugins "com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0"
+    spotbugsPlugins "com.mebigfatguy.sb-contrib:sb-contrib:7.6.4"
 }
 
 springBoot {
