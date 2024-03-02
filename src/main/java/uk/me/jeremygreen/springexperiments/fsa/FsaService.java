@@ -86,7 +86,7 @@ public class FsaService {
                 this.url + "/Establishments?localAuthorityId={localAuthorityId}&pageSize={pageSize}",
                 FsaEstablishments.class,
                 params);
-        if (HttpStatus.NOT_FOUND.equals(responseEntity.getStatusCode())) {
+        if (HttpStatus.NOT_FOUND == responseEntity.getStatusCode()) {
             // The underlying API returns an empty list of establishments
             // if the fsaAuthorityId is not known, not a NOT_FOUND HTTP
             // response code.

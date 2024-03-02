@@ -3,13 +3,14 @@ package uk.me.jeremygreen.springexperiments.fsa.api;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import uk.me.jeremygreen.springexperiments.fsa.FsaAuthority;
 
+import java.util.Collection;
 import java.util.List;
 
 public final class LocalAuthorities {
 
     private final List<LocalAuthority> localAuthorities;
 
-    public static LocalAuthorities createInstance(final List<FsaAuthority> fsaAuthorities) {
+    public static LocalAuthorities createInstance(final Collection<FsaAuthority> fsaAuthorities) {
         final List<LocalAuthority> localAuthorities = fsaAuthorities.stream().map(fsaAuthority -> new LocalAuthority(
                 fsaAuthority.id(),
                 fsaAuthority.name())

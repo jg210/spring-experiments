@@ -6,6 +6,7 @@ import com.amazonaws.serverless.proxy.model.AwsProxyResponse;
 import com.amazonaws.serverless.proxy.spring.SpringBootLambdaContainerHandler;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +15,7 @@ import java.io.OutputStream;
 @SuppressWarnings("unused")
 public final class StreamLambdaHandler implements RequestStreamHandler {
 
+    @SuppressFBWarnings("EXS_EXCEPTION_SOFTENING_NO_CONSTRAINTS")
     private static SpringBootLambdaContainerHandler<AwsProxyRequest,AwsProxyResponse> createHandler() {
         try {
             return SpringBootLambdaContainerHandler.getAwsProxyHandler(

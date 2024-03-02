@@ -25,11 +25,11 @@ public final class FsaEstablishment {
     }
 
     // Convert "RatingValue" from FSA Establishments API to human-readable String.
-    public final String getFormattedRating() {
-        if (this.ratingValue.equals("AwaitingInspection")) {
+    public String getFormattedRating() {
+        if ("AwaitingInspection".equals(this.ratingValue)) {
             return "Awaiting Inspection";
         }
-        if (this.ratingValue.equals("AwaitingPublication")) {
+        if ("AwaitingPublication".equals(this.ratingValue)) {
             return "Awaiting Publication";
         }
         final Matcher matcher = STAR_RATING_PATTERN.matcher(ratingValue);
