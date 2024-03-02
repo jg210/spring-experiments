@@ -1,14 +1,18 @@
 package uk.me.jeremygreen.springexperiments.fsa;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
+
+@SuppressFBWarnings("CE_CLASS_ENVY")
 public class FsaEstablishmentTests {
 
     @Test(expected = NullPointerException.class)
+    @SuppressFBWarnings("SEC_SIDE_EFFECT_CONSTRUCTOR")
     public void constructor_nullRating() {
         new FsaEstablishment(null);
     }

@@ -1,5 +1,6 @@
 package uk.me.jeremygreen.springexperiments.fsa;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 import java.util.*;
@@ -9,6 +10,7 @@ import static org.junit.Assert.*;
 public final class FsaEstablishmentsTests {
 
     @Test(expected = NullPointerException.class)
+    @SuppressFBWarnings("SEC_SIDE_EFFECT_CONSTRUCTOR")
     public void constructor_nullEstablishments() {
         new FsaEstablishments(null);
     }

@@ -10,7 +10,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
         // https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide#spring-mvc-and-webflux-url-matching-changes
-        configurer.setUseTrailingSlashMatch(true);
+        configurer.setUseTrailingSlashMatch(Boolean.TRUE);
     }
 
 }
