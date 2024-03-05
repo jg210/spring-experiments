@@ -7,6 +7,7 @@ Static analysis:
 
 * [TypeScript](https://www.typescriptlang.org/)
 * [eslint](https://eslint.org/)
+* [dependency cruiser](https://github.com/sverweij/dependency-cruiser) for circular imports etc.
 * [stylelint](https://stylelint.io/) for CSS.
 * [CodeQL](https://codeql.github.com/)
 * [Spotbugs](https://spotbugs.github.io/)
