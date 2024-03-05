@@ -33,6 +33,10 @@
 * Make dependency-cruiser output graph in mermaid format and show in GH action job summary
   - https://github.blog/2022-05-09-supercharging-github-actions-with-job-summaries/
 
+* Github Action file annotations for depcruise report
+  - https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message
+  - is it possible to parse output as jest report and use plugin use for vitest?
+
 * Export OpenAPI spec. from spring boot server and use it in front end
   - generate RTK Query API
   - can MSW mocks be typed automatically too?
