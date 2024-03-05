@@ -31,9 +31,8 @@ jobs:
     - name: setup gradle
       uses: gradle/actions/setup-gradle@v3
 
-    - uses: awalsh128/cache-apt-pkgs-action@v1.4.2
-      with:
-        packages: graphviz
+    - name: install graphviz
+      run: sudo apt-get install -y graphviz
 
     - name: local scripts/setup script
       run: ./scripts/setup
