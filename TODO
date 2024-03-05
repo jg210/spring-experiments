@@ -191,16 +191,6 @@
 
 * Improve visual design.
 
-* Detect circular imports in CI.
-  - https://github.com/sverweij/dependency-cruiser
-    - probably best option?
-  - madge?
-    - not fully maintained any more?
-    - need to build something on top of it.
-  - https://github.com/antoine-coulon/skott
-    - invented after dependency cruiser
-    - less popular than it
-
 * Localization.
 
 * Only set js-profiling header for paths that really need it.
