@@ -37,6 +37,8 @@
   - https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message
   - is it possible to parse output as jest report and use plugin use for vitest?
 
+* Github Action file annotations for stylelint.
+
 * Export OpenAPI spec. from spring boot server and use it in front end
   - generate RTK Query API
   - can MSW mocks be typed automatically too?
