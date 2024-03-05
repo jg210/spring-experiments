@@ -16,3 +16,6 @@ npm-debug.log
 
 # Sentry Config File
 .env.sentry-build-plugin
+
+### dependency-cruiser ###
+/dependency-graph.svg
