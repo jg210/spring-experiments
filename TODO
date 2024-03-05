@@ -24,6 +24,14 @@
 * Use redux for App's localAuthorityId
   - https://redux-toolkit.js.org/usage/usage-with-typescript
 
+* JVM-level monitoring
+  - https://reflectoring.io/spring-aws-cloudwatch/
+    - micrometer
+    - AWS SDK
+      - CloudWatchAsyncClient     
+    - https://dkublik.github.io/2018/08/26/springboot-metrics-with-micrometer-and-aws-cloudwatch.html
+    - make sure actuator binds to localhost (or nothing).
+
 * More Java static analysis?
   X Spotbugs.
   - PMD?
