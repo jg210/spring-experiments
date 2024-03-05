@@ -64,7 +64,7 @@ jobs:
       if: success() || failure()
       with:
         name: dependency graph
-        path: dependency-graph.svg
+        path: src/frontend/dependency-graph.svg
 
     - name: npm run build
       working-directory: src/frontend
