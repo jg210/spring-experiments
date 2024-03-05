@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@reduxjs/toolkit": "2.1.0",
     "@sentry/react": "7.101.1",
     "@sentry/vite-plugin": "2.14.1",
     "@types/lodash": "4.14.202",
@@ -25,7 +26,6 @@
     "@babel/preset-env": "7.23.8",
     "@babel/preset-react": "7.23.3",
     "@babel/preset-typescript": "7.23.3",
-    "@reduxjs/toolkit": "2.1.0",
     "@testing-library/jest-dom": "6.2.0",
     "@testing-library/react": "14.1.2",
     "@testing-library/user-event": "14.5.2",
@@ -33,6 +33,7 @@
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "@vitest/coverage-v8": "1.2.2",
     "cypress": "13.6.4",
+    "dependency-cruiser": "16.2.2",
     "eslint": "8.56.0",
     "eslint-plugin-jest-dom": "5.1.0",
     "eslint-plugin-react": "7.33.2",
@@ -52,7 +53,9 @@
     "test": "vitest",
     "eslint": "eslint src/**/*.{ts,tsx,js,cjs} cypress/**/*.{ts,tsx,js,cjs} cypress.config.ts vite.config.ts babel.config.cjs",
     "stylelint": "stylelint \"src/**/*.css\"",
-    "ci": "npm run eslint && tsc && CI=true npm run test -- --coverage && npm run stylelint"
+    "depcruise": "depcruise src",
+    "dependency-graph": "depcruise src --include-only ^src --output-type dot | dot -T svg -Gconcentrate=true > dependency-graph.svg",
+    "ci": "npm run eslint && tsc && CI=true npm run test -- --coverage && npm run stylelint && npm run depcruise"
   },
   "license": "MIT",
   "browserslist": [

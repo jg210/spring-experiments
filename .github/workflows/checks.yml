@@ -31,6 +31,9 @@ jobs:
     - name: setup gradle
       uses: gradle/actions/setup-gradle@v3
 
+    - name: install graphviz
+      run: sudo apt-get install -y graphviz
+
     - name: local scripts/setup script
       run: ./scripts/setup
 
@@ -48,6 +51,19 @@ jobs:
       run: |
         . environment
         npm run ci
+
+    - name: dependency-cruiser diagram
+      working-directory: src/frontend
+      run: |
+        . environment
+        npm run dependency-graph
+
+    - name: archive dependency-cruiser diagram
+      uses: actions/upload-artifact@v4.3.0
+      if: success() || failure()
+      with:
+        name: dependency graph
+        path: src/frontend/dependency-graph.svg
 
     - name: npm run build
       working-directory: src/frontend

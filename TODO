@@ -64,6 +64,9 @@
 
 * Cache npm files on github actions.
 
+* Cache apt-get files on github actions.
+  - initial attempt broke graphviz: aa8823d1d8ea6ec066fdd28232febc3f90d79318
+
 * Enable branch protection rule for master.
 
 * Automated licence management.
@@ -187,8 +190,6 @@
   - but a query for an unknown authority returns empty list.
 
 * Improve visual design.
-
-* Detect circular imports in CI.
 
 * Localization.
 
