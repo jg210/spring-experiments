@@ -54,7 +54,7 @@
     "eslint": "eslint src/**/*.{ts,tsx,js,cjs} cypress/**/*.{ts,tsx,js,cjs} cypress.config.ts vite.config.ts babel.config.cjs",
     "stylelint": "stylelint \"src/**/*.css\"",
     "depcruise": "depcruise src",
-    "dependency-graph": "npm run depcruise -- --include-only ^src --output-type dot | dot -T svg -Gconcentrate=true > dependency-graph.svg",
+    "dependency-graph": "depcruise src --include-only ^src --output-type dot | dot -T svg -Gconcentrate=true > dependency-graph.svg",
     "ci": "npm run eslint && tsc && CI=true npm run test -- --coverage && npm run stylelint && npm run depcruise"
   },
   "license": "MIT",
