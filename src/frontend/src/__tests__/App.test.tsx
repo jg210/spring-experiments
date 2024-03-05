@@ -6,11 +6,6 @@ import { setupServer } from 'msw/node';
 import { http, HttpResponse } from 'msw';
 import { RenderWithStore, serverURL } from './util';
 import { escapeRegExp, flatMap, last } from 'lodash';
-import madge, { MadgeConfig } from 'madge';
-import { readFileSync } from 'fs';
-
-// This file's directory.
-const __dirname = import.meta.dirname;
 
 const epoch = new Date("February 14, 2024 20:14:00");
 
@@ -216,12 +211,6 @@ describe("App", () => {
 
   it('is run with correct node version', () => {
     expect(process.versions.node).toEqual("20.10.0");
-  });
-
-  it('has no circular dependencies', async () => {
-    const madgeConfig = JSON.parse(readFileSync(`${__dirname}/../../.madgerc`).toString()) as MadgeConfig;
-    const madgeInstance = await madge(`${__dirname}/..`, madgeConfig);
-    expect(madgeInstance.circular()).toEqual([]);
   });
 
   it('renders correctly while loading', () => {

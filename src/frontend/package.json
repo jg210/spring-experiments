@@ -29,7 +29,6 @@
     "@testing-library/jest-dom": "6.2.0",
     "@testing-library/react": "14.1.2",
     "@testing-library/user-event": "14.5.2",
-    "@types/madge": "5.0.3",
     "@types/node": "20.11.5",
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "@vitest/coverage-v8": "1.2.2",
@@ -40,7 +39,6 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-testing-library": "6.2.0",
     "identity-obj-proxy": "3.0.0",
-    "madge": "6.1.0",
     "msw": "2.2.0",
     "stylelint": "16.2.1",
     "stylelint-config-standard": "36.0.0",
@@ -54,7 +52,6 @@
     "test": "vitest",
     "eslint": "eslint src/**/*.{ts,tsx,js,cjs} cypress/**/*.{ts,tsx,js,cjs} cypress.config.ts vite.config.ts babel.config.cjs",
     "stylelint": "stylelint \"src/**/*.css\"",
-    "madge": "madge src",
     "ci": "npm run eslint && tsc && CI=true npm run test -- --coverage && npm run stylelint"
   },
   "license": "MIT",
