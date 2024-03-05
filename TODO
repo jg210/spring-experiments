@@ -30,6 +30,9 @@
   - infer?
   - http://errorprone.info/?
 
+* Make dependency-cruiser output graph in mermaid format and show in GH action job summary
+  - https://github.blog/2022-05-09-supercharging-github-actions-with-job-summaries/
+
 * Export OpenAPI spec. from spring boot server and use it in front end
   - generate RTK Query API
   - can MSW mocks be typed automatically too?
