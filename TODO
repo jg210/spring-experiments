@@ -24,6 +24,9 @@
 * Use redux for App's localAuthorityId
   - https://redux-toolkit.js.org/usage/usage-with-typescript
 
+* https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps
+  - https://redux-toolkit.js.org/rtk-query/usage/persistence-and-rehydration
+
 * JVM-level monitoring
   - https://reflectoring.io/spring-aws-cloudwatch/
     - micrometer
