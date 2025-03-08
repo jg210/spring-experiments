@@ -24,6 +24,9 @@
 * Use redux for App's localAuthorityId
   - https://redux-toolkit.js.org/usage/usage-with-typescript
 
+* Split sentry production environment in two
+  - aws.jeremygreen.me.uk/ and spring-experiments.jeremygren.me.uk
+
 * https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps
   - https://redux-toolkit.js.org/rtk-query/usage/persistence-and-rehydration
 
