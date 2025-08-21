@@ -129,6 +129,7 @@
   - add npm start config to spring-experiments.code-workspace compound launch config.
 
 * Nullable/NonNull annotations.
+  - NullAway? (+ JSpecify and ErrorProne).
 
 * Role better than access key for publishing?
   - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html?icmpid=docs_iam_console#Using_CreateAccessKey
