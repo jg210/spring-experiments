@@ -130,6 +130,8 @@
 
 * Nullable/NonNull annotations.
   - NullAway? (+ JSpecify and ErrorProne).
+    - doesn't work too well with Lombok (if were to use that)
+      - https://github.com/uber/NullAway?tab=readme-ov-file#lombok
 
 * Role better than access key for publishing?
   - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html?icmpid=docs_iam_console#Using_CreateAccessKey
